@@ -1,0 +1,35 @@
+name: Release Foundry Module
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+env:
+  MODULE_ID: faight-beyond-the-last-torch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the tagged commit
+        uses: actions/checkout@v4
+
+      - name: Sync version to the release tag
+        run: |
+          jq --arg v "${GITHUB_REF_NAME}" '.version = $v' module.json > module.tmp
+          mv module.tmp module.json
+
+      - name: Build the module zip (module.json at the root)
+        run: |
+          zip -r "${MODULE_ID}.zip" . \
+            -x ".git/*" ".github/*" ".gitignore" "*.tmp" "README.md"
+
+      - name: Attach module.json and the zip to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            module.json
+            ${{ env.MODULE_ID }}.zip
