@@ -2,7 +2,7 @@
   "id": "faight-beyond-the-last-torch",
   "title": "Faight - Beyond the Last Torch",
   "description": "A custom compendium module for Beyond the Last Torch — randomly generated dungeons with actors, items, maps, journals, and music.",
-  "version": "261017.19.33",
+  "version": "261017.19.43",
   "compatibility": {
     "minimum": "1",
     "verified": "13.351",
@@ -20,6 +20,98 @@
         "id": "dnd5e",
         "type": "system",
         "compatibility": {}
+      }
+    ],
+    "requires": [
+      {
+        "id": "betterroofs",
+        "type": "module",
+        "manifest": "https://github.com/theripper93/Better-Roofs/releases/latest/download/module.json"
+      },
+      {
+        "id": "ddb-importer",
+        "type": "module",
+        "manifest": "https://github.com/mrprimate/ddb-importer/releases/download/latest/module.json"
+      },
+      {
+        "id": "dfreds-select-tool",
+        "type": "module",
+        "manifest": "https://github.com/DFreds/dfreds-select-tool/releases/latest/download/module.json"
+      },
+      {
+        "id": "fxmaster",
+        "type": "module",
+        "manifest": "https://github.com/gambit07/fxmaster/releases/latest/download/module.json"
+      },
+      {
+        "id": "global-progress-clocks",
+        "type": "module",
+        "manifest": "https://github.com/CarlosFdez/global-progress-clocks/releases/latest/download/module.json"
+      },
+      {
+        "id": "levels",
+        "type": "module",
+        "manifest": "https://github.com/theripper93/Levels/releases/latest/download/module.json"
+      },
+      {
+        "id": "lib-dfreds-ui-extender",
+        "type": "module",
+        "manifest": "https://github.com/DFreds/lib-dfreds-ui-extender/releases/latest/download/module.json"
+      },
+      {
+        "id": "lib-wrapper",
+        "type": "module",
+        "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json"
+      },
+      {
+        "id": "monks-active-tiles",
+        "type": "module",
+        "manifest": "https://github.com/ironmonk108/monks-active-tiles/releases/latest/download/module.json"
+      },
+      {
+        "id": "monks-wall-enhancement",
+        "type": "module",
+        "manifest": "https://github.com/ironmonk108/monks-wall-enhancement/releases/latest/download/module.json"
+      },
+      {
+        "id": "stairways",
+        "type": "module",
+        "manifest": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/main/module.json"
+      },
+      {
+        "id": "tagger",
+        "type": "module",
+        "manifest": "https://github.com/fantasycalendar/FoundryVTT-Tagger/releases/latest/download/module.json"
+      },
+      {
+        "id": "theripper-premium-hub",
+        "type": "module",
+        "manifest": "https://github.com/theripper93/theripper-premium-hub/releases/latest/download/module.json"
+      },
+      {
+        "id": "tile-scroll",
+        "type": "module",
+        "manifest": "https://github.com/theripper93/tile-scroll/releases/latest/download/module.json"
+      },
+      {
+        "id": "token-attacher",
+        "type": "module",
+        "manifest": "https://github.com/KayelGee/token-attacher/releases/latest/download/module.json"
+      },
+      {
+        "id": "tokenmagic",
+        "type": "module",
+        "manifest": "https://github.com/Feu-Secret/Tokenmagic/releases/latest/download/module.json"
+      },
+      {
+        "id": "vtta-tokenizer",
+        "type": "module",
+        "manifest": "https://github.com/MrPrimate/tokenizer/releases/download/latest/module.json"
+      },
+      {
+        "id": "wall-height",
+        "type": "module",
+        "manifest": "https://github.com/theripper93/wall-height/releases/latest/download/module.json"
       }
     ]
   },
