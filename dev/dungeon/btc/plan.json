@@ -1,0 +1,25 @@
+{
+  "code": "5LEI-3",
+  "name": "Basilica of the Thunder Crown",
+  "slug": "basilica-of-the-thunder-crown",
+  "theme": "storm",
+  "seed": 418226093,
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy dungeon-crawler video game (Unreal Engine 5), seen from above, sized correctly for the room, each casting a soft dark contact shadow onto the floor. Ruined basilica of a storm god: weathered grey-blue marble, tarnished bronze and green verdigris copper, faint lightning-bolt motifs, straw, earth and torn cloth from giant rabbit nests.",
+  "rooms": {
+    "1":  {"name": "Narthex of the Gate", "art": "the entrance hall of a ruined basilica: two toppled bronze braziers, a cracked marble holy-water basin, scattered torn hymnals, straw nests and rabbit droppings along the walls."},
+    "2":  {"name": "Warren Nave", "art": "a side nave overrun by giant rabbits: large burrow holes dug through broken floor slabs, mounds of dug earth, chewed wooden pews knocked over, scattered small bones."},
+    "3":  {"name": "Treasury of Offerings", "art": "an offering hall: a large heavy iron-banded wooden chest in the middle with its lid closed, collapsed offering tables, shattered votive lamps, two tall bronze lightning-bolt sculptures on plinths."},
+    "4":  {"name": "Choir Passage", "art": "a narrow choir gallery: broken wooden choir stalls along both long walls, fallen hymn boards, a toppled bronze lectern."},
+    "5":  {"name": "Chapel of Columns", "art": "a small columned chapel (the round stone columns are already drawn; leave them exactly): a cracked marble altar with a bronze lightning sigil at the north end, rabbit straw nests between the columns."},
+    "6":  {"name": "Fallen Bell Hall", "art": "a hall where a huge bronze bell has fallen and cracked on the floor in the middle, a coil of thick rotten bell rope, heaps of rubble from the broken ceiling."},
+    "7":  {"name": "Wailing Vestry", "art": "a vestry: open wardrobes of rotted priest robes, a tall cracked mirror on a stand, prayer stools, a chest of moth-eaten vestments."},
+    "8":  {"name": "Stormglass Antechamber", "art": "a small antechamber: the floor inlaid with a ring of copper lightning runes, two weathered marble statues of a bearded storm god holding thunderbolts flanking the walls."},
+    "9":  {"name": "Sanctum of the Thunder Crown", "art": "the high sanctum (the round stone columns are already drawn; leave them exactly): a raised marble altar dais in the center bearing a bronze crown on a cushion, black scorch marks radiating across the floor from the altar, a huge nest of shredded blue tapestries and straw, gnawed bones."},
+    "10": {"name": "Sacristy Rail", "art": "a narrow sacristy: a long copper rail fixed along one wall, shelves of tarnished chalices and bronze plates, a fallen candle stand."},
+    "11": {"name": "Lamp Store", "art": "a small store room: stacks of bronze oil lamps, broken wooden shelves, a cracked oil jar with a dried stain."},
+    "12": {"name": "Penitent's Cell", "art": "a monk's cell: a stone cot, iron chains on the wall, a kneeling stool, a small cold brazier."},
+    "13": {"name": "Censer Chamber", "art": "a chamber with a huge bronze censer hanging on chains in the center over a cracked floor slab, scattered incense cones, a toppled candle rack."},
+    "14": {"name": "Reliquary Store", "art": "a collapsed reliquary: toppled stone shelves, heaps of debris and broken saint statues, a cracked stone sarcophagus, scattered bone relics."},
+    "15": {"name": "Goblin Camp", "art": "a ruined chapel used as a goblin scavenger camp: three bedrolls, a small burnt-out campfire, two dead goblins, a wounded goblin propped against the east wall with a dented iron helm beside him, chewed packs and rabbit tracks."}
+  }
+}

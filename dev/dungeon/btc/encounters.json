@@ -1,0 +1,20 @@
+{
+  "sizes": {"warren-swarm": 2, "thunder-hare": 2, "stormguard-sentinel": 2, "galvanic-jackalope": 1, "the-thunderbuck": 3},
+  "rooms": {
+    "2":  [["warren-swarm", 5]],
+    "5":  [["thunder-hare", 4]],
+    "14": [["stormguard-sentinel", 4]],
+    "15": [["galvanic-jackalope", 2], ["thunder-hare", 2]],
+    "3":  [["stormguard-sentinel", 2], ["thunder-hare", 2]],
+    "6":  [["galvanic-jackalope", 4]],
+    "9":  [["the-thunderbuck", 1], ["galvanic-jackalope", 2]]
+  },
+  "traps": {
+    "7":  {"name": "Wailing Door", "save": "con", "dc": 15, "dice": "10d10", "type": "thunder", "effect": "deafened", "flavor": "Wailing Door: the latch shrieks and a blast of thunder bursts through the vestry.", "spot": [1.5, 2.75, 2, 1.25]},
+    "10": {"name": "Lightning Rail", "save": "dex", "dc": 15, "dice": "10d10", "type": "lightning", "effect": "", "flavor": "Lightning Rail: the copper rail crackles and lightning arcs across the passage.", "spot": [0.25, 0.75, 1.5, 1.5]},
+    "13": {"name": "Falling Censer", "save": "dex", "dc": 16, "dice": "10d10", "type": "bludgeoning", "effect": "prone", "flavor": "Falling Censer: the rusted chains snap and the great bronze censer swings down.", "spot": [0.75, 0.75, 1.5, 1.5]},
+    "8":  {"name": "Storm Glyph", "save": "dex", "dc": 16, "dice": "10d10", "type": "lightning", "effect": "", "flavor": "Storm Glyph: the copper runes flare and a bolt strikes from the ceiling.", "spot": [0.75, 0.75, 1.5, 1.5]}
+  },
+  "lights": [[9, "#9fd2ff", 40, 10], [5, "#c8d8ff", 20, 0], [3, "#ffd28a", 15, 0], [8, "#9fd2ff", 15, 0]],
+  "entrance": [0.5, 1.5]
+}

@@ -11,6 +11,7 @@ Image.MAX_IMAGE_PIXELS = None
 
 THEMES = {
     "frost": dict(wall_tint=(0.62, 0.66, 0.74), bevel=(200, 208, 218), dust=(225, 235, 245), dust_amt=0.12, rock=(16, 17, 20)),
+    "storm": dict(wall_tint=(0.70, 0.74, 0.76), bevel=(176, 184, 190), dust=(150, 160, 150), dust_amt=0.14, rock=(14, 15, 17)),
     "sand":  dict(wall_tint=(0.80, 0.72, 0.62), bevel=(196, 170, 132), dust=(214, 186, 140), dust_amt=0.22, rock=(22, 18, 14)),
 }
 

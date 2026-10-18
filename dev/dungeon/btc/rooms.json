@@ -1,0 +1,92 @@
+[
+ {
+  "n": 1,
+  "name": "Narthex of the Gate",
+  "read": "Grey light falls through the double doors onto the cracked floor of this entrance hall. Two bronze braziers lie toppled on their sides, and a marble holy-water basin is split down the middle. Torn hymnals are scattered across the stones, and straw nests and rabbit droppings line the walls.",
+  "notes": "<p><strong>Watabou note:</strong> A battered gate with a keyhole to the west.</p><p>The narthex of the basilica. The nests are the first sign of the rabbits that have taken over the building.</p><p>The battered gate to the Treasury of Offerings (room 3) is locked. The <strong>Iron Key</strong> from room 14 opens it. Without the key it takes a DC 20 Dexterity check with thieves' tools, or a DC 22 Strength (Athletics) check to force it.</p><p>A secret door leads to the Choir Passage (room 4). A DC 18 Wisdom (Perception) check finds it.</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Warren Nave (2), Treasury of Offerings (3, locked door), Choir Passage (4, secret door). The double door in the north wall leads outside.</p>"
+ },
+ {
+  "n": 2,
+  "name": "Warren Nave",
+  "read": "Broken floor slabs have been dug up across this side nave, and large burrow holes open between mounds of loose earth. Wooden pews lie knocked over, their edges chewed to splinters. Small bones are scattered among the dirt, and the earth seems to tremble.",
+  "notes": "<h3>Encounter (Power Level 8, Durability 15)</h3><p>Five <strong>Warren Swarms</strong> nest in the burrows. They boil up out of the holes when the first creature reaches the middle of the nave, crackling with static, and swarm the nearest characters.</p><p><strong>Treasure:</strong> a <strong>Potion of Healing</strong> lies at the bottom of one of the burrows, dragged there long ago with a dead priest's satchel.</p><p><strong>Exits:</strong> Narthex of the Gate (1), Chapel of Columns (5, archway).</p>"
+ },
+ {
+  "n": 3,
+  "name": "Treasury of Offerings",
+  "read": "A large, heavy wooden chest bound in iron sits closed in the middle of this offering hall. Offering tables have collapsed around it, and shattered votive lamps cover the floor. Two tall bronze sculptures of lightning bolts stand on plinths, and a rusted portcullis hangs raised over a plain wooden door in the far wall.",
+  "notes": "<p><strong>Watabou note:</strong> Gems in a large box.</p><p>The treasury where worshippers left their gifts to Vauroth.</p><h3>Encounter (Power Level 10, Durability 16)</h3><p>Two <strong>Stormguard Sentinels</strong> and two <strong>Thunder Hares</strong> are fighting each other when the party arrives. The sentinels attack anyone who is not a priest of Vauroth, and the hares wandered in from the nests in the nave. When the party appears, both sides turn on the party.</p><p><strong>Treasure:</strong> the offering chest holds gems worth 1,000 gp and a <strong>Javelin of Lightning</strong>.</p><p><strong>Exits:</strong> Narthex of the Gate (1, locked door), Fallen Bell Hall (6), Wailing Vestry (7, raised portcullis). The door behind the raised portcullis is the vestry door; see room 7.</p>"
+ },
+ {
+  "n": 4,
+  "name": "Choir Passage",
+  "read": "Broken wooden choir stalls line both long walls of this narrow gallery. Fallen hymn boards lie face down on the floor, and a bronze lectern has toppled across the middle of the passage.",
+  "notes": "<p>The choir sang here during services. Two secret doors open from this passage: one to the Narthex of the Gate (room 1) and one straight into the Sanctum of the Thunder Crown (room 9). A DC 18 Wisdom (Perception) check finds each. The door to the sanctum lets the party skip the Stormglass Antechamber (room 8) and its trap.</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Sanctum of the Thunder Crown (9, secret door), Stormglass Antechamber (8, arch), Narthex of the Gate (1, secret door), Fallen Bell Hall (6).</p>"
+ },
+ {
+  "n": 5,
+  "name": "Chapel of Columns",
+  "read": "Six round stone columns hold up the roof of this small chapel. At the north end stands a cracked marble altar marked with a bronze lightning sigil. Rabbit nests of packed straw fill the spaces between the columns, and something large stirs among them.",
+  "notes": "<h3>Encounter (Power Level 9, Durability 16)</h3><p>Four <strong>Thunder Hares</strong> sleep in the nests between the columns. They wake at the first noise and charge, the static in their fur snapping as they move.</p><p><strong>Treasure:</strong> a <strong>Potion of Healing</strong> rests on the altar among old offerings.</p><p><strong>Exits:</strong> Warren Nave (2, archway), Sacristy Rail (10), Lamp Store (11).</p>"
+ },
+ {
+  "n": 6,
+  "name": "Fallen Bell Hall",
+  "read": "A huge bronze bell lies cracked on the floor in the middle of this hall, where it fell from the broken ceiling. A coil of thick, rotten bell rope lies beside it. Heaps of rubble are piled against the walls, and small green sparks jump across the bell's surface.",
+  "notes": "<h3>Encounter (Power Level 11, Durability 17)</h3><p>Four <strong>Galvanic Jackalopes</strong> den under the fallen bell and in the rubble. Their copper-green antlers arc lightning between them. If the vestry door in room 7 wails while they are alive, they leave this hall and arrive at the vestry 2 rounds later.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Treasury of Offerings (3), Choir Passage (4).</p>"
+ },
+ {
+  "n": 7,
+  "name": "Wailing Vestry",
+  "read": "Wardrobes stand open along the walls of this vestry, hung with rotted priest robes. A tall cracked mirror stands on its frame beside a row of prayer stools. A chest of moth-eaten vestments sits against the far wall.",
+  "notes": "<p><strong>Watabou note:</strong> A mundane-looking door, wails loudly when the knob is touched.</p><p>The vestry door is the plain wooden door behind the raised portcullis from room 3. The priests built the alarm to keep thieves out of their robes and records.</p><h3>Trap: Wailing Door</h3><ul><li><strong>Trigger:</strong> a creature touches the knob of the vestry door, opens it, or enters the room.</li><li><strong>Find:</strong> DC 15 Intelligence (Investigation) shows that the latch is a bronze reed whistle wired to a thunder rune.</li><li><strong>Effect:</strong> DC 15 Constitution saving throw [[/save con 15]]; [[/damage 10d10 thunder]] on a failure, half on a success. On a failure the creature also has the Deafened condition for 1 minute. The wail alerts the Galvanic Jackalopes in room 6, who arrive 2 rounds later if they are still alive.</li><li><strong>Disarm or avoid:</strong> DC 15 Dexterity check with thieves' tools, or stuff the reed with cloth.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p>The vestry ledger in the vestment chest records the rites of the basilica and names its god, Vauroth. Speaking that name disarms the Storm Glyph in room 8.</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Cloak of Many Fashions</strong> among the vestments, and the vestry ledger.</p><p><strong>Exits:</strong> Treasury of Offerings (3, raised portcullis).</p>"
+ },
+ {
+  "n": 8,
+  "name": "Stormglass Antechamber",
+  "read": "A ring of copper lightning runes is inlaid in the floor of this small antechamber. Two weathered marble statues of a bearded god holding thunderbolts stand against the walls, facing each other across the ring.",
+  "notes": "<p>The last ward before the sanctum. The statues show Vauroth.</p><h3>Trap: Storm Glyph</h3><ul><li><strong>Trigger:</strong> a creature steps inside the ring of copper runes.</li><li><strong>Find:</strong> DC 16 Intelligence (Arcana) or Intelligence (Investigation) recognizes the runes as an active ward.</li><li><strong>Effect:</strong> DC 16 Dexterity saving throw [[/save dex 16]]; [[/damage 10d10 lightning]] on a failure, half on a success.</li><li><strong>Disarm or avoid:</strong> <em>Dispel magic</em> (DC 15), or speak the name Vauroth (written in the vestry ledger in room 7) before stepping into the ring.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Choir Passage (4, arch), Sanctum of the Thunder Crown (9, arch).</p>"
+ },
+ {
+  "n": 9,
+  "name": "Sanctum of the Thunder Crown",
+  "read": "Eight round stone columns surround a raised marble dais in the center of this sanctum. On the altar rests a bronze crown on a faded cushion, and black scorch marks radiate across the floor from it in every direction. A huge nest of shredded blue tapestries, straw and gnawed bones fills the space around the dais. A doorway in the east wall is choked with rubble.",
+  "notes": "<p>The high sanctum of Vauroth and the end of the adventure. The Thunder Crown still leaks lightning; the scorch marks are where it has struck the floor for decades. The alpha of the warren has made its nest here, and its antlers have grown around the crown where it lies on the altar.</p><h3>Encounter (Power Level 12, Durability 18.5)</h3><p><strong>The Thunderbuck</strong> and two <strong>Galvanic Jackalopes</strong>. The Thunderbuck is an Epic Boss: it never rolls initiative, acts on initiative count 10, and takes one Response after each player character's turn. It does not leave the dais while the crown is in its antlers.</p><p>When the Thunderbuck dies, the crown can be worked free of its antlers.</p><p>The secret door to the Choir Passage (room 4) can be found from this side with a DC 18 Wisdom (Perception) check.</p><p><strong>Treasure:</strong> <strong>The Thunder Crown</strong> (story item; whoever holds it can speak with the basilica's sentinels and command them to stand down; it is not a magic item for player use), a <strong>Ring of Resistance</strong> (lightning), and 250 gp scattered in the nest.</p><p><strong>Exits:</strong> Choir Passage (4, secret door), Stormglass Antechamber (8, arch). The doorway in the east wall opens onto a stair that leads further down; rubble blocks it, and it is not part of this adventure.</p>"
+ },
+ {
+  "n": 10,
+  "name": "Sacristy Rail",
+  "read": "A long copper rail is fixed along one wall of this narrow sacristy. Shelves of tarnished chalices and bronze plates line the opposite wall, and a candle stand lies fallen across the floor.",
+  "notes": "<p>The priests touched the rail to receive Vauroth's blessing. It still carries the crown's lightning.</p><h3>Trap: Lightning Rail</h3><ul><li><strong>Trigger:</strong> a creature touches the copper rail or passes within 5 feet of it.</li><li><strong>Find:</strong> DC 16 Wisdom (Perception) notices the scorched floor along the rail.</li><li><strong>Effect:</strong> DC 15 Dexterity saving throw [[/save dex 15]]; [[/damage 10d10 lightning]] on a failure, half on a success.</li><li><strong>Disarm or avoid:</strong> Ground the rail with an iron object (DC 15 Dexterity (Sleight of Hand)), or crawl past below it.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Penitent's Cell (12), Chapel of Columns (5).</p>"
+ },
+ {
+  "n": 11,
+  "name": "Lamp Store",
+  "read": "Stacks of bronze oil lamps fill this small store room. Wooden shelves have broken and spilled their contents across the floor, and a cracked oil jar sits beside a dark, dried stain.",
+  "notes": "<p>The lamp store for the basilica's services. Most of the lamps are ordinary, but one is not.</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Lantern of Revealing</strong> sits among the ordinary lamps.</p><p><strong>Exits:</strong> Reliquary Store (14, archway), Censer Chamber (13), Chapel of Columns (5).</p>"
+ },
+ {
+  "n": 12,
+  "name": "Penitent's Cell",
+  "read": "A stone cot stands against the wall of this bare cell, with iron chains hanging above it. A kneeling stool sits before a small, cold brazier. A rusted portcullis hangs raised over one of its two doorways.",
+  "notes": "<p>A cell where penitents of Vauroth fasted and prayed. The portcullis has rusted in place in the raised position.</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Potion of Climbing</strong> is tucked under the cot.</p><p><strong>Exits:</strong> Sacristy Rail (10), Goblin Camp (15, raised portcullis).</p>"
+ },
+ {
+  "n": 13,
+  "name": "Censer Chamber",
+  "read": "A huge bronze censer hangs on chains from the ceiling in the center of this chamber, above a cracked floor slab. Incense cones are scattered across the floor, and a candle rack lies toppled against the wall.",
+  "notes": "<p>The censer has hung here for decades, and its chains have worn thin.</p><h3>Trap: Falling Censer</h3><ul><li><strong>Trigger:</strong> a creature steps on the cracked slab beneath the censer.</li><li><strong>Find:</strong> DC 16 Wisdom (Perception) notices the worn chains and the cracked slab.</li><li><strong>Effect:</strong> DC 16 Dexterity saving throw [[/save dex 16]]; [[/damage 10d10 bludgeoning]] on a failure, half on a success. On a failure the creature also has the Prone condition.</li><li><strong>Disarm or avoid:</strong> Wedge the slab (DC 15 Dexterity check with thieves' tools), cut the chains from a distance, or walk around the slab.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Lamp Store (11), Reliquary Store (14, arch).</p>"
+ },
+ {
+  "n": 14,
+  "name": "Reliquary Store",
+  "read": "Stone shelves have toppled across this reliquary, and heaps of debris and broken statues of saints cover the floor. A cracked stone sarcophagus stands against the far wall. Bone relics lie scattered everywhere, and heavy bronze footsteps ring out among the ruins.",
+  "notes": "<p><strong>Watabou note:</strong> A key tucked under some debris.</p><p>The reliquary held the bones of Vauroth's saints. The sentinels still guard it.</p><h3>Encounter (Power Level 10, Durability 16)</h3><p>Four <strong>Stormguard Sentinels</strong> patrol the reliquary. They attack anyone who is not a priest of Vauroth and fight until destroyed.</p><p>Searching the debris after the fight finds the key.</p><p><strong>Treasure:</strong> the <strong>Iron Key</strong> (story item; opens the battered gate between rooms 1 and 3) under the debris, a <strong>Potion of Healing</strong>, and 150 gp among the bone relics.</p><p><strong>Exits:</strong> Lamp Store (11, archway), Censer Chamber (13, arch).</p>"
+ },
+ {
+  "n": 15,
+  "name": "Goblin Camp",
+  "read": "Three bedrolls lie around a small burnt-out campfire in this ruined chapel. Two dead goblins lie among chewed packs and rabbit tracks. Against the east wall a wounded goblin sits propped up, breathing shallowly, a dented iron helm beside him.",
+  "notes": "<p><strong>Watabou note:</strong> A dying goblin, a helm among his belongings.</p><h3>Encounter (Power Level 11, Durability 16.5)</h3><p>Two <strong>Galvanic Jackalopes</strong> and two <strong>Thunder Hares</strong> are fighting each other over the goblins' food when the party arrives. They ignore the dying goblin and turn on the party.</p><p>The goblin is Snikkit, the last of a band of scavengers who came for the basilica's treasure. He is dying. Any healing, or a DC 10 Wisdom (Medicine) check, keeps him alive. If he is saved, he warns the party about the Thunderbuck, the great antlered hare that guards the crown, and tells them about the hidden door from the Choir Passage (room 4) into the sanctum. Then he asks to be allowed to leave.</p><p><strong>Treasure:</strong> the <strong>Helm of Comprehending Languages</strong> (Snikkit's helm) and a <strong>Moon-Touched Sword</strong> among the goblins' packs.</p><p><strong>Exits:</strong> Penitent's Cell (12, raised portcullis).</p>"
+ }
+]
