@@ -68,6 +68,70 @@ function firstFreeSlot(scene, landing, except) {
   return landing.slots.findIndex((_, i) => !taken.has(i) && !reserved.has(`${scene.id}.${i}`));
 }
 
+/* -------------------------------------------- */
+/*  Overflow: all cards full                    */
+/* -------------------------------------------- */
+
+// The stairs (or any exit) on the landing page: a tile flagged role "stairs", a Monk's Active Tiles
+// tile with a teleport action, a region with a Teleport Token behavior, or a tile whose image is
+// named "stair…". Returns their bounding rectangles.
+function stairsBounds(scene) {
+  const rects = [];
+  for (const t of scene.tiles) {
+    const src = t.texture?.src ?? "";
+    const actions = t.flags?.["monks-active-tiles"]?.actions ?? [];
+    if (
+      t.getFlag(MODULE_ID, "role") === "stairs" ||
+      actions.some((a) => a.action === "teleport") ||
+      /stair/i.test(src.split("/").pop())
+    ) rects.push(new PIXI.Rectangle(t.x, t.y, t.width, t.height));
+  }
+  for (const r of scene.regions ?? []) {
+    if (!r.behaviors.some((b) => b.type === "teleportToken")) continue;
+    const b = r.object?.bounds ?? r.bounds;
+    if (b) rects.push(new PIXI.Rectangle(b.x, b.y, b.width, b.height));
+    else for (const s of r.shapes) {
+      if (s.type === "rectangle") rects.push(new PIXI.Rectangle(s.x, s.y, s.width, s.height));
+      else if (s.points?.length) {
+        const xs = s.points.filter((_, i) => i % 2 === 0), ys = s.points.filter((_, i) => i % 2 === 1);
+        rects.push(new PIXI.Rectangle(Math.min(...xs), Math.min(...ys), Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)));
+      } else if (s.type === "ellipse" || s.type === "circle") {
+        const rx = s.radiusX ?? s.radius, ry = s.radiusY ?? s.radius;
+        rects.push(new PIXI.Rectangle(s.x - rx, s.y - ry, rx * 2, ry * 2));
+      }
+    }
+  }
+  return rects;
+}
+
+// Every card is taken and the token came up the stairs: move it just to the right of the stairs so
+// the stairs art doesn't hide it. Later arrivals line up to the right, wrapping to a new row.
+async function stepOffStairs(tokenDoc, x, y, w, h) {
+  const scene = tokenDoc.parent;
+  const grid = scene.grid.size;
+  const size = w * grid;
+  const cx = x + size / 2, cy = y + (h * grid) / 2;
+  const stairs = stairsBounds(scene);
+  const on = stairs.find((r) => new PIXI.Rectangle(r.x - grid / 2, r.y - grid / 2, r.width + grid, r.height + grid).contains(cx, cy));
+  if (!on) return; // dropped somewhere else on purpose; leave it
+
+  const gap = Math.round(grid * 0.25);
+  const others = scene.tokens
+    .filter((t) => t !== tokenDoc)
+    .map((t) => new PIXI.Rectangle(t.x, t.y, t.width * grid, t.height * grid));
+  const blocked = (r) => others.some((o) => o.intersects(r)) || stairs.some((s) => s.intersects(r));
+  const startX = on.right + gap;
+  let px = startX;
+  let py = Math.round(on.y + on.height / 2 - size / 2);
+  for (let i = 0; i < 40; i++) {
+    const r = new PIXI.Rectangle(px, py, size, size);
+    if (r.right > scene.dimensions.sceneRect.right) { px = startX; py += size + gap; continue; }
+    if (!blocked(r)) break;
+    px += size + gap;
+  }
+  await tokenDoc.update({ x: px, y: py }, { [MODULE_ID]: { seating: true }, animate: false });
+}
+
 async function seat(tokenDoc, changes = {}, { arriving = false } = {}) {
   const scene = tokenDoc.parent;
   const landing = landingOf(scene);
@@ -84,7 +148,10 @@ async function seat(tokenDoc, changes = {}, { arriving = false } = {}) {
 
   // A player character arriving on the landing page (stairs, teleport, or dropped off the cards)
   // takes the first empty card. If every card is full it stays where it landed.
-  if (index < 0 && arriving && isPlayerCharacter(tokenDoc)) index = firstFreeSlot(scene, landing, tokenDoc);
+  if (index < 0 && arriving && isPlayerCharacter(tokenDoc)) {
+    index = firstFreeSlot(scene, landing, tokenDoc);
+    if (index < 0) return stepOffStairs(tokenDoc, x, y, w, h);
+  }
 
   if (index < 0) {
     if (hasSlot(previous)) {
