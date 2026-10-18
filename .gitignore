@@ -8,3 +8,17 @@ assets/sounds/**/*.mp3
 
 # Store/promo art (Sqyre listing); not part of the module
 assets/promo/
+
+# Build tools: kept on the claude/dungeon-tools branch, never shipped in the module
+dev/
+
+# Unused art and old UI drafts kept only on John's computer
+assets/scenes/icefall-pyramid/icefall-pyramid-north.webp
+assets/scenes/icefall-pyramid/throne-room.webp
+assets/tokens/icefall-pyramid/sister-of-the-icefall-token.webp
+assets/tokens/icefall-pyramid/sister-of-the-icefall.webp
+assets/ui/btlt-landing-page-full.webp
+assets/ui/card-border-v3.webp
+assets/ui/card-border.webp
+assets/ui/card-panel.webp
+assets/ui/landing-bg-placeholder.webp
