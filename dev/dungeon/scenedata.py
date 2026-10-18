@@ -52,7 +52,9 @@ def run(json_path, enc_path, out_path, slug):
         for sz in sorted({s[1] for s in big}, reverse=True):
             group = [s for s in big if s[1] == sz]
             ps = spots(L, rm, len(group) + len(placed), sz)
-            ps = [p for p in ps if all(abs(p[0] - q[0]) >= sz * 140 or abs(p[1] - q[1]) >= sz * 140 for q, _ in placed)]
+            # keep a spot only if it doesn't overlap any token already placed (compare true extents of both sizes)
+            ps = [p for p in ps if all(p[0] + sz * 140 <= q[0] or q[0] + qs[1] * 140 <= p[0] or
+                                       p[1] + sz * 140 <= q[1] or q[1] + qs[1] * 140 <= p[1] for q, qs in placed)]
             for s, p in zip(group, ps): placed.append((p, s))
         for p, (sl, sz) in placed: tokens.append({"slug": sl, "room": int(n), "x": p[0], "y": p[1]})
     def rect_px(n, spot):
