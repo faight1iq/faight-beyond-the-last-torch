@@ -5,3 +5,6 @@ packs/**/LOG.old
 
 # original downloads; the module ships the converted .ogg
 assets/sounds/**/*.mp3
+
+# Store/promo art (Sqyre listing); not part of the module
+assets/promo/
