@@ -200,6 +200,20 @@ Hooks.on("canvasTearDown", () => {
   layer = null;
 });
 
+// A seated token that is copied to another scene (stairs, teleport, Monk's Active Tiles, a region
+// behavior, or a drag between scenes) arrives with the card size and seat flag. Anywhere that is not a
+// landing page, it goes back to the character's normal token size. This runs on whichever client
+// creates the token, before it is saved, so no second update is needed.
+Hooks.on("preCreateToken", (tokenDoc) => {
+  if (landingOf(tokenDoc.parent) || !hasSlot(slotOf(tokenDoc))) return;
+  const proto = tokenDoc.actor?.prototypeToken;
+  tokenDoc.updateSource({
+    width: proto?.width ?? 1,
+    height: proto?.height ?? 1,
+    [`flags.${MODULE_ID}.-=slot`]: null,
+  });
+});
+
 Hooks.on("createToken", (tokenDoc) => {
   if (isActiveGM()) seat(tokenDoc);
   if (tokenDoc.parent === canvas.scene) redraw();
