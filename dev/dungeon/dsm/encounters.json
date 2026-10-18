@@ -1,0 +1,20 @@
+{
+  "sizes": {"moss-bear": 2, "tomb-jelly": 2, "sporemad-bear": 2, "darkspear-warden": 1, "the-elder-ursa": 3},
+  "rooms": {
+    "2":  [["moss-bear", 5]],
+    "5":  [["tomb-jelly", 4]],
+    "7":  [["sporemad-bear", 4]],
+    "9":  [["darkspear-warden", 2], ["sporemad-bear", 2]],
+    "11": [["tomb-jelly", 2], ["moss-bear", 3]],
+    "12": [["darkspear-warden", 4]],
+    "14": [["the-elder-ursa", 1], ["sporemad-bear", 2]]
+  },
+  "traps": {
+    "3":  {"name": "Falling Portcullis", "save": "dex", "dc": 15, "dice": "10d10", "type": "bludgeoning", "effect": "prone", "flavor": "Falling Portcullis: the rusted gate drops with a crash.", "spot": [1, 0, 1, 1]},
+    "8":  {"name": "Strangling Vines", "save": "str", "dc": 15, "dice": "10d10", "type": "poison", "effect": "poisoned", "flavor": "Strangling Vines: thorned vines lash out of the water and drag at you.", "spot": [2, 0.25, 1, 1.5]},
+    "13": {"name": "Spear Volley", "save": "dex", "dc": 16, "dice": "10d10", "type": "piercing", "effect": "", "flavor": "Spear Volley: spears shoot from the holes in the walls.", "spot": [1.25, 0.75, 1.5, 1.5]},
+    "15": {"name": "Key Ward", "save": "con", "dc": 16, "dice": "10d10", "type": "force", "effect": "prone", "flavor": "Key Ward: the runes flare and a ring of golden force bursts outward.", "spot": [0.75, 0.75, 1.5, 1.5]}
+  },
+  "lights": [[15, "#ffd27a", 20, 5], [14, "#9be07a", 30, 0], [9, "#9be07a", 25, 0], [8, "#7ab8c8", 15, 0]],
+  "entrance": [-1.5, 0.5]
+}

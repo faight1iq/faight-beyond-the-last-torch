@@ -1,0 +1,25 @@
+{
+  "code": "5LEI-4",
+  "name": "Darkspear Mausoleum",
+  "slug": "darkspear-mausoleum",
+  "theme": "jungle",
+  "seed": 287116430,
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy dungeon-crawler video game (Unreal Engine 5), seen from above, sized correctly for the room, each casting a soft dark contact shadow onto the floor. A dwarven tomb swallowed by jungle: carved dark stone with angular dwarven knotwork, tarnished bronze, thick tree roots, hanging vines, moss, fallen leaves and bear sign (claw marks, tufts of fur, gnawed bones).",
+  "rooms": {
+    "1":  {"name": "Hall of the Thane", "art": "a long entrance hall: two toppled stone dwarf statues holding spears, thick tree roots breaking through the floor at the edges, drifts of dead leaves, bear claw marks on a fallen stone slab."},
+    "2":  {"name": "Bear Den", "art": "a bear den: a large nest of torn moss, branches and leaves, piles of gnawed bones and a cracked dwarven shield, tufts of dark fur, a smashed stone urn."},
+    "3":  {"name": "Defaced Shrine", "art": "a small shrine: a broken stone altar, a dwarven stone face carving smashed on the floor, scattered offering bowls, roots and leaf litter."},
+    "4":  {"name": "Root Passage", "art": "a short passage choked with thick tree roots along the walls, fallen leaves, a broken bronze lantern."},
+    "5":  {"name": "Jellied Crypt", "art": "a crypt: three stone burial niches broken open along the walls, a pale translucent green slime puddle in the middle with a dwarf skeleton half dissolved inside it, a silvery mithral breastplate and an ornate gilded rapier on the floor beside it."},
+    "6":  {"name": "Mourners' Landing", "art": "a small landing: two cracked stone benches, a fallen bronze brazier, moss and roots."},
+    "7":  {"name": "Crevice Vault", "art": "a small vault: a cracked wall with a dark crevice, collapsed stone shelves, broken clay jars, fungus growing in clumps, bear tracks in spilled dirt."},
+    "8":  {"name": "Pool of the Box", "art": "a flooded chamber (the dark water pool is already drawn; leave it exactly as it is): an iron-bound box on a small stone plinth at the edge of the pool, hanging vines, lily pads at the pool edge, a few bones."},
+    "9":  {"name": "Fungal Hall", "art": "a large hall overgrown with giant pale fungus and glowing mushrooms in clumps, rotting logs, two collapsed dwarven pillars lying on the floor, bear bones."},
+    "10": {"name": "Hall of Two Keys", "art": "an antechamber: on the west wall a massive stone double door with two golden keyholes (keep the west doorway clear), two kneeling dwarf statues, roots across the floor."},
+    "11": {"name": "Ossuary", "art": "an ossuary: stone shelves of stacked dwarf skulls along the walls, a toppled bone pile in a corner, moss, a broken torch sconce."},
+    "12": {"name": "Treasury of the Thane", "art": "a sealed treasury: stone chests with dwarven runes, stacked gold ingots on a stone table, a rack of rusted dwarven spears, a tall stone statue of an armored dwarf thane."},
+    "13": {"name": "Spear Gallery", "art": "a gallery: wall racks of old dwarven spears, a row of small holes in the walls, a toppled weapon stand, roots and moss."},
+    "14": {"name": "Tomb of the Darkspear", "art": "the great tomb: a huge stone sarcophagus of a dwarf thane in the center with its lid smashed aside, a black iron spear lying across it, a giant bear nest of roots and moss against the north wall, enormous claw marks, piles of bones."},
+    "15": {"name": "Chamber of the Hovering Key", "art": "a small chamber: a carved stone ring inlaid in the floor in the center with a small golden key floating above it surrounded by faint golden light, carved dwarven runes around the walls."}
+  }
+}

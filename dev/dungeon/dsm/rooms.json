@@ -1,0 +1,92 @@
+[
+ {
+  "n": 1,
+  "name": "Hall of the Thane",
+  "read": "Daylight from the corridor behind you falls across a long hall of cracked stone. Two statues of dwarves holding spears lie toppled on the floor, and thick tree roots have broken up through the flagstones along the walls. Dead leaves have drifted into the corners, and a fallen stone slab is scored with deep claw marks.",
+  "notes": "<p>The entrance hall of the mausoleum. The entrance double door from the jungle opens into a short corridor east of this hall. The claw marks are the first sign of the bears.</p><p>The bases of both statues are carved in Dwarvish with the Thane's name and title: <em>Brokk Darkspear, Thane</em>. Speaking that name in Dwarvish disarms the Key Ward in room 15.</p><p>The gate in the west wall is a portcullis, rusted in the raised position, over the way into the Defaced Shrine (room 3); see the trap in room 3.</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Root Passage (4, door), Jellied Crypt (5, door), Bear Den (2, arch), Defaced Shrine (3, gate). The short corridor to the east leads to the entrance double door and out into the jungle.</p>"
+ },
+ {
+  "n": 2,
+  "name": "Bear Den",
+  "read": "A huge nest of torn moss, branches and leaves fills this chamber, and the air is thick with the smell of animals. Piles of gnawed bones lie around it, among them a cracked dwarven shield, and tufts of dark fur cling to every corner. A stone urn lies smashed beside the nest, and something large shifts beneath the moss.",
+  "notes": "<p>The main den of the bears. Among the gnawed bones are the remains of the human tomb robbers who scratched the writing in the shrine (room 3).</p><h3>Encounter (Power Level 8, Durability 15)</h3><p>Five <strong>Moss Bears</strong> sleep in the nest, their fur so overgrown with moss that they look like part of it. They wake when the first creature reaches the middle of the room and attack.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Hall of the Thane (1, arch), Jellied Crypt (5, arch), Mourners' Landing (6, door), Crevice Vault (7, door).</p>"
+ },
+ {
+  "n": 3,
+  "name": "Defaced Shrine",
+  "read": "Beyond a rusted portcullis, hanging raised, lies a small shrine. A stone altar has been broken in two, and a carved stone face of a dwarf lies smashed on the floor among scattered offering bowls. Roots and leaf litter cover the floor, and someone has scratched words across the back wall in large crooked letters: DWARFS SUCK.",
+  "notes": "<p><strong>Watabou note:</strong> A writing on the wall: DWARFS SUCK</p><p>A shrine to the Darkspear clan's ancestors. The human tomb robbers who came before the party smashed it and scratched the words into the wall in Common. Their bones now lie in the Bear Den (room 2). The shrine holds nothing of value.</p><h3>Trap: Falling Portcullis</h3><ul><li><strong>Trigger:</strong> a creature walks under the raised gate into the shrine.</li><li><strong>Find:</strong> DC 15 Wisdom (Perception) notices the rusted winch that holds the gate up.</li><li><strong>Effect:</strong> DC 15 Dexterity saving throw [[/save dex 15]]; [[/damage 10d10 bludgeoning]] on a failure, half on a success. On a failure the creature also has the Prone condition and is pinned under the bars until it or another creature uses an action to free it.</li><li><strong>Disarm or avoid:</strong> Wedge the gate (DC 15 Strength (Athletics)), or jam the winch (DC 15 Dexterity check with thieves' tools).</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Hall of the Thane (1, gate).</p>"
+ },
+ {
+  "n": 4,
+  "name": "Root Passage",
+  "read": "Thick tree roots choke the walls of this short passage, leaving only a narrow way through. Fallen leaves crunch underfoot, and a broken bronze lantern lies on its side among the roots.",
+  "notes": "<p>A passage the roots have nearly taken over. The way north leads to the Pool of the Box (room 8).</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Hall of the Thane (1, door), Jellied Crypt (5, arch), Pool of the Box (8, door).</p>"
+ },
+ {
+  "n": 5,
+  "name": "Jellied Crypt",
+  "read": "Three stone burial niches along the walls of this crypt have been broken open and emptied. In the middle of the floor spreads a pale, translucent green puddle, and inside it lies the skeleton of a dwarf, half dissolved. Beside the puddle rest a dented, silvery breastplate and an ornate rapier.",
+  "notes": "<p><strong>Watabou note:</strong> A jellyfied body of a dwarf, a breastplate and an ornate rapier close by.</p><p>The dwarf was an adventurer who came looking for the Thane's treasure. A Tomb Jelly caught her, and the puddle on the floor is what is left of the meal. The jellies grew from the embalming vats of the tomb and dissolve anything left lying.</p><h3>Encounter (Power Level 9, Durability 16)</h3><p>Four <strong>Tomb Jelly</strong> oozes lie in the crypt: one in the puddle around the dwarf's body and three flattened in the broken burial niches. They stay still until a creature comes within 10 feet, then slide out and attack.</p><p><strong>Treasure:</strong> the <strong>Mithral Breastplate</strong> and the <strong>Ornate Rapier</strong>, both the dead dwarf's, lie beside the puddle.</p><p><strong>Exits:</strong> Hall of the Thane (1, door), Bear Den (2, arch), Mourners' Landing (6, arch), Root Passage (4, arch).</p>"
+ },
+ {
+  "n": 6,
+  "name": "Mourners' Landing",
+  "read": "Two cracked stone benches face each other across this small landing. A bronze brazier lies fallen on the floor, and moss and roots creep over the stones. To the north, a short flight of stairs climbs into a dark corridor.",
+  "notes": "<p>Mourners waited here before entering the inner tomb. The landing lies lower than the long north corridor; a short flight of stairs leads up to it and on to the Fungal Hall (room 9).</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Jellied Crypt (5, arch), Bear Den (2, door), Fungal Hall (9, stairs), Crevice Vault (7, door), Ossuary (11, door), Hall of Two Keys (10, door).</p>"
+ },
+ {
+  "n": 7,
+  "name": "Crevice Vault",
+  "read": "A deep crack runs up one wall of this small vault, opening into a dark crevice. Stone shelves have collapsed across the floor among broken clay jars, and clumps of pale fungus grow from the rubble. Large bear tracks cross the spilled dirt.",
+  "notes": "<p><strong>Watabou note:</strong> Some gold hidden in a crevice of the wall.</p><p>A storeroom for grave goods. The fungus here is the same fungus that drives the bears mad.</p><h3>Encounter (Power Level 10, Durability 16)</h3><p>Four <strong>Spore-Mad Bears</strong> root through the rubble, fungus sprouting from their hides. They attack on sight and fight to the death.</p><p>Searching the crevice after the fight finds the gold.</p><p><strong>Treasure:</strong> 300 gp hidden in the crevice.</p><p><strong>Exits:</strong> Fungal Hall (9, door), Mourners' Landing (6, door), Bear Den (2, door).</p>"
+ },
+ {
+  "n": 8,
+  "name": "Pool of the Box",
+  "read": "Dark water fills most of this flooded chamber, still and black. At the edge of the pool, an iron-bound box sits on a small stone plinth. Vines hang down from the ceiling over the water, lily pads float along the edge, and a few bones lie on the stones.",
+  "notes": "<p><strong>Watabou note:</strong> A box containing a golden key.</p><p>The clan hid one of the two keys to the treasury here. The vines have grown thick around the plinth.</p><h3>Trap: Strangling Vines</h3><ul><li><strong>Trigger:</strong> a creature reaches for the box at the pool edge.</li><li><strong>Find:</strong> DC 16 Intelligence (Nature) or Wisdom (Perception) notices that the vines move on their own.</li><li><strong>Effect:</strong> DC 15 Strength saving throw [[/save str 15]]; [[/damage 10d10 poison]] on a failure, half on a success. On a failure the creature also has the Poisoned condition.</li><li><strong>Disarm or avoid:</strong> Burn the vines (any fire damage), or cut them (AC 12, 20 HP).</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p>This key is one of the two needed to open the double door in the Hall of Two Keys (room 10).</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Golden Key</strong> in the box, and <strong>Gloves of Swimming and Climbing</strong> and a <strong>Potion of Healing</strong> among the bones at the pool edge.</p><p><strong>Exits:</strong> Root Passage (4, door).</p>"
+ },
+ {
+  "n": 9,
+  "name": "Fungal Hall",
+  "read": "Giant pale fungus fills this large hall, and clumps of glowing mushrooms light it a sickly blue-green. Rotting logs lie among the growths, and two great dwarven pillars have collapsed across the floor. Bear bones lie scattered everywhere, and from the far end comes the clash of metal and the roar of an animal.",
+  "notes": "<p>The source of the fungus that infects the bears. The Darkspear Wardens come here to drive the bears out, and the fighting never ends.</p><h3>Encounter (Power Level 11, Durability 16.5)</h3><p>Two <strong>Darkspear Wardens</strong> and two <strong>Spore-Mad Bears</strong> are fighting each other when the party arrives. When the party appears, both sides turn on the party.</p><p><strong>Treasure:</strong> a <strong>Bag of Holding</strong> lies under one of the collapsed pillars, dropped by one of the tomb robbers.</p><p><strong>Exits:</strong> Crevice Vault (7, door), Mourners' Landing (6, stairs). The stairs lead down from the long north corridor to the Mourners' Landing (room 6).</p>"
+ },
+ {
+  "n": 10,
+  "name": "Hall of Two Keys",
+  "read": "On the west wall of this antechamber stands a massive stone double door with two golden keyholes. Two stone dwarves kneel on either side of it, heads bowed. Roots creep across the floor from the corners.",
+  "notes": "<p><strong>Watabou note:</strong> A massive double door with two keyholes on the western wall.</p><p>The massive double door in the west wall of the Hall of Two Keys (room 10) is the only sealed way into the treasury. It needs both Golden Keys, turned together: one is in the Pool of the Box (room 8) and one in the Chamber of the Hovering Key (room 15). The locks cannot be picked. The door can be forced only with a DC 25 Strength check.</p><p>A secret door leads to the corridor that approaches the Tomb of the Darkspear (room 14). A DC 18 Wisdom (Perception) check finds it. It lets the party reach the tomb without opening the treasury.</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Treasury of the Thane (12, locked double door), Tomb of the Darkspear (14, secret door), Ossuary (11, open passage), Mourners' Landing (6, door).</p>"
+ },
+ {
+  "n": 11,
+  "name": "Ossuary",
+  "read": "Stone shelves line the walls of this ossuary, stacked with the skulls of dwarves. A pile of bones has toppled in one corner, and moss grows over the shelves. A broken torch sconce hangs from the wall, and the bones in the corner are moving.",
+  "notes": "<p>The ossuary of the Darkspear clan's honored dead, brought here from the expedition's fallen.</p><h3>Encounter (Power Level 9, Durability 17)</h3><p>Three <strong>Moss Bears</strong> dig through the toppled bone pile. Two <strong>Tomb Jelly</strong> oozes lie flattened on the skull shelves and drop onto the first creatures that pass beneath them. The bears and the jellies ignore each other and attack the party.</p><p><strong>Treasure:</strong> a <strong>Potion of Climbing</strong> sits among the skulls on one of the shelves.</p><p><strong>Exits:</strong> Spear Gallery (13, door), Hall of Two Keys (10, open passage), Mourners' Landing (6, door).</p>"
+ },
+ {
+  "n": 12,
+  "name": "Treasury of the Thane",
+  "read": "Stone chests carved with dwarven runes stand in rows across this sealed treasury. Gold ingots are stacked on a stone table, and a rack of rusted dwarven spears leans against the wall. A tall stone statue of an armored dwarf thane looks down on it all, and armored figures stand motionless around it.",
+  "notes": "<p>The Thane's treasury, sealed behind the two-key door. The statue shows Thane Brokk Darkspear.</p><h3>Encounter (Power Level 11, Durability 17)</h3><p>Four <strong>Darkspear Wardens</strong> guard the treasury. They attack anyone who enters and fight until destroyed.</p><p>A secret door leads to the Spear Gallery (room 13). A DC 18 Wisdom (Perception) check finds it.</p><p><strong>Treasure:</strong> 900 gp in gold ingots and coin, a <strong>Ring of Protection</strong>, and a <strong>Potion of Healing</strong> in the stone chests.</p><p><strong>Exits:</strong> Hall of Two Keys (10, locked double door), Spear Gallery (13, secret door), Tomb of the Darkspear (14, door).</p>"
+ },
+ {
+  "n": 13,
+  "name": "Spear Gallery",
+  "read": "Wall racks of old dwarven spears line this long gallery. A row of small holes runs along both walls at chest height, and a weapon stand lies toppled on the floor among roots and moss.",
+  "notes": "<p>A gallery of the clan's spears.</p><h3>Trap: Spear Volley</h3><ul><li><strong>Trigger:</strong> a creature steps on the middle of the gallery floor.</li><li><strong>Find:</strong> DC 16 Wisdom (Perception) notices the holes in the walls.</li><li><strong>Effect:</strong> DC 16 Dexterity saving throw [[/save dex 16]]; [[/damage 10d10 piercing]] on a failure, half on a success.</li><li><strong>Disarm or avoid:</strong> Block the holes, or trigger it from a distance.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p>A secret door leads to the Treasury of the Thane (room 12). A DC 18 Wisdom (Perception) check finds it.</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Clockwork Amulet</strong> hangs from the toppled weapon stand.</p><p><strong>Exits:</strong> Ossuary (11, door), Treasury of the Thane (12, secret door), Chamber of the Hovering Key (15, arch).</p>"
+ },
+ {
+  "n": 14,
+  "name": "Tomb of the Darkspear",
+  "read": "A huge stone sarcophagus stands in the center of this great tomb, its lid smashed aside. A long black iron spear lies across the open sarcophagus. Against the north wall rises an enormous nest of roots and moss, and the walls are torn with claw marks larger than any you have seen. Piles of bones cover the floor, and the nest breathes.",
+  "notes": "<p>The tomb of Thane Brokk Darkspear and the end of the adventure. The black iron spear is the Darkspear, the Thane's weapon. Its head is still lodged in the shoulder of the bear matriarch, who sleeps sprawled across the sarcophagus with the shaft resting on the stone; when she rises, the spear rises with her.</p><h3>Encounter (Power Level 12, Durability 18)</h3><p><strong>The Elder Ursa</strong> and two <strong>Spore-Mad Bears</strong>. The Elder Ursa is an Epic Boss: she never rolls initiative, acts on initiative count 10, and takes one Response after each player character's turn. The Spore-Mad Bears rise from the nest when she wakes.</p><p>When the Elder Ursa dies, the Darkspear can be pulled from her shoulder. Returning it to the sarcophagus lays the Darkspear Wardens to rest.</p><p><strong>Treasure:</strong> <strong>The Darkspear</strong> (story item; the Thane's black iron spear; returning it to the sarcophagus lays the Wardens to rest; it is not a magic item for player use), 200 gp and a <strong>Potion of Healing</strong> among the bones.</p><p><strong>Exits:</strong> Hall of Two Keys (10, secret door), Treasury of the Thane (12, door). Stairs in the north lead up to a jungle shaft; it has collapsed, and it is not part of this adventure.</p>"
+ },
+ {
+  "n": 15,
+  "name": "Chamber of the Hovering Key",
+  "read": "A ring of carved stone is inlaid in the center of the floor of this small chamber. Above it, a small golden key floats in the air, surrounded by a faint golden light. Dwarven runes are carved around every wall.",
+  "notes": "<p><strong>Watabou note:</strong> A golden key hovering in the middle of the small chamber.</p><p>The clan hid the second key to the treasury here. The runes on the walls are a warning in Dwarvish to anyone not of the clan.</p><h3>Trap: Key Ward</h3><ul><li><strong>Trigger:</strong> a creature steps into the carved ring to take the key.</li><li><strong>Find:</strong> DC 15 Intelligence (Arcana) recognizes the ring as an active ward.</li><li><strong>Effect:</strong> DC 16 Constitution saving throw [[/save con 16]]; [[/damage 10d10 force]] on a failure, half on a success. On a failure the creature also has the Prone condition.</li><li><strong>Disarm or avoid:</strong> <em>Dispel magic</em> (DC 15), or a dwarf takes the key, or a creature speaks the Thane's name in Dwarvish (carved on the statue bases in room 1) before stepping into the ring.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p>This key is one of the two needed to open the double door in the Hall of Two Keys (room 10).</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Golden Key</strong>.</p><p><strong>Exits:</strong> Spear Gallery (13, arch).</p>"
+ }
+]
