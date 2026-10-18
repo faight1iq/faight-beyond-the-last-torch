@@ -3,17 +3,19 @@
  *
  * A scene flagged as the landing page carries its card layout in
  * flags["faight-beyond-the-last-torch"].landing:
- *   { slots: [{ x, y, w, h }], border: "<path to card border image>" }
+ *   { slots: [{ x, y, w, h }] }
  *
- * Each card is three layers:
- *   1. the card panel — an ordinary tile below tokens (scene data)
+ * Each card is three layers, all scene data except the text:
+ *   1. the card panel — a tile below tokens
  *   2. the player token — seated at the top of the card, full card width
- *   3. the card border and the card text — drawn above tokens by this script
+ *   3. the card border — a roof tile above tokens (occlusion off, and
+ *      flagged so Better Roofs and Levels leave it alone)
+ * The card text is drawn by this script above everything.
  *
  * Seating (resizing and placing the token) is done by the active GM only, so
- * clients don't race. The border and text are drawn locally on every client
- * from the seated token's actor, so they need no document updates and update
- * as soon as the character sheet changes.
+ * clients don't race. The text is drawn locally on every client from the
+ * seated token's actor, so it needs no document updates and updates as soon
+ * as the character sheet changes.
  */
 
 const MODULE_ID = "faight-beyond-the-last-torch";
@@ -87,7 +89,7 @@ async function seat(tokenDoc, changes = {}) {
 }
 
 /* -------------------------------------------- */
-/*  Card border and text (every client)         */
+/*  Card text (every client)                    */
 /* -------------------------------------------- */
 
 let layer = null;
@@ -135,9 +137,6 @@ async function drawCards() {
     if (hasSlot(s) && t.actor) seated.set(s, t.actor);
   }
 
-  const border = landing.border ? await foundry.canvas.loadTexture(landing.border) : null;
-  if (!layer) return; // redrawn while the texture loaded
-
   landing.slots.forEach((s, i) => {
     const card = new PIXI.Container();
     card.position.set(s.x, s.y);
@@ -174,12 +173,6 @@ async function drawCards() {
       wait.position.set((s.w - wait.width) / 2, s.w + (s.h - s.w - wait.height) / 2);
     }
 
-    if (border) {
-      const b = new PIXI.Sprite(border);
-      b.width = s.w;
-      b.height = s.h;
-      card.addChild(b);
-    }
   });
 }
 
