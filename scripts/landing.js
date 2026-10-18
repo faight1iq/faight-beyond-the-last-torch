@@ -56,7 +56,9 @@ function slotAt(landing, x, y) {
 // Slots handed out but not yet written to a token, so two players arriving together get different cards.
 const reserved = new Set();
 
-const isPlayerCharacter = (tokenDoc) => !!tokenDoc.actor?.hasPlayerOwner;
+// Player characters dock: dnd5e "character" actors (D&D Beyond imports), or anything a player owns.
+// Monsters (npc, no player owner) never dock. The type check lets the GM test before a player is assigned.
+const isPlayerCharacter = (tokenDoc) => tokenDoc.actor?.type === "character" || !!tokenDoc.actor?.hasPlayerOwner;
 
 function firstFreeSlot(scene, landing, except) {
   const taken = new Set();

@@ -9,8 +9,8 @@ assets/sounds/**/*.mp3
 # Store/promo art (Sqyre listing); not part of the module
 assets/promo/
 
-# Build tools: kept on the claude/dungeon-tools branch, never shipped in the module
-dev/
+# Python bytecode from the build tools
+__pycache__/
 
 # Unused art and old UI drafts kept only on John's computer
 assets/scenes/icefall-pyramid/icefall-pyramid-north.webp
