@@ -1,0 +1,31 @@
+{
+  "code": "5LEI-2",
+  "name": "Halls of the Void Savant",
+  "slug": "halls-of-the-void-savant",
+  "theme": "sand",
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy dungeon-crawler video game (Unreal Engine 5), seen from above, sized correctly for the room, each casting a soft dark contact shadow onto the floor. Sand-blown, ancient desert ruin: dust and drifted sand on objects, faded indigo and silver star-and-moon motifs on stone and cloth.",
+  "rooms": {
+    "1":  {"name": "Hall of Arrival", "art": "an entry crossroads: two toppled sandstone lion statues, a cracked stone water trough, drifts of sand against the walls, scorpion husks."},
+    "2":  {"name": "Moon Pool", "art": "a shrine around a still dark pool (already drawn at the west side; leave it exactly as it is): a large circular floor mosaic of a crescent moon and stars in indigo and silver tiles in the dry part of the room, two low stone benches, a few broken offering bowls."},
+    "3":  {"name": "Broken Study", "art": "a ruined study: smashed wooden furniture (a broken desk, splintered chairs, a collapsed cabinet) in heaps, a few glinting gems visible under the wreckage, torn star charts on the floor."},
+    "4":  {"name": "Hearth of Leaving", "art": "a hall with a large carved stone fireplace against the south wall burning with a cold violet-white magical flame, a worn rug in front of it, two stone armchairs, a fallen candelabra."},
+    "5":  {"name": "Nest Gallery", "art": "a gallery overrun by giant scorpions: piles of sand and rubble, cracked display plinths, broken pottery, scattered bones and shed scorpion carapaces."},
+    "6":  {"name": "Star Rotunda", "art": "a small round chamber: an orrery-like brass armillary sphere on a stone base in the exact center, star patterns inlaid in the floor ring, sand drifts at the edges."},
+    "7":  {"name": "Hall of Lenses", "art": "a great hall: three large tarnished brass telescopes on stone mounts aimed at the ceiling, a long cracked worktable with lenses and tools, collapsed bookshelves, sand drifts, scorpion husks."},
+    "8":  {"name": "Long Observatory", "art": "a long gallery: a row of stone pedestals holding crystal lenses and broken astrolabes, faded star maps on the floor, sand drifts."},
+    "9":  {"name": "Sellsword's End", "art": "a small round chamber: a dead human sellsword in chain mail lying on his back with a broken sword, a dropped shield, his pack spilled, three dead scorpions around him."},
+    "10": {"name": "Brood Hall", "art": "a scorpion brood chamber: large mounds of sand with burrow holes, clutches of pale scorpion eggs, broken stone columns lying in pieces, bones."},
+    "11": {"name": "Ogre Den", "art": "an ogre camp in a large ruined hall: a big fire pit with charred bones and a spit, crude hide bedrolls, piles of looted junk and broken furniture, a huge wooden club leaning on a pillar stump, gnawed bones everywhere."},
+    "12": {"name": "Sand Stair Hall", "art": "a hall half buried in drifted sand flowing down from the west, broken stone urns, a fallen bronze gong, scorpion husks."},
+    "13": {"name": "Crumbling Antechamber", "art": "a small antechamber: cracked floor slabs with sand pouring through the cracks in the center, a toppled statue of a robed scholar, scattered rubble."},
+    "14": {"name": "Rotten Store", "art": "an old storeroom: rotten wooden shelves, burst sacks of grain and spilled sand, broken jars, one rotten iron-bound wooden chest in the middle with its lid ajar."},
+    "15": {"name": "Armory Alcove", "art": "a small armory: an old tall wooden locker against the north wall with its door hanging open, empty weapon racks, a broken shield, a dented helmet."},
+    "16": {"name": "Ironclad Door", "art": "a vestibule: the east wall holds a round ironclad double door with a large keyhole (the doorway on the east wall; keep it clear), two stone guardian statues flanking it, sand drifts."},
+    "17": {"name": "Hall of the Safe", "art": "a columned vault (the round stone columns are already drawn; leave them exactly): a heavy mechanical brass-and-iron safe with gears and dials against the east end, frost spreading across the floor around it, toppled brass instruments."},
+    "18": {"name": "Ogre Larder", "art": "an ogre larder: hanging carcasses on hooks, a stained butcher's block, barrels, piles of bones and a heap of rusted weapons."},
+    "19": {"name": "Void-Scarred Hall", "art": "a hall scarred by void magic: the floor cracked in a radiating pattern of black glassy fissures, floating rubble frozen in place, toppled scholar statues, dead scorpions blackened and crystallized."},
+    "20": {"name": "Shaman's Rest", "art": "a long chamber: the remains of a tribal shaman in feathered robes slumped against the north wall with gold coins clutched in his bony hands, a broken staff, a scattered ritual circle of stones, huge ogre footprints and a dropped ogre club."},
+    "21": {"name": "Hall of the Void", "art": "a ritual hall: a large circle of black glass inlaid in the floor with silver star symbols, four broken obsidian pillars around it, drifts of black sand, crystallized scorpion husks."},
+    "22": {"name": "Savant's Sanctum", "art": "the inner sanctum: a stone throne-like reading chair with a long-dead robed skeleton slumped in it, a stone desk heaped with star charts, a rift-like crack of black void glass in the floor behind it, a nest of crystallized black sand around it."}
+  }
+}

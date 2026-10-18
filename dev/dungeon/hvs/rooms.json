@@ -1,0 +1,134 @@
+[
+ {
+  "n": 1,
+  "name": "Hall of Arrival",
+  "read": "Sand has blown in through the entrance and drifted against the walls of this crossroads. Two sandstone lions lie toppled on their sides, their carved manes worn smooth. A cracked stone water trough holds nothing but dust, and empty scorpion husks crunch underfoot.",
+  "notes": "<p>The entrance hall. The empty husks are a warning: scorpions shed here on their way in and out of the halls.</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Broken Study (3), Moon Pool (2), Hearth of Leaving (4). South, the entrance corridor leads outside.</p>"
+ },
+ {
+  "n": 2,
+  "name": "Moon Pool",
+  "read": "A still, dark pool fills the west side of this shrine. On the dry floor beside it, a great round mosaic shows a crescent moon among silver stars on a field of deep indigo. Two low stone benches face the pool, and broken offering bowls lie at the water's edge.",
+  "notes": "<p><strong>Watabou note:</strong> A mosaic of a moon pattern on the floor.</p><p>The Savant came here to watch the moon's reflection. The water is 10 feet deep, cold and clear below the surface.</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Pearl of Power</strong> rests at the bottom of the pool among old offerings. Reaching it takes a DC 12 Strength (Athletics) check to dive and search.</p><p><strong>Exits:</strong> Hall of Arrival (1).</p>"
+ },
+ {
+  "n": 3,
+  "name": "Broken Study",
+  "read": "Furniture lies smashed in heaps across this study: a broken desk, splintered chairs and a collapsed cabinet. Torn star charts are scattered over the floor. Here and there, something small glints under the wreckage.",
+  "notes": "<p><strong>Watabou note:</strong> Gems under pieces of broken furniture.</p><p>The ogres or the scorpions wrecked the Savant's study long ago. Searching the wreckage takes 10 minutes.</p><p>No encounter.</p><p><strong>Treasure:</strong> <strong>300 gp of gems</strong> under the broken furniture.</p><p><strong>Exits:</strong> Hall of Arrival (1), Nest Gallery (5).</p>"
+ },
+ {
+  "n": 4,
+  "name": "Hearth of Leaving",
+  "read": "A great carved fireplace fills the south wall of this hall. A fire burns in it, but it gives no heat; its flames are violet and white, and the air in front of it is cold. A worn rug lies before the hearth between two stone armchairs, and a fallen candelabra rests on the floor.",
+  "notes": "<p><strong>Watabou note:</strong> A burning fire in a fireplace, teleports a person outside the halls when touched.</p><p>The Savant's escape route. Any creature that touches the flames or steps into the hearth is teleported, with everything it carries, to the entrance corridor outside the halls. The fire cannot be put out.</p><p><strong>Automation:</strong> a Monk's Active Tiles tile on the hearth teleports a token that enters it to the entrance corridor.</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Nest Gallery (5), Hall of Arrival (1), Star Rotunda (6).</p>"
+ },
+ {
+  "n": 5,
+  "name": "Nest Gallery",
+  "read": "Sand and rubble lie in mounds across this long gallery. Cracked display plinths stand empty, and broken pottery is scattered among bones and shed scorpion shells. Something large shifts under the sand.",
+  "notes": "<h3>Encounter (Power Level 8, Durability 15)</h3><p>Five <strong>Dune Scorpions</strong> lie buried under the sand. They burst out when the first creature reaches the middle of the gallery and try to pull lone characters away from the group.</p><p>The sand mounds are difficult terrain for everyone but the scorpions.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Broken Study (3), Hearth of Leaving (4), Star Rotunda (6), Hall of Lenses (7).</p>"
+ },
+ {
+  "n": 6,
+  "name": "Star Rotunda",
+  "read": "A brass armillary sphere stands on a stone base in the center of this round chamber. Its rings are frozen in place, aligned to some long-past night. Star patterns are inlaid in a ring around the floor, and sand has drifted against the curved walls.",
+  "notes": "<p>The Savant used the sphere to track the moon and the stars. The void energy in the halls has charged it.</p><h3>Trap: Void Pulse</h3><ul><li><strong>Trigger:</strong> a creature touches the armillary sphere or steps within 5 feet of its base.</li><li><strong>Find:</strong> DC 15 Intelligence (Arcana) senses the stored force in the brass rings.</li><li><strong>Effect:</strong> DC 15 Constitution saving throw [[/save con 15]]; [[/damage 10d10 force]] on a failure, half on a success. </li><li><strong>Disarm or avoid:</strong> DC 16 Intelligence (Arcana) to turn the rings and release the charge safely, or <em>dispel magic</em> (DC 15).</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Nest Gallery (5), Hall of Lenses (7), Hearth of Leaving (4), Sellsword's End (9).</p>"
+ },
+ {
+  "n": 7,
+  "name": "Hall of Lenses",
+  "read": "Three huge brass telescopes stand on stone mounts, aimed at the ceiling. A long worktable is cracked down the middle, its lenses and tools covered in dust. Bookshelves have collapsed along the walls, and scorpion husks lie in the sand drifts.",
+  "notes": "<h3>Encounter (Power Level 9, Durability 16)</h3><p>Four <strong>Scorpion Swarms</strong> nest inside the fallen bookshelves and the telescope mounts. They pour out when anything disturbs the worktable or the shelves.</p><p>The telescopes and the worktable give half cover.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Nest Gallery (5), Star Rotunda (6), Long Observatory (8), Brood Hall (10).</p>"
+ },
+ {
+  "n": 8,
+  "name": "Long Observatory",
+  "read": "A row of stone pedestals runs down this long gallery. Some still hold crystal lenses; others hold broken brass astrolabes. Faded star maps are painted on the floor, half hidden by sand.",
+  "notes": "<p>The Savant's observatory gallery. The lenses are fine glass but worth little.</p><p>No encounter.</p><p><strong>Treasure:</strong> a <strong>Spell Scroll</strong> (common, a cantrip) is rolled inside one of the astrolabes.</p><p><strong>Exits:</strong> Hall of Lenses (7), Sand Stair Hall (12), Crumbling Antechamber (13), Brood Hall (10).</p>"
+ },
+ {
+  "n": 9,
+  "name": "Sellsword's End",
+  "read": "A human sellsword lies on his back in the middle of this small round chamber, still in his chain mail. His sword is broken beside him, his shield lies a few feet away, and his pack has spilled across the floor. Three dead scorpions lie around him.",
+  "notes": "<p><strong>Watabou note:</strong> A sellsword, lying on the ground.</p><p>He fought the scorpions and won, then stepped onto the pit cover in the middle of the floor.</p><h3>Trap: Venom Pit</h3><ul><li><strong>Trigger:</strong> the first creature to step into the middle of the room, next to the body.</li><li><strong>Find:</strong> DC 15 Wisdom (Perception) notices the thin seams of a pit cover under the sand.</li><li><strong>Effect:</strong> DC 15 Dexterity saving throw [[/save dex 15]]; [[/damage 10d10 poison]] on a failure, half on a success. The cover drops away into a shallow pit full of scorpion venom spines; on a failure the creature also has the Poisoned condition for 1 hour.</li><li><strong>Disarm or avoid:</strong> Walk along the curved wall, or wedge the cover shut with a piton or spike.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p><strong>Treasure:</strong> the sellsword's purse holds <strong>40 gp</strong> and a <strong>Potion of Healing</strong>.</p><p><strong>Exits:</strong> Star Rotunda (6).</p>"
+ },
+ {
+  "n": 10,
+  "name": "Brood Hall",
+  "read": "Large mounds of sand fill this hall, each one riddled with burrow holes. Clutches of pale scorpion eggs lie in the hollows between them. Broken stone columns lie in pieces across the floor among scattered bones.",
+  "notes": "<h3>Encounter (Power Level 9, Durability 17)</h3><p>Three <strong>Dune Scorpions</strong> and two <strong>Scorpion Swarms</strong> guard the brood. The scorpions fight to the death to protect the eggs. Burning or crushing a clutch of eggs makes every scorpion in the room attack the creature that did it.</p><p>The mounds are difficult terrain; the fallen columns give half cover.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Ogre Den (11), Long Observatory (8), Hall of Lenses (7).</p>"
+ },
+ {
+  "n": 11,
+  "name": "Ogre Den",
+  "read": "A big fire pit burns in the middle of this ruined hall, with a spit across it and charred bones in the ashes. Crude hide bedrolls lie around it, and piles of looted junk and broken furniture fill the corners. A huge wooden club leans against the stump of a pillar.",
+  "notes": "<h3>Encounter (Power Level 10, Durability 16)</h3><p>Four <strong>Ogre Brutes</strong> make camp here. They are hungry and bored. A party that offers food or a good bargain can talk its way past them with a DC 16 Charisma (Persuasion) check; otherwise they attack.</p><p>The fire pit deals 2d6 fire damage to a creature that is pushed into it.</p><p><strong>Treasure:</strong> <strong>160 gp of looted coins</strong> and a <strong>Potion of Healing</strong> in the junk piles.</p><p><strong>Exits:</strong> Brood Hall (10), Armory Alcove (15).</p>"
+ },
+ {
+  "n": 12,
+  "name": "Sand Stair Hall",
+  "read": "Sand has flowed down into this hall from the west and buried half the floor. Broken stone urns stick out of the drift, and a fallen bronze gong lies on its side. Scorpion husks crunch underfoot.",
+  "notes": "<h3>Encounter (Power Level 10, Durability 17)</h3><p>Two <strong>Void-Touched Scorpions</strong> and three <strong>Dune Scorpions</strong>. The Dune Scorpions wait under the drift; the Void-Touched Scorpions cling to the walls above the doorways.</p><p>The sand drift is difficult terrain. Striking the gong (DC 10 Strength) draws every scorpion in rooms 8 and 13 here.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Rotten Store (14), Ironclad Door (16), Long Observatory (8), Crumbling Antechamber (13).</p>"
+ },
+ {
+  "n": 13,
+  "name": "Crumbling Antechamber",
+  "read": "The floor slabs of this small antechamber are cracked, and sand pours slowly through the cracks in the middle of the room. A statue of a robed scholar lies toppled against the wall. Rubble is scattered across the floor.",
+  "notes": "<p>The floor here sits over an old cellar that the sand has hollowed out.</p><h3>Trap: Collapsing Floor</h3><ul><li><strong>Trigger:</strong> a creature heavier than 50 pounds steps onto the cracked slabs in the middle of the room.</li><li><strong>Find:</strong> DC 16 Wisdom (Perception) notices the sand draining through the cracks.</li><li><strong>Effect:</strong> DC 16 Dexterity saving throw [[/save dex 16]]; [[/damage 10d10 bludgeoning]] on a failure, half on a success. The slabs give way under a rain of stone; on a failure the creature also falls prone in the rubble.</li><li><strong>Disarm or avoid:</strong> Walk along the walls, or test the floor and jump the cracked area (DC 12 Strength (Athletics)).</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Long Observatory (8), Ironclad Door (16), Sand Stair Hall (12).</p>"
+ },
+ {
+  "n": 14,
+  "name": "Rotten Store",
+  "read": "Rotten wooden shelves sag along the walls of this storeroom. Burst sacks of grain have spilled across the floor and mixed with drifted sand. In the middle of the room stands an old iron-bound chest, its wood soft with rot and its lid hanging open.",
+  "notes": "<p><strong>Watabou note:</strong> A rotten chest holds an iron key.</p><p>The Savant hid the key to the vault among his ordinary stores.</p><p>No encounter.</p><p><strong>Treasure:</strong> the <strong>Iron Key</strong> (opens the round ironclad door in room 16) and a <strong>Potion of Healing</strong> in the chest.</p><p><strong>Exits:</strong> Sand Stair Hall (12).</p>"
+ },
+ {
+  "n": 15,
+  "name": "Armory Alcove",
+  "read": "An old tall wooden locker stands against the north wall of this small armory, its door hanging open. Empty weapon racks line the other walls. A broken shield and a dented helmet lie on the floor.",
+  "notes": "<p><strong>Watabou note:</strong> A locker with a leather armor and a vorpal spear.</p><p>The Savant's guards kept their best gear here. The ogres never looked inside the locker.</p><p>No encounter.</p><p><strong>Treasure:</strong> <strong>Armor of Gleaming</strong> (common, leather) and the <strong>Vorpal Spear</strong> (rare; a +1 spear that scores a critical hit on a roll of 19 or 20; the Savant's guards called it vorpal).</p><p><strong>Exits:</strong> Ogre Den (11), Ogre Larder (18).</p>"
+ },
+ {
+  "n": 16,
+  "name": "Ironclad Door",
+  "read": "Two stone guardian statues flank a round ironclad double door in the east wall of this vestibule. The door is banded with iron and set with a large keyhole at its center. Sand has drifted against its base.",
+  "notes": "<p><strong>Watabou note:</strong> A round ironclad double door with a keyhole on the eastern wall of the chamber.</p><p>The door is <strong>locked</strong>. The <strong>Iron Key</strong> from room 14 opens it. Without the key it takes a DC 22 Dexterity check with thieves' tools, a DC 25 Strength (Athletics) check, or a <em>knock</em> spell.</p><p>No encounter.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Hall of the Safe (17), Crumbling Antechamber (13), Sand Stair Hall (12). The round door in the east wall leads to the Hall of the Safe.</p>"
+ },
+ {
+  "n": 17,
+  "name": "Hall of the Safe",
+  "read": "Round stone columns stand in two rows down this vault. At its east end sits a heavy mechanical safe of brass and iron, covered in gears and dials. Frost spreads across the floor around it, and toppled brass instruments lie where they fell.",
+  "notes": "<p><strong>Watabou note:</strong> A mysterious, ice-cold to touch object locked in a mechanical safe.</p><p>The safe holds the <strong>Void Shard</strong>. Opening it takes a DC 18 Dexterity check with thieves' tools, or the code from the Savant's star charts in room 22. When the safe opens, the Void Matriarch in room 21 knows, and comes for the shard.</p><h3>Trap: Frost Ward</h3><ul><li><strong>Trigger:</strong> a creature touches the safe or steps within 5 feet of it.</li><li><strong>Find:</strong> DC 16 Intelligence (Arcana) senses the cold magic around the safe.</li><li><strong>Effect:</strong> DC 16 Constitution saving throw [[/save con 16]]; [[/damage 10d10 cold]] on a failure, half on a success. </li><li><strong>Disarm or avoid:</strong> <em>Dispel magic</em> (DC 16) on the safe, or enter the code from the star charts.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><p><strong>Treasure:</strong> inside the safe: the <strong>Void Shard</strong> (story item, ice-cold; it feeds the Matriarch), <strong>400 gp</strong> and a <strong>Wand of Magic Missiles</strong>.</p><p><strong>Exits:</strong> Ironclad Door (16), Void-Scarred Hall (19).</p>"
+ },
+ {
+  "n": 18,
+  "name": "Ogre Larder",
+  "read": "Carcasses hang from iron hooks along the walls of this larder. A stained butcher's block stands in the middle of the room beside a row of barrels. Bones are piled in the corners next to a heap of rusted weapons.",
+  "notes": "<h3>Encounter (Power Level 11, Durability 16)</h3><p><strong>Optional encounter.</strong> The <strong>Ogre Bone-Chief</strong> and two <strong>Ogre Brutes</strong> are butchering scorpions here. If the party made peace with the ogres in room 11, the Bone-Chief demands a toll of 100 gp to pass; otherwise they attack.</p><p>The hanging carcasses block line of sight.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Shaman's Rest (20), Armory Alcove (15).</p>"
+ },
+ {
+  "n": 19,
+  "name": "Void-Scarred Hall",
+  "read": "The floor of this hall is cracked in a pattern that radiates from its center, and the cracks are filled with black glass. Chunks of rubble float a few feet above the floor, frozen in place. Toppled statues of scholars lie among dead scorpions that have turned black and crystalline.",
+  "notes": "<h3>Encounter (Power Level 11, Durability 17)</h3><p>Four <strong>Void-Touched Scorpions</strong> hunt here. They move between the floating rubble and strike from above.</p><p>The floating rubble gives half cover. A creature that touches the black glass in the cracks takes 1d10 cold damage.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Hall of the Safe (17), Hall of the Void (21).</p>"
+ },
+ {
+  "n": 20,
+  "name": "Shaman's Rest",
+  "read": "The remains of a tribal shaman in feathered robes lie slumped against the north wall of this long chamber. Gold coins are still clutched in his bony hands. His staff lies broken beside him, a ritual circle of stones is scattered across the floor, and huge footprints lead out of the room past a dropped ogre club.",
+  "notes": "<p><strong>Watabou note:</strong> Remains of a shaman apparently killed by ogres, some gold clutched in his hands.</p><p>The ogres chased him here and left him where he fell. They did not take his gold because the shaman's ritual frightened them.</p><p>No encounter.</p><p><strong>Treasure:</strong> <strong>200 gp</strong> in his hands and a <strong>Potion of Climbing</strong> in his robes.</p><p><strong>Exits:</strong> Ogre Larder (18).</p>"
+ },
+ {
+  "n": 21,
+  "name": "Hall of the Void",
+  "read": "A great circle of black glass is set into the floor of this hall, inlaid with silver star symbols. Four broken obsidian pillars stand around it. Drifts of black sand cover the floor, and crystalline scorpion husks lie everywhere.",
+  "notes": "<h3>Encounter (Power Level 12, Durability 18)</h3><p><strong>The Void Matriarch</strong> and two <strong>Void-Touched Scorpions</strong>. The Matriarch is an Epic Boss: she never rolls initiative, acts on initiative count 10, and takes one Response after each player character's turn. She drives at whoever carries the Void Shard.</p><p>The black sand is difficult terrain. The glass circle is where the void energy is strongest.</p><p><strong>Treasure:</strong> none.</p><p><strong>Exits:</strong> Void-Scarred Hall (19), Savant's Sanctum (22).</p>"
+ },
+ {
+  "n": 22,
+  "name": "Savant's Sanctum",
+  "read": "A stone reading chair stands at the back of this sanctum, and a long-dead skeleton in robes sits slumped in it. A stone desk beside it is heaped with star charts. Behind the chair, a crack of black glass splits the floor, and crystallized black sand is piled around it.",
+  "notes": "<p>The Savant's sanctum, and the end of the dungeon. The crack is the void rift; it has no bottom. Nothing in it can be reached.</p><p>The <strong>star charts</strong> hold the code to the safe in room 17 (a DC 14 Intelligence (Investigation) check to work it out).</p><p>No encounter.</p><p><strong>Treasure:</strong> <strong>300 gp</strong>, <strong>Eyes of Minute Seeing</strong>, and the Savant's star charts.</p><p><strong>Exits:</strong> Hall of the Void (21).</p>"
+ }
+]
