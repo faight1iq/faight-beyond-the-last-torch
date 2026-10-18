@@ -1,7 +1,7 @@
 // Builds a dungeon's journals and scene in the world from dev/dungeon/<key>/ (run in the Foundry console as GM):
 //   const run = new (Object.getPrototypeOf(async function(){}).constructor)("cfg", await (await fetch('/modules/faight-beyond-the-last-torch/dev/dungeon/build_scene.js?'+Date.now())).text());
 //   await run({ key: "hvs", code: "5LEI-2", name: "Halls of the Void Savant", slug: "halls-of-the-void-savant" });
-// Needs: <key>/scene.json (scenedata.py), <key>/rooms.json, <key>/lore.md, map tiles assets/scenes/<slug>/<slug>-q{ix}{iy}.webp,
+// Needs: <key>/scene.json (scenedata.py), optional <key>/water.json (water.py), <key>/rooms.json, <key>/lore.md, map tiles assets/scenes/<slug>/<slug>-q{ix}{iy}.webp,
 // monster actors flagged {adventure: code, slug}, items flagged {adventure: code, room}.
 const MOD = "faight-beyond-the-last-torch";
 const { key, code, name, slug } = cfg;
@@ -49,6 +49,11 @@ const scene = await Scene.create({
 });
 await scene.createEmbeddedDocuments("Tile", S.tiles.map(t => ({ texture: { src: `${art}/${slug}-${t.img}.webp` }, x: t.x, y: t.y, width: t.w, height: t.h, locked: true, elevation: 0, sort: 0,
   flags: { [MOD]: { role: "map" } } })));
+// animated water (water.py), just above the map tiles; optional
+const WATER = await fetch(`/${BASE}/water.json?${Date.now()}`).then(r => r.ok ? r.json() : []).catch(() => []);
+if (WATER.length) await scene.createEmbeddedDocuments("Tile", WATER.map(t => ({ texture: { src: `${art}/${t.img}` }, x: t.x, y: t.y, width: t.w, height: t.h,
+  locked: true, elevation: 0, sort: 1, video: { autoplay: true, loop: true, volume: 0 }, flags: { [MOD]: { role: "water" } } })));
+report.water = WATER.length;
 await scene.createEmbeddedDocuments("Wall", S.walls.map(w => ({ c: w.c, door: w.door ?? 0, ds: w.ds ?? 0, flags: w.flags ?? {} })));
 await scene.createEmbeddedDocuments("Note", S.notes.map(n => ({ x: n.x, y: n.y, entryId: journals[n.n].id, pageId: journals[n.n].pages.contents[0].id,
   text: String(n.n), iconSize: 40, fontSize: 32, texture: { src: "icons/svg/book.svg" }, global: false })));
