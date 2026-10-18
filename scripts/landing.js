@@ -162,7 +162,8 @@ async function drawCards() {
       if (d.species) line(d.species, textStyle({ fontFamily: "Roboto Slab", fontWeight: "800", fontSize: lineSize }));
       if (d.classLine) line(d.classLine, textStyle({ fontFamily: "Roboto Slab", fontWeight: "800", fontSize: lineSize }));
       // Fit the block inside the panel, above the bottom frame.
-      const avail = s.h - s.w - Math.round((s.h - s.w) * 0.08) - Math.round(s.w * 0.05);
+      // Cards rise from the bottom edge of the scene, so only a small bottom margin is needed.
+      const avail = s.h - s.w - Math.round((s.h - s.w) * 0.08) - Math.round(s.w * 0.04);
       if (block.height > avail) block.scale.set(avail / block.height);
       block.position.set(pad, textTop);
       card.addChild(block);
