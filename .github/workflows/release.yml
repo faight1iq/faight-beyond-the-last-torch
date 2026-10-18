@@ -25,7 +25,7 @@ jobs:
       - name: Build the module zip (module.json at the root)
         run: |
           zip -r "${MODULE_ID}.zip" . \
-            -x ".git/*" ".github/*" ".gitignore" "*.tmp" "README.md"
+          -x ".git/*" ".github/*" ".gitignore" "*.tmp" "README.md" "dev/*"
 
       - name: Attach module.json and the zip to the release
         uses: softprops/action-gh-release@v2
