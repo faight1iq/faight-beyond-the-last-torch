@@ -72,6 +72,11 @@
         "manifest": "https://github.com/ironmonk108/monks-active-tiles/releases/latest/download/module.json"
       },
       {
+        "id": "monks-tokenbar",
+        "type": "module",
+        "manifest": "https://github.com/ironmonk108/monks-tokenbar/releases/download/13.02/module.json"
+      },
+      {
         "id": "monks-wall-enhancement",
         "type": "module",
         "manifest": "https://github.com/ironmonk108/monks-wall-enhancement/releases/latest/download/module.json"

@@ -72,7 +72,7 @@ function firstFreeSlot(scene, landing, except) {
 /*  Overflow: all cards full                    */
 /* -------------------------------------------- */
 
-// The stairs (or any exit) on the landing page: a tile flagged role "stairs", a Monk's Active Tiles
+// The stairs (or any exit) on the landing page: a Stairways stairway, a tile flagged role "stairs", a Monk's Active Tiles
 // tile with a teleport action, a region with a Teleport Token behavior, or a tile whose image is
 // named "stair…". Returns their bounding rectangles.
 function stairsBounds(scene) {
@@ -85,6 +85,13 @@ function stairsBounds(scene) {
       actions.some((a) => a.action === "teleport") ||
       /stair/i.test(src.split("/").pop())
     ) rects.push(new PIXI.Rectangle(t.x, t.y, t.width, t.height));
+  }
+  // Stairways module stairways (the "Enter <dungeon>" stairs): x, y is the centre; size is in grid units.
+  for (const s of scene.stairways ?? []) {
+    const b = s.object?.bounds;
+    if (b?.width) { rects.push(new PIXI.Rectangle(b.x, b.y, b.width, b.height)); continue; }
+    const g = scene.grid.size, w = (s.width ?? 1) * g, h = (s.height ?? 1) * g;
+    rects.push(new PIXI.Rectangle(s.x - w / 2, s.y - h / 2, w, h));
   }
   for (const r of scene.regions ?? []) {
     if (!r.behaviors.some((b) => b.type === "teleportToken")) continue;
@@ -328,3 +335,142 @@ for (const hook of ["createItem", "updateItem", "deleteItem"]) {
     if (item.parent instanceof Actor && ["class", "race"].includes(item.type)) redraw();
   });
 }
+
+/* -------------------------------------------- */
+/*  Dungeon entrance (GM macro)                 */
+/* -------------------------------------------- */
+
+/**
+ * The landing page carries one "Enter <dungeon>" stairway (Stairways module). The GM picks the next
+ * dungeon with the "Enter Dungeon" macro, which:
+ *   1. lists every world scene flagged role "dungeon-scene" (shown as "<CODE>: <Name>"),
+ *   2. replaces the landing entrance stairway (same place and size) with that dungeon's image,
+ *      assets/ui/<CODE>-<slug>.webp, and
+ *   3. pairs it with the dungeon's entrance stairway (flagged role "dungeon-entrance"; created at the
+ *      scene's flags.<module>.entrance {x, y} when the scene has none, e.g. after an Adventure import).
+ * Choosing "None" removes the landing entrance.
+ */
+
+const ENTRANCE_DEFAULT = { x: 999, y: 550, width: 4, height: 2 };
+const MACRO_ROLE = "enter-dungeon";
+
+const slugify = (s) => s.toLowerCase().normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/[\s_]+/g, "-").replace(/-+/g, "-");
+const landingScene = () => game.scenes.find((s) => landingOf(s));
+const dungeonScenes = () =>
+  game.scenes.filter((s) => s.getFlag(MODULE_ID, "role") === "dungeon-scene").sort((a, b) => a.name.localeCompare(b.name));
+const codeOf = (scene) => scene.getFlag(MODULE_ID, "adventure") ?? "";
+const labelOf = (scene) => (codeOf(scene) ? `${codeOf(scene)}: ${scene.name}` : scene.name);
+const imageOf = (scene) =>
+  `modules/${MODULE_ID}/assets/ui/${codeOf(scene)}-${scene.getFlag(MODULE_ID, "slug") ?? slugify(scene.name)}.webp`;
+const rawStairways = (scene) => foundry.utils.deepClone(scene.flags.stairways?.data ?? []);
+const stairwayRecord = (data) => ({
+  scene: null, name: "", label: "", icon: null, textColor: null, fontFamily: null, fontSize: null,
+  width: null, height: null, disabled: false, hidden: false, animate: false, partnerSceneLabel: false, flags: {},
+  ...data,
+});
+
+async function chooseDungeon() {
+  const scenes = dungeonScenes();
+  const landing = landingScene();
+  const current = rawStairways(landing).find((s) => s.flags?.[MODULE_ID]?.role === "landing-entrance")?.scene;
+  const options = [`<option value="">None (remove the entrance)</option>`]
+    .concat(scenes.map((s) => `<option value="${s.id}" ${s.id === current ? "selected" : ""}>${foundry.utils.escapeHTML(labelOf(s))}</option>`))
+    .join("");
+  return foundry.applications.api.DialogV2.prompt({
+    window: { title: "Enter Dungeon" },
+    content: `<div class="form-group"><label>Dungeon</label><div class="form-fields"><select name="dungeon">${options}</select></div></div>`,
+    ok: { label: "Place entrance", callback: (event, button) => button.form.elements.dungeon.value },
+    rejectClose: false,
+  });
+}
+
+/** Place (or remove) the landing page's dungeon entrance. Pass a scene id, or omit it to choose. */
+async function enterDungeon(sceneId) {
+  if (!game.user.isGM) return ui.notifications.warn("Only the GM can set the dungeon entrance.");
+  if (!game.modules.get("stairways")?.active) return ui.notifications.error("Enter Dungeon needs the Stairways module.");
+  const landing = landingScene();
+  if (!landing) return ui.notifications.error("No landing page scene found.");
+
+  if (sceneId === undefined) {
+    if (!dungeonScenes().length) return ui.notifications.warn("No dungeon scenes in this world yet. Import a dungeon Adventure first.");
+    sceneId = await chooseDungeon();
+    if (sceneId === null || sceneId === undefined) return; // closed the dialog
+  }
+
+  // Stairways stores each scene's stairways as raw records in flags.stairways.data and pairs them by
+  // name, reading that list on the target scene. Write the list directly, in one update per scene,
+  // so a name is never listed twice (a duplicate makes Stairways refuse the trip back).
+  const roleOf = (s) => s.flags?.[MODULE_ID]?.role;
+  const old = rawStairways(landing);
+  const prior = old.find((s) => roleOf(s) === "landing-entrance") ?? old[0];
+  const place = prior
+    ? { x: prior.x, y: prior.y, width: prior.width ?? ENTRANCE_DEFAULT.width, height: prior.height ?? ENTRANCE_DEFAULT.height }
+    : { ...ENTRANCE_DEFAULT, ...(landingOf(landing).entrance ?? {}) };
+  const keepLanding = old.filter((s) => s !== prior && roleOf(s) !== "landing-entrance");
+
+  if (!sceneId) {
+    await landing.update({ "flags.stairways.data": keepLanding });
+    return ui.notifications.info("Dungeon entrance removed from the landing page.");
+  }
+  const dungeon = game.scenes.get(sceneId);
+  if (!dungeon) return ui.notifications.error("That dungeon scene no longer exists.");
+  const pair = `btlt-${codeOf(dungeon) || dungeon.id}`;
+
+  // The dungeon side: its flagged entrance stairway, or its only stairway, or a new one at the entrance point.
+  const dOld = rawStairways(dungeon);
+  const found = dOld.find((s) => roleOf(s) === "dungeon-entrance") ?? (dOld.length === 1 ? dOld[0] : null);
+  const at = found ?? dungeon.getFlag(MODULE_ID, "entrance");
+  if (!at) {
+    await landing.update({ "flags.stairways.data": keepLanding });
+    return ui.notifications.error(`${labelOf(dungeon)} has no entrance stairway and no entrance point; the landing stairs were not placed.`);
+  }
+  const inside = stairwayRecord({
+    ...(found ?? {}),
+    _id: found?._id ?? foundry.utils.randomID(16),
+    x: at.x, y: at.y,
+    name: pair, scene: landing.id,
+    flags: foundry.utils.mergeObject(found?.flags ?? {}, { [MODULE_ID]: { role: "dungeon-entrance" } }, { inplace: false }),
+  });
+  const dKeep = dOld.filter((s) => s !== found && s.name !== pair && roleOf(s) !== "dungeon-entrance");
+  await dungeon.update({ "flags.stairways.data": [...dKeep, inside] });
+
+  // The landing side.
+  const img = imageOf(dungeon);
+  const hasImg = await foundry.utils.srcExists(img);
+  if (!hasImg) ui.notifications.warn(`Missing entrance image ${img}; using the default stairs icon.`);
+  const outside = stairwayRecord({
+    _id: foundry.utils.randomID(16),
+    ...place,
+    name: pair, scene: dungeon.id,
+    icon: hasImg ? img : null,
+    flags: { [MODULE_ID]: { role: "landing-entrance" } },
+  });
+  await landing.update({ "flags.stairways.data": [...keepLanding.filter((s) => s.name !== pair), outside] });
+  ui.notifications.info(`Landing stairs now lead to ${labelOf(dungeon)}.`);
+}
+
+// Ensure the GM has the macro on the hotbar. The macro itself is created once, by the active GM.
+async function ensureMacro() {
+  if (!game.user.isGM) return;
+  let macro = game.macros.find((m) => m.getFlag(MODULE_ID, "role") === MACRO_ROLE);
+  if (!macro && isActiveGM()) {
+    macro = await Macro.create({
+      name: "Enter Dungeon",
+      type: "script",
+      img: `modules/${MODULE_ID}/assets/ui/enter-dungeon-icon.webp`,
+      command: `game.modules.get("${MODULE_ID}").api.enterDungeon();`,
+      flags: { [MODULE_ID]: { role: MACRO_ROLE } },
+    });
+    if (!(await foundry.utils.srcExists(macro.img))) await macro.update({ img: "icons/svg/stairs.svg" });
+  }
+  if (!macro) return;
+  if (Object.values(game.user.hotbar ?? {}).includes(macro.id)) return;
+  const free = Array.from({ length: 50 }, (_, i) => i + 1).find((n) => !game.user.hotbar?.[n]);
+  if (free) await game.user.assignHotbarMacro(macro, free);
+}
+
+Hooks.once("init", () => {
+  const mod = game.modules.get(MODULE_ID);
+  mod.api = Object.assign(mod.api ?? {}, { enterDungeon });
+});
+Hooks.once("ready", () => ensureMacro());
