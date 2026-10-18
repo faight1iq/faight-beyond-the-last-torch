@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Foundry LevelDB packs are binary. Never convert line endings (a CRLF CURRENT file breaks the pack).
+packs/** -text
