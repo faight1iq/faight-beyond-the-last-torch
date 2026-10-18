@@ -2,3 +2,6 @@ packs/**/LOCK
 packs/**/LOG
 packs/**/LOG.old
 *.tmp
+
+# original downloads; the module ships the converted .ogg
+assets/sounds/**/*.mp3
