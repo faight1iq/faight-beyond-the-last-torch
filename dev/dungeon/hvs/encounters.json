@@ -1,0 +1,22 @@
+{
+  "sizes": {"dune-scorpion": 2, "scorpion-swarm": 2, "ogre-brute": 2, "ogre-bone-chief": 2, "void-touched-scorpion": 2, "the-void-matriarch": 3},
+  "rooms": {
+    "5":  [["dune-scorpion", 5]],
+    "7":  [["scorpion-swarm", 4]],
+    "10": [["dune-scorpion", 3], ["scorpion-swarm", 2]],
+    "11": [["ogre-brute", 4]],
+    "18": [["ogre-bone-chief", 1], ["ogre-brute", 2]],
+    "12": [["void-touched-scorpion", 2], ["dune-scorpion", 3]],
+    "19": [["void-touched-scorpion", 4]],
+    "21": [["the-void-matriarch", 1], ["void-touched-scorpion", 2]]
+  },
+  "traps": {
+    "6":  {"name": "Void Pulse", "save": "con", "dc": 15, "dice": "10d10", "type": "force", "effect": "", "flavor": "Void Pulse: the armillary sphere spins and a ring of black force bursts outward.", "spot": [0.75, 0.75, 1.5, 1.5]},
+    "9":  {"name": "Venom Pit", "save": "dex", "dc": 15, "dice": "10d10", "type": "poison", "effect": "poisoned", "flavor": "Venom Pit: the floor gives way into a pit lined with venomous stingers.", "spot": [0.75, 0.75, 1.5, 1.5]},
+    "13": {"name": "Collapsing Floor", "save": "dex", "dc": 16, "dice": "10d10", "type": "bludgeoning", "effect": "prone", "flavor": "Collapsing Floor: the cracked slabs drop away under a rush of sand and stone.", "spot": [0.75, 0.75, 1.5, 1.5]},
+    "17": {"name": "Frost Ward", "save": "con", "dc": 16, "dice": "10d10", "type": "cold", "effect": "", "flavor": "Frost Ward: the safe's ward flares and a wave of killing cold rolls across the vault.", "spot": [4.5, 0.5, 1.5, 2]}
+  },
+  "teleport": {"room": 4, "spot": [1, 4, 2, 1], "to": [0.5, 1.5]},
+  "lights": [[4, "#b48cff", 30, 10], [21, "#8a5cff", 40, 0], [17, "#9fd2ff", 25, 0], [2, "#c8d8ff", 20, 0], [22, "#8a5cff", 20, 0]],
+  "entrance": [0.5, -1.5]
+}
