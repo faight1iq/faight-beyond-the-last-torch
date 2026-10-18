@@ -182,7 +182,19 @@ const redraw = foundry.utils.debounce(() => drawCards(), 50);
 /*  Hooks                                       */
 /* -------------------------------------------- */
 
-Hooks.on("canvasReady", () => redraw());
+Hooks.on("canvasReady", () => {
+  redraw();
+  // The animated title flame is a muted looping video; make sure it is running on every client.
+  if (!landingOf(canvas.scene)) return;
+  for (const tile of canvas.tiles.placeables) {
+    if (tile.document.getFlag(MODULE_ID, "role") !== "title-flame") continue;
+    const video = tile.sourceElement ?? tile.mesh?.texture?.baseTexture?.resource?.source;
+    if (video instanceof HTMLVideoElement && video.paused) {
+      video.muted = true;
+      video.play().catch(() => {}); // a browser that blocks it will start it on the first click
+    }
+  }
+});
 Hooks.on("canvasTearDown", () => {
   layer?.destroy({ children: true });
   layer = null;
