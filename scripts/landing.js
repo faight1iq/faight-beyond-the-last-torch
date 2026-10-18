@@ -53,7 +53,22 @@ function slotAt(landing, x, y) {
   return landing.slots.findIndex((s) => x >= s.x && x < s.x + s.w && y >= s.y && y < s.y + s.h);
 }
 
-async function seat(tokenDoc, changes = {}) {
+// Slots handed out but not yet written to a token, so two players arriving together get different cards.
+const reserved = new Set();
+
+const isPlayerCharacter = (tokenDoc) => !!tokenDoc.actor?.hasPlayerOwner;
+
+function firstFreeSlot(scene, landing, except) {
+  const taken = new Set();
+  for (const t of scene.tokens) {
+    if (t === except) continue;
+    const s = slotOf(t);
+    if (hasSlot(s)) taken.add(s);
+  }
+  return landing.slots.findIndex((_, i) => !taken.has(i) && !reserved.has(`${scene.id}.${i}`));
+}
+
+async function seat(tokenDoc, changes = {}, { arriving = false } = {}) {
   const scene = tokenDoc.parent;
   const landing = landingOf(scene);
   if (!landing) return;
@@ -64,8 +79,12 @@ async function seat(tokenDoc, changes = {}) {
   const w = changes.width ?? tokenDoc.width;
   const h = changes.height ?? tokenDoc.height;
   const grid = scene.grid.size;
-  const index = slotAt(landing, x + (w * grid) / 2, y + (h * grid) / 2);
+  let index = slotAt(landing, x + (w * grid) / 2, y + (h * grid) / 2);
   const previous = slotOf(tokenDoc);
+
+  // A player character arriving on the landing page (stairs, teleport, or dropped off the cards)
+  // takes the first empty card. If every card is full it stays where it landed.
+  if (index < 0 && arriving && isPlayerCharacter(tokenDoc)) index = firstFreeSlot(scene, landing, tokenDoc);
 
   if (index < 0) {
     if (hasSlot(previous)) {
@@ -82,10 +101,16 @@ async function seat(tokenDoc, changes = {}) {
   // The token covers the top of the card, edge to edge.
   const s = landing.slots[index];
   const units = s.w / grid;
-  await tokenDoc.update(
-    { width: units, height: units, x: s.x, y: s.y, [`flags.${MODULE_ID}.slot`]: index },
-    { [MODULE_ID]: { seating: true }, animate: false }
-  );
+  const key = `${scene.id}.${index}`;
+  reserved.add(key);
+  try {
+    await tokenDoc.update(
+      { width: units, height: units, x: s.x, y: s.y, [`flags.${MODULE_ID}.slot`]: index },
+      { [MODULE_ID]: { seating: true }, animate: false }
+    );
+  } finally {
+    reserved.delete(key);
+  }
 }
 
 /* -------------------------------------------- */
@@ -215,7 +240,7 @@ Hooks.on("preCreateToken", (tokenDoc) => {
 });
 
 Hooks.on("createToken", (tokenDoc) => {
-  if (isActiveGM()) seat(tokenDoc);
+  if (isActiveGM()) seat(tokenDoc, {}, { arriving: true });
   if (tokenDoc.parent === canvas.scene) redraw();
 });
 Hooks.on("updateToken", (tokenDoc, changes, options) => {
