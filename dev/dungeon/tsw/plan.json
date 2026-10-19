@@ -1,0 +1,25 @@
+{
+  "code": "5LEI-5",
+  "name": "Tomb of the Storm Witch",
+  "slug": "tomb-of-the-storm-witch",
+  "theme": "storm",
+  "seed": 264418907,
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy dungeon-crawler video game (Unreal Engine 5), seen from above, sized correctly for the room, each casting a soft dark contact shadow onto the floor. The flooded tomb of a swamp witch: dark wet slate, green verdigris copper fittings shaped like lightning bolts, black peat mud, shallow murky puddles, reeds, glistening slime trails, burrow holes and scattered bones.",
+  "rooms": {
+    "1":  {"name": "Hall of Pillars", "art": "an entrance hall (the eight round stone pillars are already drawn; leave them exactly as they are): cracked wet slate, puddles of swamp water, glistening slime trails, torn leathery egg sacs, scattered bones."},
+    "2":  {"name": "Hidden Vestry", "art": "a small hidden vestry: a stone shelf with a small iron coffer, a silver key hanging on a wall hook, mouldering robes on pegs, a wooden stool."},
+    "3":  {"name": "Chamber of the Mouth", "art": "a small chamber: against the west wall a huge carved stone face whose wide open mouth frames the west doorway (keep the west doorway clear), faint violet light in its stone eyes, bones scattered in front of it."},
+    "4":  {"name": "Stair Cell", "art": "a narrow cell: a toppled stone bench, a cracked copper bowl, wet muddy footprints, a rusted iron lantern."},
+    "5":  {"name": "Crypt of the Wormridden", "art": "a crypt: stone burial niches along the long walls burst open from inside, round burrow holes in the floor, slime, torn burial wrappings and bones."},
+    "6":  {"name": "Hall of the Coven", "art": "a long hall: a row of toppled stone statues of robed witches, black lightning scorch marks on the floor, a long cracked copper lightning rod lying across the floor, puddles."},
+    "7":  {"name": "Sunken Boathouse", "art": "a low chamber: shallow murky swamp water across much of the floor, a rotting wooden boat hull, reeds growing through cracks, a heap of old oars and rope."},
+    "8":  {"name": "Crevice of the Comb", "art": "a chamber split by a deep jagged crevice running across the floor with faint blue light glowing inside it, broken pottery, a cracked stone table."},
+    "9":  {"name": "Lair of the Corpse Worm", "art": "an enormous burial chamber: the Storm Witch's great stone sarcophagus smashed open in the center, huge round worm burrows bored into the floor, a giant coiled shed worm skin, pools of bright green venom, piles of bones and dead bodies."},
+    "10": {"name": "Trunk Room", "art": "a small storeroom: a broken wooden trunk spilling old clothes and a long grey scarf, cobwebs, a tipped-over oil lamp."},
+    "11": {"name": "Knights' Rest", "art": "a crypt for knights: six stone biers holding the remains of armored knights covered in pondweed, rusted swords and shields, swamp water pooled on the floor, a small iron chest."},
+    "12": {"name": "Witch's Study", "art": "a study: a heavy stone desk with scattered books and scrolls, a smashed crystal orb, shelves of glass jars, a storm-cloud star chart inlaid in the floor."},
+    "13": {"name": "Painted Gallery", "art": "a gallery: wooden boards painted with crude swamp landscapes leaning against the walls, spilled paint pots and brushes along the north wall, a broken easel."},
+    "14": {"name": "Drowned Chapel", "art": "a chapel: rows of broken stone pews, a cracked stone altar with a copper lightning sigil, water seeping across the floor."},
+    "15": {"name": "Hall of Storm Glyphs", "art": "a chamber: a large ring of carved copper storm runes inlaid in the floor in the center, cracked flagstones, black scorch marks."}
+  }
+}

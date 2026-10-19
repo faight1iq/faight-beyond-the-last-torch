@@ -1,0 +1,20 @@
+{
+  "sizes": {"venom-grub": 2, "wormridden-corpse": 1, "tempest-wraith": 1, "drowned-knight": 1, "the-corpse-worm": 4},
+  "rooms": {
+    "1":  [["venom-grub", 5]],
+    "5":  [["wormridden-corpse", 4]],
+    "6":  [["tempest-wraith", 4]],
+    "11": [["drowned-knight", 4]],
+    "12": [["drowned-knight", 2], ["tempest-wraith", 2]],
+    "14": [["wormridden-corpse", 2], ["venom-grub", 3]],
+    "9":  [["the-corpse-worm", 1], ["wormridden-corpse", 2]]
+  },
+  "traps": {
+    "3":  {"name": "Biting Mouth", "save": "dex", "dc": 15, "dice": "10d10", "type": "piercing", "effect": "restrained", "flavor": "Biting Mouth: the stone jaws of the carved face snap shut.", "spot": [0, 0.75, 1, 1.5]},
+    "8":  {"name": "Storm Crevice", "save": "con", "dc": 15, "dice": "10d10", "type": "lightning", "effect": "", "flavor": "Storm Crevice: lightning leaps out of the glowing crevice.", "spot": [2, 1.5, 1, 1]},
+    "10": {"name": "Hexed Trunk", "save": "con", "dc": 16, "dice": "10d10", "type": "poison", "effect": "poisoned", "flavor": "Hexed Trunk: a cloud of green swamp gas bursts from the broken trunk.", "spot": [1, 1, 1, 1]},
+    "15": {"name": "Storm Glyph Ring", "save": "dex", "dc": 16, "dice": "10d10", "type": "thunder", "effect": "prone", "flavor": "Storm Glyph Ring: the copper runes flare and a thunderclap bursts from the floor.", "spot": [1.5, 2, 1, 1]}
+  },
+  "lights": [[9, "#a8e08a", 30, 10], [8, "#9fd2ff", 15, 0], [3, "#b48cff", 15, 0], [15, "#9fd2ff", 15, 0]],
+  "entrance": [-1.5, 0.5]
+}
