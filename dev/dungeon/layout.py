@@ -6,7 +6,8 @@ Handles rectangles, rotundas (round rooms inscribed in their rect), columns, wat
 Watabou door types: 0 open passage, 1 door, 2 archway, 3 entrance double door, 4 secret door,
 5 locked door, 6 portcullis / barred gate, 7 (treated as door), 8 stairs down, 9 stairs up.
 """
-import json, math, collections
+import json, math, collections, os
+MOD = os.environ.get("DUNGEON_MOD", "faight-beyond-the-last-torch")   # module id used for wall flags
 import numpy as np, cv2
 
 S = 280            # px per Watabou square
@@ -168,7 +169,7 @@ class Layout:
             else:
                 cs_ = [P(x, y + 0.5) + P(x + 1, y + 0.5)]
             for c in cs_:
-                walls.append({"c": c, "door": door, "ds": ds, "flags": {"faight-beyond-the-last-torch": {"watabou": t}}})
+                walls.append({"c": c, "door": door, "ds": ds, "flags": {MOD: {"watabou": t}}})
         # columns: a small square of sight-blocking wall per column cell
         for (x, y) in self.columns:
             r = 0.28

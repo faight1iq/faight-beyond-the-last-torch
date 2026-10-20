@@ -2,7 +2,7 @@
 // Run in the Foundry console as GM:
 //   const run = new (Object.getPrototypeOf(async function(){}).constructor)("cfg", await (await fetch('/modules/faight-beyond-the-last-torch/dev/dungeon/ship.js?'+Date.now())).text());
 //   await run({ code: "5LEI-2", name: "Halls of the Void Savant", img: "modules/.../the-void-matriarch.webp", caption: "...", description: "<p>...</p>" });
-const MOD = "faight-beyond-the-last-torch", CODE = cfg.code, NAME = `${cfg.code}: ${cfg.name}`;
+const MOD = cfg.mod || "faight-beyond-the-last-torch", CODE = cfg.code, NAME = `${cfg.code}: ${cfg.name}`;
 const rid = () => foundry.utils.randomID();
 const is5 = d => d.getFlag(MOD, "adventure") === CODE || (CODE === "5LEI" && d.id === "vcq4X4Cb1Ez1Em0Y");
 const W = {

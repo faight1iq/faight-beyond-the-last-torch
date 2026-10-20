@@ -1,12 +1,13 @@
 // Builds a dungeon's journals and scene in the world from dev/dungeon/<key>/ (run in the Foundry console as GM):
 //   const run = new (Object.getPrototypeOf(async function(){}).constructor)("cfg", await (await fetch('/modules/faight-beyond-the-last-torch/dev/dungeon/build_scene.js?'+Date.now())).text());
 //   await run({ key: "hvs", code: "5LEI-2", name: "Halls of the Void Savant", slug: "halls-of-the-void-savant" });
+//   other modules: add mod: "<module id>" (default faight-beyond-the-last-torch)
 // Needs: <key>/scene.json (scenedata.py), optional <key>/water.json (water.py), <key>/rooms.json, <key>/lore.md, map tiles assets/scenes/<slug>/<slug>-q{ix}{iy}.webp,
 // monster actors flagged {adventure: code, slug}, items flagged {adventure: code, room}.
-const MOD = "faight-beyond-the-last-torch";
+const MOD = cfg.mod || "faight-beyond-the-last-torch";   // module id: pass cfg.mod for other modules (e.g. "faight-anchester-by-torchlight")
 const { key, code, name, slug } = cfg;
 const NAME = `${code}: ${name}`;
-const BASE = `modules/${MOD}/dev/dungeon/${key}`;
+const BASE = `modules/${MOD}/dev/dungeon/${key}`;   // inputs live in the module's own dev/dungeon/<key>/
 const get = async (f, json = true) => { const r = await fetch(`/${BASE}/${f}?${Date.now()}`); return json ? r.json() : r.text(); };
 const S = await get("scene.json"), ROOMS = await get("rooms.json"), LORE = await get("lore.md", false);
 const folder = (type) => game.folders.find(f => f.type === type && f.name === NAME);
