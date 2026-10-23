@@ -15,7 +15,8 @@
     }
   ],
   "esmodules": [
-    "scripts/landing.js"
+    "scripts/landing.js",
+    "scripts/cleanup.js"
   ],
   "relationships": {
     "systems": [
