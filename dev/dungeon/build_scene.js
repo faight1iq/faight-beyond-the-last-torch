@@ -84,7 +84,7 @@ const trapTiles = S.traps.map(t => {
     { id: foundry.utils.randomID(), action: "hurtheal", data: { entity: cur, value: `-[[floor((${t.dice})/2)]]`, chatMessage: true, rollmode: "roll", showdice: true } }, deact()
   ];
   return { texture: { src: `modules/${MOD}/assets/tiles/trap-red.webp`, tint: "#ff0000" }, alpha: 0.7, hidden: true, x: t.px[0], y: t.px[1], width: t.px[2], height: t.px[3],
-    flags: { [MOD]: { role: "trap", room: t.room, trap: t.name },
+    flags: { [MOD]: { role: "trap", room: t.room, trap: t.name, spotDC: t.spotDC ?? t.dc },
       "monks-active-tiles": { active: true, trigger: ["enter"], restriction: "player", controlled: "all", pertoken: false, minrequired: 0, chance: 100, actions, name: t.name } } };
 });
 if (S.teleport) {
