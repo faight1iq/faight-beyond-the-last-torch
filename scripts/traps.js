@@ -83,19 +83,24 @@ function snapOutside(p, zone, tokenDoc, g, origin) {
   return options[0] ? { x: options[0].x, y: options[0].y } : { x: origin.x, y: origin.y };
 }
 
-Hooks.on("preMoveToken", (tokenDoc, movement, operation) => {
-  if (operation?.[MODULE_ID]?.trapChecked) return;
+// Foundry 13 hands the hook a read-only movement, so a noticed trap cancels the move (return false)
+// and the token is sent again on a shorter path that ends just outside the warning zone.
+Hooks.on("preMoveToken", (tokenDoc, movement, options) => {
+  if (options?.[MODULE_ID]?.trapChecked) return;
   if (!isPlayerCharacter(tokenDoc)) return;
   const scene = tokenDoc.parent;
   if (!scene) return;
   const traps = liveTraps(scene);
   if (!traps.length) return;
-  const waypoints = movement.pending?.waypoints ?? [];
+  // The whole planned path: the waypoints this update passes through, then any still pending.
+  const waypoints = [...(movement.passed?.waypoints ?? []), ...(movement.pending?.waypoints ?? [])];
   if (!waypoints.length) return;
-  const entry = firstEntry(tokenDoc, movement.origin ?? tokenDoc, waypoints, traps);
+  if (waypoints.every((w) => w.action === "displace")) return; // teleports and GM repositioning don't walk past anything
+  const origin = movement.origin ?? tokenDoc;
+  const entry = firstEntry(tokenDoc, origin, waypoints, traps);
   if (!entry) return;
 
-  // Who could spot it: the mover (at the point it reaches the zone) and party members near the zone.
+  // Who could spot it: the mover and party members near the zone.
   const g = scene.grid.size, ftPerPx = scene.grid.distance / g;
   const party = scene.tokens.filter((t) => t.id !== tokenDoc.id && isPlayerCharacter(t)
     && gap(rectOf(t.x, t.y, t, g), entry.zone.r) * ftPerPx <= NEARBY_FT);
@@ -104,14 +109,14 @@ Hooks.on("preMoveToken", (tokenDoc, movement, operation) => {
   const dc = spotDC(entry.zone.tile);
   if (best.pp < dc) return; // not noticed: the move goes ahead, and the trap fires if they step on it
 
-  // Noticed: cut the move short of the zone.
-  const stopWp = { ...waypoints[entry.segment], x: entry.stop.x, y: entry.stop.y };
-  const kept = [...waypoints.slice(0, entry.segment), stopWp];
   const report = { sceneId: scene.id, tileId: entry.zone.tile.id, spotter: best.doc.name, pp: best.pp, dc, mover: tokenDoc.name };
   if (isActiveGM()) onNoticed(report); else game.socket.emit(SOCKET, { type: "trapNoticed", ...report });
-  const o = movement.origin ?? tokenDoc;
-  if (entry.segment === 0 && entry.stop.x === o.x && entry.stop.y === o.y) return false; // already at the edge
-  waypoints.splice(0, waypoints.length, ...kept);
+
+  const strip = (w) => ({ x: w.x, y: w.y, elevation: w.elevation, action: w.action, snapped: w.snapped, explicit: w.explicit });
+  const kept = [...waypoints.slice(0, entry.segment).map(strip), { ...strip(waypoints[entry.segment]), x: entry.stop.x, y: entry.stop.y }];
+  const atEdge = entry.segment === 0 && entry.stop.x === origin.x && entry.stop.y === origin.y;
+  if (!atEdge) setTimeout(() => tokenDoc.move(kept, { method: movement.method, [MODULE_ID]: { trapChecked: true } }), 0);
+  return false;
 });
 
 async function onNoticed({ sceneId, tileId, spotter, pp, dc, mover }) {
