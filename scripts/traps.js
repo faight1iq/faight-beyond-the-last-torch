@@ -22,6 +22,8 @@ const NEARBY_FT = 15; // party members this close to the warning zone can also s
 
 const isActiveGM = () => game.users.activeGM?.isSelf ?? game.user.isGM;
 const isPlayerCharacter = (tokenDoc) => tokenDoc.actor?.type === "character" || !!tokenDoc.actor?.hasPlayerOwner;
+// Trap name: flags.<mod>.trap (newer builds) or flags.<mod>.name (Icefall Pyramid).
+const trapName = (t) => t.getFlag(MODULE_ID, "trap") ?? t.getFlag(MODULE_ID, "name") ?? t.flags?.["monks-active-tiles"]?.name ?? "";
 const passive = (tokenDoc) => Number(tokenDoc.actor?.system?.skills?.prc?.passive) || 0;
 
 function spotDC(tile) {
@@ -124,7 +126,7 @@ async function onNoticed({ sceneId, tileId, spotter, pp, dc, mover }) {
   if (!tile || tile.getFlag(MODULE_ID, "noticed")) return;
   await tile.update({ hidden: false, [`flags.${MODULE_ID}.noticed`]: true });
   if (!game.paused) game.togglePause(true, { broadcast: true });
-  const name = tile.getFlag(MODULE_ID, "trap") ?? tile.flags?.["monks-active-tiles"]?.name ?? "a trap";
+  const name = trapName(tile) || "a trap";
   const esc = foundry.utils.escapeHTML;
   await ChatMessage.create({ content: `<p><strong>${esc(spotter)}</strong> spots a hidden trap ahead and calls a halt.</p>` });
   await ChatMessage.create({
@@ -138,4 +140,71 @@ Hooks.once("ready", () => {
   game.socket.on(SOCKET, (msg) => {
     if (msg?.type === "trapNoticed" && isActiveGM()) onNoticed(msg);
   });
+});
+
+/* -------------------------------------------- */
+/*  Arm / Disarm controls (GM only)             */
+/* -------------------------------------------- */
+
+/*
+ * Each trap has two hidden tiles just outside its room, visible only to the GM:
+ *   flags[MODULE_ID] = { role: "trap-arm" | "trap-disarm", trap: <trap name>, room: <room number> }
+ * Their Monk's Active Tiles click trigger runs: game.modules.get(MODULE_ID).api.trapControl(tile)
+ *   Arm:    hide the trap tile again, clear "noticed", turn the trap trigger back on.
+ *   Disarm: turn the trap trigger off (the spotting zone goes with it). Visibility is unchanged.
+ * The control for the trap's current state is drawn bright; the other is dimmed.
+ */
+const CONTROL_ROLES = ["trap-arm", "trap-disarm"];
+
+function trapFor(control) {
+  const f = control.flags?.[MODULE_ID] ?? {};
+  return control.parent?.tiles.find((t) => t.getFlag(MODULE_ID, "role") === "trap"
+    && trapName(t) === f.trap && t.getFlag(MODULE_ID, "room") === f.room) ?? null;
+}
+
+async function showState(trap) {
+  const armed = trap.flags?.["monks-active-tiles"]?.active !== false;
+  const name = trapName(trap), room = trap.getFlag(MODULE_ID, "room");
+  const controls = trap.parent.tiles.filter((t) => CONTROL_ROLES.includes(t.getFlag(MODULE_ID, "role"))
+    && t.getFlag(MODULE_ID, "trap") === name && t.getFlag(MODULE_ID, "room") === room);
+  await trap.parent.updateEmbeddedDocuments("Tile", controls.map((c) => {
+    const lit = (c.getFlag(MODULE_ID, "role") === "trap-arm") === armed;
+    return { _id: c.id, alpha: lit ? 1 : 0.35 };
+  }));
+}
+
+async function armTrap(trap) {
+  await trap.update({
+    hidden: true,
+    [`flags.${MODULE_ID}.-=noticed`]: null,
+    "flags.monks-active-tiles.active": true,
+    "flags.monks-active-tiles.-=history": null,
+  });
+  await showState(trap);
+  ui.notifications.info(`${trapName(trap)} is armed (hidden, can be spotted again).`);
+}
+
+async function disarmTrap(trap) {
+  await trap.update({ "flags.monks-active-tiles.active": false });
+  await showState(trap);
+  ui.notifications.info(`${trapName(trap)} is disarmed.`);
+}
+
+async function trapControl(control) {
+  if (!game.user.isGM) return;
+  const doc = control?.document ?? control;
+  const trap = trapFor(doc);
+  if (!trap) return ui.notifications.warn("No trap found for this control.");
+  return doc.getFlag(MODULE_ID, "role") === "trap-arm" ? armTrap(trap) : disarmTrap(trap);
+}
+
+// Keep the controls' brightness in step when a trap fires (its own actions switch it off).
+Hooks.on("updateTile", (tile, changes) => {
+  if (!isActiveGM() || tile.getFlag(MODULE_ID, "role") !== "trap") return;
+  if (foundry.utils.hasProperty(changes, "flags.monks-active-tiles.active")) showState(tile);
+});
+
+Hooks.once("init", () => {
+  const mod = game.modules.get(MODULE_ID);
+  mod.api = Object.assign(mod.api ?? {}, { trapControl, armTrap, disarmTrap });
 });

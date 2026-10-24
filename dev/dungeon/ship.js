@@ -12,10 +12,14 @@ const W = {
 const report = {};
 const keepTok = (t) => !!game.actors.get(t.actorId)?.getFlag(MOD, "adventure"); // monsters only: never ship test/player tokens
 // Scene cleanup for shipping: monster tokens only; no stairways (their IDs are client-made and the
-// Enter Dungeon macro rebuilds them from flags.<module>.entrance); fresh IDs for walls, tiles, lights.
-const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.stairways = []; if (o.flags?.stairways) delete o.flags.stairways; for (const k of ["walls", "tiles", "lights"]) for (const x of o[k]) x._id = rid();
+// Enter Dungeon macro rebuilds them from flags.<module>.entrance); fresh IDs for walls, tiles, lights, drawings.
+const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.stairways = []; if (o.flags?.stairways) delete o.flags.stairways; for (const k of ["walls", "tiles", "lights", "drawings"]) for (const x of o[k] ?? []) x._id = rid();
   // Ship every Monk's Active Tiles tile armed, with no trigger history, whatever state play-testing left it in.
-  for (const t of o.tiles) { const m = t.flags?.["monks-active-tiles"]; if (m?.actions?.length) { m.active = true; delete m.history; } } };
+  for (const t of o.tiles) { const m = t.flags?.["monks-active-tiles"]; if (m?.actions?.length) { m.active = true; delete m.history; } }
+  // Traps ship hidden and unspotted; their Arm control lit, Disarm dimmed.
+  for (const t of o.tiles) { const f = t.flags?.[MOD]; if (!f) continue;
+    if (f.role === "trap") { t.hidden = true; delete f.noticed; }
+    if (f.role === "trap-arm") t.alpha = 1; if (f.role === "trap-disarm") t.alpha = 0.35; } };
 
 function patchText(s, map) {
   return s.replace(/@UUID\[(Actor|Item|JournalEntry)\.([A-Za-z0-9]{16})((?:\.JournalEntryPage\.)([A-Za-z0-9]{16}))?\]/g,
