@@ -19,7 +19,8 @@ const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.s
   // Traps ship hidden and unspotted; their Arm control lit, Disarm dimmed.
   for (const t of o.tiles) { const f = t.flags?.[MOD]; if (!f) continue;
     if (f.role === "trap") { t.hidden = true; delete f.noticed; }
-    if (f.role === "trap-arm") t.alpha = 1; if (f.role === "trap-disarm") t.alpha = 0.35; } };
+    if (f.role === "trap-arm") t.alpha = 1; if (f.role === "trap-disarm") t.alpha = 0.35; }
+  for (const d of o.drawings ?? []) { const f = d.flags?.[MOD]; if (f?.role === "trap-label") { d.text = `${f.trap}\nARMED`; d.textColor = "#5fd35f"; } } };
 
 function patchText(s, map) {
   return s.replace(/@UUID\[(Actor|Item|JournalEntry)\.([A-Za-z0-9]{16})((?:\.JournalEntryPage\.)([A-Za-z0-9]{16}))?\]/g,

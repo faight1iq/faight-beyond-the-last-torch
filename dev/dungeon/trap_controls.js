@@ -79,10 +79,10 @@ for (const scene of scenes) {
     let pos, label;
     if (pick.d.y === 0) {          // left or right wall: icons stacked, label beside them
       pos = [{ x: p.x - S / 2, y: p.y - S - SPACE / 2 }, { x: p.x - S / 2, y: p.y + SPACE / 2 }];
-      label = { x: pick.d.x < 0 ? p.x - S / 2 - 16 - 280 : p.x + S / 2 + 16, y: p.y - 30 };
+      label = { x: pick.d.x < 0 ? p.x - S / 2 - 16 - 280 : p.x + S / 2 + 16, y: p.y - 42 };
     } else {                       // up, down or diagonal: icons side by side, label above or below
       pos = [{ x: p.x - S - SPACE / 2, y: p.y - S / 2 }, { x: p.x + SPACE / 2, y: p.y - S / 2 }];
-      label = { x: p.x - 140, y: pick.d.y < 0 ? p.y - S / 2 - 16 - 60 : p.y + S / 2 + 16 };
+      label = { x: p.x - 140, y: pick.d.y < 0 ? p.y - S / 2 - 16 - 84 : p.y + S / 2 + 16 };
     }
     const armed = trap.flags?.["monks-active-tiles"]?.active !== false;
     const ctl = (role, i, src, tint, verb) => ({
@@ -99,8 +99,8 @@ for (const scene of scenes) {
     });
     tiles.push(ctl("trap-arm", 0, "icons/svg/trap.svg", "#5fd35f", "Arm"), ctl("trap-disarm", 1, "icons/svg/cancel.svg", "#bbbbbb", "Disarm"));
     labels.push({
-      x: Math.round(label.x), y: Math.round(label.y), shape: { type: "r", width: 280, height: 60 },
-      text: `${name}\nArm · Disarm`, fontSize: 30, textColor: "#ffffff", fillType: 0, strokeWidth: 0, hidden: true,
+      x: Math.round(label.x), y: Math.round(label.y), shape: { type: "r", width: 280, height: 84 },
+      text: `${name}\n${armed ? "ARMED" : "DISARMED"}`, fontSize: 32, fontFamily: "Signika", textColor: armed ? "#5fd35f" : "#ff6b6b", fillType: 1, fillColor: "#000000", fillAlpha: 1, strokeWidth: 0, hidden: true,
       flags: { [MOD]: { role: "trap-label", trap: name, room } },
     });
     report.push(`${scene.name}: ${name} (room ${room}) → ${pick.side} wall${pick.door ? " (door)" : ""}, ${Math.round(pick.dist)} px from center`);

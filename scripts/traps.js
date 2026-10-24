@@ -162,15 +162,34 @@ function trapFor(control) {
     && trapName(t) === f.trap && t.getFlag(MODULE_ID, "room") === f.room) ?? null;
 }
 
+const ARMED_COLOR = "#5fd35f", DISARMED_COLOR = "#ff6b6b";
+const labelText = (name, armed) => `${name}\n${armed ? "ARMED" : "DISARMED"}`;
+
+// Brighten the control for the current state, dim the other, and write the state on the label.
 async function showState(trap) {
   const armed = trap.flags?.["monks-active-tiles"]?.active !== false;
   const name = trapName(trap), room = trap.getFlag(MODULE_ID, "room");
-  const controls = trap.parent.tiles.filter((t) => CONTROL_ROLES.includes(t.getFlag(MODULE_ID, "role"))
-    && t.getFlag(MODULE_ID, "trap") === name && t.getFlag(MODULE_ID, "room") === room);
+  const mine = (d) => d.getFlag(MODULE_ID, "trap") === name && d.getFlag(MODULE_ID, "room") === room;
+  const controls = trap.parent.tiles.filter((t) => CONTROL_ROLES.includes(t.getFlag(MODULE_ID, "role")) && mine(t));
   await trap.parent.updateEmbeddedDocuments("Tile", controls.map((c) => {
     const lit = (c.getFlag(MODULE_ID, "role") === "trap-arm") === armed;
     return { _id: c.id, alpha: lit ? 1 : 0.35 };
   }));
+  const labels = trap.parent.drawings.filter((d) => d.getFlag(MODULE_ID, "role") === "trap-label" && mine(d));
+  await trap.parent.updateEmbeddedDocuments("Drawing", labels.map((d) => ({
+    _id: d.id, text: labelText(name, armed), textColor: armed ? ARMED_COLOR : DISARMED_COLOR,
+  })));
+}
+
+// A chat line only the GMs see.
+async function tellGM(trap, armed, detail) {
+  const esc = foundry.utils.escapeHTML;
+  const color = armed ? ARMED_COLOR : DISARMED_COLOR;
+  await ChatMessage.create({
+    content: `<p><strong>${esc(trapName(trap))}</strong>: <strong style="color:${color}">${armed ? "ARMED" : "DISARMED"}</strong>. ${detail}</p>`,
+    whisper: ChatMessage.getWhisperRecipients("GM").map((u) => u.id),
+    speaker: { alias: "Trap control" },
+  });
 }
 
 async function armTrap(trap) {
@@ -181,13 +200,15 @@ async function armTrap(trap) {
     "flags.monks-active-tiles.-=history": null,
   });
   await showState(trap);
-  ui.notifications.info(`${trapName(trap)} is armed (hidden, can be spotted again).`);
+  ui.notifications.info(`${trapName(trap)}: ARMED`);
+  await tellGM(trap, true, "Hidden again; it can be spotted and will go off if stepped on.");
 }
 
 async function disarmTrap(trap) {
   await trap.update({ "flags.monks-active-tiles.active": false });
   await showState(trap);
-  ui.notifications.info(`${trapName(trap)} is disarmed.`);
+  ui.notifications.info(`${trapName(trap)}: DISARMED`);
+  await tellGM(trap, false, "Stepping on it does nothing and it can't be spotted.");
 }
 
 async function trapControl(control) {
