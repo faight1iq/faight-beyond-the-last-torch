@@ -3,7 +3,8 @@
 // Run with the script runner:  cfg = { scenes: ["<scene id>", ...] }   (default: every scene with traps)
 // For each trap tile (flags.<mod>.role === "trap") this finds the nearest wall of its room (a ray
 // from the trap's center in eight directions; plain walls preferred over doors), and puts
-// two hidden tiles just outside that wall, plus a hidden text label with the trap's name:
+// two hidden tiles just outside that wall, a hidden text label with the trap's name and state, and a
+// small light over them (outside the walls, so players never see it):
 //   Arm    (green trap icon)   flags.<mod>.role = "trap-arm"
 //   Disarm (gray cross icon)   flags.<mod>.role = "trap-disarm"
 // Clicking one (Monk's Active Tiles click trigger) runs api.trapControl(tile) from scripts/traps.js.
@@ -30,6 +31,8 @@ for (const scene of scenes) {
   if (old.length) await scene.deleteEmbeddedDocuments("Tile", old);
   const oldLabels = scene.drawings.filter((d) => d.getFlag(MOD, "role") === "trap-label").map((d) => d.id);
   if (oldLabels.length) await scene.deleteEmbeddedDocuments("Drawing", oldLabels);
+  const oldLights = scene.lights.filter((l) => l.getFlag(MOD, "role") === "trap-light").map((l) => l.id);
+  if (oldLights.length) await scene.deleteEmbeddedDocuments("AmbientLight", oldLights);
 
   // Room walls only: drop pillars and other obstacles, i.e. groups of joined wall segments whose
   // whole extent is under two grid squares.
@@ -55,7 +58,7 @@ for (const scene of scenes) {
     return Math.max(...xs) - Math.min(...xs) < 2 * g && Math.max(...ys) - Math.min(...ys) < 2 * g && m.length > 2;
   };
   const walls = blocking.filter((w) => !small(group.get(w.id)));
-  const tiles = [], labels = [];
+  const tiles = [], labels = [], lights = [];
   for (const trap of scene.tiles.filter((t) => t.getFlag(MOD, "role") === "trap")) {
     const name = trap.getFlag(MOD, "trap") ?? trap.getFlag(MOD, "name") ?? trap.flags?.["monks-active-tiles"]?.name ?? "", room = trap.getFlag(MOD, "room");
     const c = { x: trap.x + trap.width / 2, y: trap.y + trap.height / 2 };
@@ -103,9 +106,21 @@ for (const scene of scenes) {
       text: `${name}\n${armed ? "ARMED" : "DISARMED"}`, fontSize: 32, fontFamily: "Signika", textColor: armed ? "#5fd35f" : "#ff6b6b", fillType: 1, fillColor: "#000000", fillAlpha: 1, strokeWidth: 0, hidden: true,
       flags: { [MOD]: { role: "trap-label", trap: name, room } },
     });
+    // A small light over the icons and label so the GM can read them in a dark scene. It sits
+    // outside the room walls, which block both the light and the players' sight of it.
+    const bx = [pos[0].x, pos[1].x + S, label.x, label.x + 280], by = [pos[0].y, pos[1].y + S, label.y, label.y + 84];
+    const lx = (Math.min(...bx) + Math.max(...bx)) / 2, ly = (Math.min(...by) + Math.max(...by)) / 2;
+    const reach = Math.hypot(Math.max(...bx) - Math.min(...bx), Math.max(...by) - Math.min(...by)) / 2 + 20;
+    const ft = (px) => Math.ceil((px / g) * scene.grid.distance);
+    lights.push({
+      x: Math.round(lx), y: Math.round(ly), walls: true, vision: false,
+      config: { bright: ft(reach * 0.7), dim: ft(reach), color: "#fff4d6", alpha: 0.25, luminosity: 0.5 },
+      flags: { [MOD]: { role: "trap-light", trap: name, room } },
+    });
     report.push(`${scene.name}: ${name} (room ${room}) → ${pick.side} wall${pick.door ? " (door)" : ""}, ${Math.round(pick.dist)} px from center`);
   }
   await scene.createEmbeddedDocuments("Tile", tiles);
   await scene.createEmbeddedDocuments("Drawing", labels);
+  await scene.createEmbeddedDocuments("AmbientLight", lights);
 }
 return report;
