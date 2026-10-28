@@ -8,14 +8,19 @@ from layout import Layout, S
 Image.MAX_IMAGE_PIXELS = None
 
 TPL = ("Create an image, square, exactly the same framing as this image. This is a top-down crop of a dungeon battle map, camera pointing straight down. "
-       "The stone blocks around the floor are wall tops and the near-black is solid rock: keep them exactly as they are; do not move, redraw or extend any wall. "
+       "{walls}"
        "{kept}"
        "The magenta areas are floor. Furnish ONLY the {shape} in the center of the image ({size}; one 10-foot square is about {px} pixels). "
+       "Sizes: a person is about {p5} pixels across; a chair about {h5} pixels; a table about {p5} by {p10} pixels; a cart or wagon about {p10} by {p20} pixels; nothing is larger than the sizes given. "
        "Its doorways are: {doors}. Keep a clear lane from every doorway into the room. Contents: {art} "
        "{style} "
        "Leave every other magenta area (corridors and neighboring rooms) completely empty. "
        "IMPORTANT: every bit of floor not covered by an object stays flat, pure, untextured magenta (#FF00FF). Do not paint floor stones, sand, dust or debris onto the magenta. "
        "Muted, desaturated colors; even neutral light from directly above; no colored light pools. Clean CG look, not hand-painted. No text, no grid.")
+
+
+WALLS = ("The stone blocks around the floor are wall tops and the near-black is solid rock: keep them exactly as they are; "
+         "do not move, redraw or extend any wall. ")
 
 
 def run(json_path, plan_path, work):
@@ -32,7 +37,7 @@ def run(json_path, plan_path, work):
         n = rm["n"]; x, y, w, h = rm["rect"]; key = f"{n:02d}"
         N = max(w, h) + 1
         x0 = int(round((x + w / 2 - N / 2 - L.X0) * S)); y0 = int(round((y + h / 2 - N / 2 - L.Y0) * S)); NP = N * S
-        c = np.zeros((NP, NP, 3), np.uint8); c[:] = (16, 17, 20)
+        c = np.zeros((NP, NP, 3), np.uint8); c[:] = plan.get("crop_fill", (16, 17, 20))
         sx0, sy0 = max(0, x0), max(0, y0); sx1, sy1 = min(L.W, x0 + NP), min(L.H, y0 + NP)
         c[sy0 - y0:sy1 - y0, sx0 - x0:sx1 - x0] = im[sy0:sy1, sx0:sx1]
         Image.fromarray(c).save(os.path.join(out, f"room-{key}.png"))
@@ -45,7 +50,8 @@ def run(json_path, plan_path, work):
         size = (f"a circle {w} squares of 10 feet across ({w*10} feet)" if rm["rotunda"]
                 else f"{w} by {h} squares of 10 feet, {w*10} by {h*10} feet")
         doors = "; ".join(L.openings(rm["rect"])) or "none"
-        prompts[key] = TPL.format(kept="".join(kept), shape=shape, size=size, px=round(1254 / N), doors=doors,
+        p5 = round(1254 / N / 2)
+        prompts[key] = TPL.format(walls=plan.get("wall_text", WALLS), p5=p5, h5=round(p5 / 2), p10=2 * p5, p20=4 * p5, kept="".join(kept), shape=shape, size=size, px=round(1254 / N), doors=doors,
                                   art=plan["rooms"][str(n)]["art"], style=plan["prompt_style"])
     json.dump(prompts, open(os.path.join(work, "prompts.json"), "w"), indent=1)
     return len(prompts)

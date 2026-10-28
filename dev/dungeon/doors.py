@@ -1,8 +1,10 @@
 """Door, gate, arch and stair art drawn at the Watabou door cells (step 8.7)."""
+import os
 import numpy as np, cv2
 from layout import S
 
 _rng = np.random.default_rng(11)
+THEME = os.environ.get("DUNGEON_THEME", "")   # "corn" (5LES-1): hay-bale arch jambs, wooden steps
 
 
 def wood(h, w, frost=False):
@@ -66,11 +68,14 @@ def draw_doors(L, img):
             else: paste(img, np.transpose(arr, (1, 0, 2)), cx, cy + S // 2 - th // 2, a.T)
         elif t in (8, 9):
             arr = stone_bands(S, S, 7 if t == 8 else 4, dark_end=(t == 8))
+            if THEME == "corn":    # wooden steps / stile: plank treads
+                arr = np.transpose(wood(S, S), (1, 0, 2)) * np.linspace(1.0, 0.55 if t == 8 else 0.85, S)[:, None, None]
             if horiz: arr = np.transpose(arr, (1, 0, 2))
             if dx < 0 or dy < 0: arr = arr[::-1, ::-1]
             paste(img, arr, cx, cy)
         elif t == 2:
             j = 40; col = np.array([150, 142, 128], np.float32)
+            if THEME == "corn": j = 56; col = np.array([176, 146, 84], np.float32)   # hay bale jambs
             if horiz:
                 img[cy:cy + j, cx:cx + S] = col; img[cy + S - j:cy + S, cx:cx + S] = col
                 img[cy + j:cy + j + 10, cx:cx + S] *= 0.6

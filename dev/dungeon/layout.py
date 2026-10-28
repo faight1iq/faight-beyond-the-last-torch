@@ -140,9 +140,15 @@ class Layout:
         return out
 
     # ---------- Foundry walls ----------
-    def walls(self, eps=0.6):
+    def walls(self, eps=0.6, offset=0):
         """Foundry wall data: the outline of the floor (rectangles and rotundas) plus doors.
-        Computed from the floor mask at 1/20 scale, so rectangle corners land exactly on the grid."""
+        Computed from the floor mask at 1/20 scale, so rectangle corners land exactly on the grid.
+        offset > 0 (px, used from 5LES-1 on): every wall sits that far out into the painted wall band, so
+        players see the face of the wall. The outline is then the exact union of every rect grown by `offset`
+        (square corners) and every rotunda grown radially; secret-door cells are part of the outline and get a
+        secret door on both faces, moved out with the walls; doors span the cell plus `offset` at each end."""
+        if offset:
+            return self._walls_offset(offset)
         k = 20
         m = self.floor_mask(scale=1 / k)
         # include secret-door cells as floor for the outline (the doors close them)
@@ -173,6 +179,48 @@ class Layout:
         # columns: a small square of sight-blocking wall per column cell
         for (x, y) in self.columns:
             r = 0.28
+            q = [P(x + 0.5 - r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 + r), P(x + 0.5 - r, y + 0.5 + r)]
+            for a, b in zip(q, q[1:] + q[:1]): walls.append({"c": a + b})
+        return walls
+
+    def _walls_offset(self, d, col_r=0.16):
+        from shapely.geometry import box, Point
+        from shapely.ops import unary_union
+        P = lambda x, y: [round((x - self.X0) * S), round((y - self.Y0) * S)]
+        shapes = []
+        for r in self.rects:
+            x0, y0 = (r["x"] - self.X0) * S, (r["y"] - self.Y0) * S
+            x1, y1 = x0 + r["w"] * S, y0 + r["h"] * S
+            if r.get("rotunda"):
+                shapes.append(Point((x0 + x1) / 2, (y0 + y1) / 2).buffer(r["w"] * S / 2 + d, quad_segs=8))
+            else:
+                shapes.append(box(x0 - d, y0 - d, x1 + d, y1 + d))
+        u = unary_union(shapes).simplify(0.5)
+        polys = list(u.geoms) if hasattr(u, "geoms") else [u]
+        walls = []
+        for pg in polys:
+            for ring in [pg.exterior, *pg.interiors]:
+                pts = [(round(x), round(y)) for x, y in ring.coords][:-1]
+                for a, b in zip(pts, pts[1:] + pts[:1]):
+                    if a != b: walls.append({"c": [a[0], a[1], b[0], b[1]]})
+        f = d / S
+        for (x, y), D in self.doors.items():
+            t = D["type"]
+            if t in NO_WALL_DOOR: continue
+            dx = D["dir"]["x"]
+            ds = 2 if t == 5 else 0
+            door = 2 if t == 4 else 1
+            if t == 4:      # both faces of the cell, each moved `d` into the cell, spanning the grown passage
+                cs_ = ([P(x + f, y - f) + P(x + f, y + 1 + f), P(x + 1 - f, y - f) + P(x + 1 - f, y + 1 + f)] if dx != 0
+                       else [P(x - f, y + f) + P(x + 1 + f, y + f), P(x - f, y + 1 - f) + P(x + 1 + f, y + 1 - f)])
+            elif dx != 0:
+                cs_ = [P(x + 0.5, y - f) + P(x + 0.5, y + 1 + f)]
+            else:
+                cs_ = [P(x - f, y + 0.5) + P(x + 1 + f, y + 0.5)]
+            for c in cs_:
+                walls.append({"c": c, "door": door, "ds": ds, "flags": {MOD: {"watabou": t}}})
+        for (x, y) in self.columns:     # smaller than the drawn column so its top shows
+            r = col_r
             q = [P(x + 0.5 - r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 + r), P(x + 0.5 - r, y + 0.5 + r)]
             for a, b in zip(q, q[1:] + q[:1]): walls.append({"c": a + b})
         return walls

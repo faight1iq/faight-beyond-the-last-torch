@@ -39,6 +39,7 @@ def spots(L, rm, n, size):
 
 def run(json_path, enc_path, out_path, slug):
     L = Layout(json_path); E = json.load(open(enc_path))
+    WALL_OFFSET = int(E.get("wall_offset", 0))   # px into the painted wall band (35 from 5LES-1 on)
     rooms = {rm["n"]: rm for rm in L.rooms()}
     tiles = [{"img": f"q{ix}{iy}", "x": x, "y": y, "w": w, "h": h} for ix, iy, x, y, w, h in L.tiles()]
     notes = [{"n": n, "x": int((rm["rect"][0] - L.X0 + rm["rect"][2] / 2) * S), "y": int((rm["rect"][1] - L.Y0 + rm["rect"][3] / 2) * S)} for n, rm in rooms.items()]
@@ -71,7 +72,7 @@ def run(json_path, enc_path, out_path, slug):
         lights.append({"x": int((x - L.X0 + w / 2) * S), "y": int((y - L.Y0 + h / 2) * S), "color": color, "dim": dim, "bright": bright, "room": int(n)})
     ent = E.get("entrance")
     entrance = {"x": int((ent[0] - L.X0) * S), "y": int((ent[1] - L.Y0) * S)} if ent else None
-    out = {"slug": slug, "width": L.W, "height": L.H, "tiles": tiles, "walls": L.walls(), "notes": notes,
+    out = {"slug": slug, "width": L.W, "height": L.H, "tiles": tiles, "walls": L.walls(offset=WALL_OFFSET), "notes": notes,
            "tokens": tokens, "traps": traps, "teleport": teleport, "lights": lights, "entrance": entrance,
            "rooms": {n: {"rect": rm["rect"], "rotunda": rm["rotunda"]} for n, rm in rooms.items()}}
     json.dump(out, open(out_path, "w"))

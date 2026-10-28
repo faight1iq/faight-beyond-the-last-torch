@@ -1,7 +1,7 @@
 """Base map: floor and wall tops drawn in code from the Watabou layout (step 8.2).
 
 usage: python3 basemap.py <watabou.json> <floor.png> <wall.png> <out_dir> [theme]
-themes: frost (Icefall), sand (desert / sandstone). Writes base_map.png and base_small.png.
+themes: frost (Icefall), sand (desert / sandstone), storm, jungle, corn (corn maze: walls and field are corn). Writes base_map.png and base_small.png.
 """
 import sys, os
 import numpy as np, cv2
@@ -13,6 +13,8 @@ THEMES = {
     "frost": dict(wall_tint=(0.62, 0.66, 0.74), bevel=(200, 208, 218), dust=(225, 235, 245), dust_amt=0.12, rock=(16, 17, 20)),
     "jungle": dict(wall_tint=(0.66, 0.74, 0.60), bevel=(160, 170, 130), dust=(96, 120, 70), dust_amt=0.18, rock=(12, 15, 11)),
     "storm": dict(wall_tint=(0.70, 0.74, 0.76), bevel=(176, 184, 190), dust=(150, 160, 150), dust_amt=0.14, rock=(14, 15, 17)),
+    # corn (5LES-1): the walls are corn rows and the whole field beyond them is corn, darker with distance from the path
+    "corn":  dict(wall_tint=(0.95, 0.90, 0.80), bevel=(150, 130, 90), dust=(176, 150, 96), dust_amt=0.30, rock=(10, 10, 8), field=0.38, edge_line=0.55),
     "sand":  dict(wall_tint=(0.80, 0.72, 0.62), bevel=(196, 170, 132), dust=(214, 186, 140), dust_amt=0.22, rock=(22, 18, 14)),
 }
 
@@ -43,16 +45,20 @@ def build(json_path, floor_tex, wall_tex, out_dir, theme="frost", seed=5):
         img += rng.normal(0, 3, (h, W, 1)).astype(np.float32)
         f = floor[y0:y1].astype(bool); w = wall[y0:y1].astype(bool)
         df = dfl[y0:y1]; dw = dwl[y0:y1]
-        img[w] = wt[w] * (1.0 - 0.25 * np.clip((dw[w] - 8) / (T - 8), 0, 1))[:, None]
-        bev = w & (dw < 6); img[bev] = img[bev] * 0.6 + np.array(th["bevel"]) * 0.4
-        edge = w & (dw >= 6) & (dw < 9); img[edge] *= 0.55
-        img[outer[y0:y1]] *= 0.4
+        if th.get("field"):      # corn: no stone bevel; band fades into the dark field, no outer line
+            nf = ~f
+            img[nf] = wt[nf] * (1.0 - (1 - th["field"]) * np.clip((dw[nf] - 10) / (1.4 * T), 0, 1))[:, None]
+        else:
+            img[w] = wt[w] * (1.0 - 0.25 * np.clip((dw[w] - 8) / (T - 8), 0, 1))[:, None]
+            bev = w & (dw < 6); img[bev] = img[bev] * 0.6 + np.array(th["bevel"]) * 0.4
+            edge = w & (dw >= 6) & (dw < 9); img[edge] *= 0.55
+            img[outer[y0:y1]] *= 0.4
         img[f] = fl[f]
         sh = 0.70 * np.exp(-df / 34.0); img[f] *= (1 - sh[f])[:, None]
         fn = cv2.GaussianBlur(rng.random((h, W)).astype(np.float32), (0, 0), 3)
         dust = np.clip(np.exp(-df / 9.0) * (fn * 1.6 - 0.3), 0, 1) * th["dust_amt"]
         fr = f & (df > 2); img[fr] = img[fr] * (1 - dust[fr][:, None]) + np.array(th["dust"]) * dust[fr][:, None]
-        line = f & (df < 3); img[line] *= 0.25
+        line = f & (df < 3); img[line] *= th.get("edge_line", 0.25)
         if dwa is not None:   # still dark water: deep teal, lighter at the rim, faint ripples
             wa = water[y0:y1].astype(bool)
             if wa.any():

@@ -1,0 +1,21 @@
+{
+  "wall_offset": 35,
+  "sizes": {"murder-crow-swarm": 1, "scarecrow-stalker": 1, "lantern-gourdling": 1, "husk-strangler": 2, "the-harvest-witch": 1, "the-hollow-king": 2},
+  "rooms": {
+    "2":  [["murder-crow-swarm", 5]],
+    "3":  [["scarecrow-stalker", 4]],
+    "6":  [["lantern-gourdling", 4]],
+    "8":  [["husk-strangler", 3]],
+    "12": [["husk-strangler", 1], ["lantern-gourdling", 2], ["scarecrow-stalker", 1]],
+    "10": [["the-harvest-witch", 1], ["scarecrow-stalker", 2]],
+    "13": [["the-hollow-king", 1], ["lantern-gourdling", 2]]
+  },
+  "traps": {
+    "4":  {"name": "Rotten Gourd Patch", "save": "con", "dc": 15, "dice": "10d10", "type": "poison", "effect": "poisoned", "flavor": "Rotten Gourd Patch: the swollen gourds burst in a cloud of black spores.", "spot": [1, 1, 1, 1]},
+    "7":  {"name": "The Thresher", "save": "dex", "dc": 16, "dice": "10d10", "type": "slashing", "effect": "prone", "flavor": "The Thresher: the old threshing machine lurches to life and its blades sweep the ground.", "spot": [1, 1, 1, 1]},
+    "9":  {"name": "Grave Hands", "save": "str", "dc": 15, "dice": "10d10", "type": "necrotic", "effect": "restrained", "flavor": "Grave Hands: withered hands burst from the soil around the coffin and drag you down.", "spot": [1, 1, 1, 1]},
+    "11": {"name": "Bobbing Barrel", "save": "wis", "dc": 16, "dice": "10d10", "type": "psychic", "effect": "frightened", "flavor": "Bobbing Barrel: a drowned face rises in the black water and screams inside your head.", "spot": [1, 1, 1, 1]}
+  },
+  "lights": [[1, "#ff8a2a", 20, 5], [6, "#ff8a2a", 20, 5], [10, "#8be04a", 20, 5], [13, "#ff6a1a", 30, 10]],
+  "entrance": [-0.5, 0.5]
+}

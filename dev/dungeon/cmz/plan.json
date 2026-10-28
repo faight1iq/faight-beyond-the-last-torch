@@ -1,0 +1,27 @@
+{
+  "code": "5LES-1",
+  "name": "The Hollow King's Maze",
+  "slug": "the-hollow-kings-maze",
+  "theme": "corn",
+  "seed": 751028114,
+  "override": "John, 2026-10-28: Halloween corn maze. Only the Watabou layout is used; its title, story and notes are set aside.",
+  "wall_text": "The dense rows of tall dry cornstalks around the floor are the maze walls, seen from directly above, and the darker corn beyond them is the field: keep them exactly as they are; do not move, redraw, trim or extend any corn. ",
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. A cursed harvest festival in a corn maze at night: carved jack-o'-lanterns, gourds and pumpkins, straw bales, scattered straw, black crows, broken wooden festival props, burlap, rope, candles, cobwebs, dead leaves. Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given.",
+  "rooms": {
+    "1":  {"name": "Festival Gate", "art": "a small clearing just inside the maze entrance: a little wooden ticket booth, a fallen hand-painted festival sign (no lettering), a few small carved jack-o'-lanterns lit with candles, scattered straw and tickets, a dropped child's lantern."},
+    "2":  {"name": "Crow Field", "art": "a large clearing: three dead festival-goers in cloaks lying in the straw, a toppled food cart spilling apples and corn cobs, a broken scarecrow pole, many black crow feathers, several small dead crows, trampled straw."},
+    "3":  {"name": "Scarecrow Row", "art": "a large clearing: eight scarecrows on wooden poles in two loose rows (each scarecrow small, about one person across), burlap faces, straw hats, a pile of spare straw, a wheelbarrow, scattered tools."},
+    "4":  {"name": "Rotten Gourd Patch", "art": "a small clearing: a patch of swollen, rotting grey-green gourds and pumpkins on tangled vines across the middle, black mould, a cracked watering can."},
+    "5":  {"name": "Hay Bale Fort", "art": "a small clearing: a children's fort of small square straw bales stacked in a ring with one gap, a wooden prize chest inside it, a toy wooden sword, a straw doll, a burlap sack."},
+    "6":  {"name": "Lantern Clearing", "art": "a clearing: a dozen small carved jack-o'-lanterns set on the ground and on short posts in a ring, a wooden carving table with knives and pumpkin pulp, seeds spilled across the floor."},
+    "7":  {"name": "The Thresher", "art": "a small clearing: an old rusted wooden threshing machine with a crank and a row of curved blades along one side, piles of cut cornstalks, a bloodstained sack."},
+    "8":  {"name": "Burned Wagon", "art": "a small clearing: the burned black frame of a hay wagon, a charred body in a breastplate beside it, a small sack of rations, ash and burnt straw, broken wheels."},
+    "9":  {"name": "Farmer's Grave", "art": "a small clearing: a plain wooden coffin half sunk in a freshly dug grave in the middle, a rapier lying across the coffin lid, a shovel, a mound of dark earth, a small wooden grave marker."},
+    "10": {"name": "Witch's Cauldron", "art": "a clearing: a large black iron cauldron over a small fire in the middle with green liquid, a ring of small stones around it, bundles of dried herbs and corn husk dolls hanging from short stakes, a wooden stool, bones, a straw broom."},
+    "11": {"name": "Bobbing Barrel", "art": "a small clearing: a large wooden barrel of black water with red apples floating in it in the middle, a few apples on the ground, a small wooden bench, a festival bunting rope lying in the straw."},
+    "12": {"name": "Hollow Placard", "art": "a small clearing: a wooden placard on a post with a crude painted face (no lettering), torn festival bunting, a small pile of pumpkins, a broken lantern, straw."},
+    "13": {"name": "The Hollow King's Clearing", "art": "a clearing at the heart of the maze: a rough throne of straw bales and twisted cornstalks against the east side, a heap of small carved pumpkins around it, a small pile of gold coins and festival prizes, hoofprints scorched into the ground, scattered bones."},
+    "14": {"name": "Scarecrow Shrine", "art": "a clearing: a small wooden shrine with a crude carved scarecrow idol, candles and offerings of apples and corn on a low table, an iron key hanging from a hook on the shrine, a ring of small stones, dried flowers."},
+    "15": {"name": "Root Cellar Hatch", "art": "a clearing: a wooden cellar hatch set flat into the ground with a rusted iron ring, a small dug-up hole with an old iron strongbox, a broken spade, sacks of potatoes, scattered straw."}
+  }
+}
