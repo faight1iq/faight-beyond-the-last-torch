@@ -15,7 +15,8 @@ const ICONS = {
   "Pack Hunter": "icons/creatures/abilities/fangs-teeth-bite.webp", "Bite": "icons/creatures/abilities/fangs-teeth-bite.webp",
   "Drag Down": "icons/creatures/abilities/fangs-teeth-bite.webp", "Lope": "icons/skills/movement/figure-running-gray.webp",
   "Lurching Slam": "icons/skills/melee/unarmed-punch-fist.webp", "Crushing Embrace": "icons/skills/melee/unarmed-punch-fist.webp",
-  "Comes Apart": "icons/magic/death/hand-withered-gray.webp", "Unfeeling Flesh": "icons/magic/defensive/armor-stone-skin.webp",
+  "Comes Apart": "icons/magic/death/hand-withered-gray.webp", "Split Seams": "icons/magic/death/hand-withered-gray.webp",
+  "Slab Sweep": "icons/skills/melee/unarmed-punch-fist.webp", "Response: Fling Aside": "icons/skills/melee/unarmed-punch-fist.webp", "Unfeeling Flesh": "icons/magic/defensive/armor-stone-skin.webp",
   "Arc Bolt": "icons/magic/lightning/bolt-strike-blue.webp", "Relay Lightning": "icons/magic/lightning/bolt-strike-blue.webp",
   "Galvanic Link": "icons/magic/control/energy-stream-link-white.webp", "Shamble Back": "icons/magic/movement/trail-streak-impact-blue.webp",
   "Psychic Lash": "icons/magic/perception/eye-ringed-green.webp", "Telekinetic Throw": "icons/magic/perception/eye-tendrils-web-purple.webp",
@@ -91,16 +92,22 @@ M.push(npc({ name: "Stitched Hound", slug: "stitched-hound", size: "med", type: 
     attack("Drag Down (Recharge 5–6)", "<em>Melee Attack Roll:</em> +11, reach 5 ft. <em>Hit:</em> 24 (4d8 + 6) Piercing damage, the target has the Prone condition, and the hound drags it up to 10 feet.", { hit: 11, dice: "4d8", bonus: 6, dtype: "piercing", rech: 5 }),
     feat("Lope", "<em>Bonus Action.</em> The hound takes the Dash action.", "bonus")
   ] }));
-// ---- Patchwork Horror (brute; PL 9, Dur 4.5, Hit 40, Dmg 33): HP 180, AC 18, hit +7, std 28, alpha 56 ----
-M.push(npc({ name: "Patchwork Horror", slug: "patchwork-horror", size: "lg", type: "construct", cr: 9, ac: 18, hp: 180, speed: 30,
-  abil: { str: 22, dex: 8, con: 20, int: 3, wis: 8, cha: 3 }, dr: ["lightning"], di: ["poison"], dv: ["fire"], ci: ["charmed", "exhaustion", "frightened", "poisoned"], senses: { darkvision: 60 },
-  bio: P("A failed experiment: a hulking body sewn together from many corpses, held with iron staples. When it is destroyed, its stitches split and its parts keep crawling.") + P("<em>BTLT Monster Design row 49: Power Level 9, Durability 4.5, Hit Pct 40, Dmg Pct 33. Role: brute.</em>"),
+// ---- Patchwork Horror (brute, Epic Boss; PL 9, Dur 13.5, Hit 55, Dmg 33): HP 540, AC 18, hit +10, std 28, alpha 56 ----
+M.push(npc({ name: "Patchwork Horror", slug: "patchwork-horror", size: "huge", type: "construct", cr: 9, ac: 18, hp: 540, speed: 30,
+  abil: { str: 24, dex: 8, con: 22, int: 3, wis: 8, cha: 3 }, dr: ["lightning"], di: ["poison"], dv: ["fire"], ci: ["charmed", "exhaustion", "frightened", "poisoned"], senses: { darkvision: 60 },
+  bio: P("Varnholt's one finished giant: a hulking body sewn together from many of Grausbach's dead, held with iron staples and lying under a sheet the size of a sail in the Morgue. When its seams split, its parts keep grabbing.") + P("<em>BTLT Monster Design row 49: Power Level 9, Durability 13.5, Hit Pct 55, Dmg Pct 33, Epic Boss. Role: brute. Fights alone.</em>"),
   items: [
-    feat("Disposition: Brute", "The horror lurches at whoever is closest and crushes whatever it gets hold of. It never retreats."),
-    feat("Comes Apart", "When the horror drops to 0 Hit Points, it splits apart and its crawling parts grab at everything nearby. Each creature within 5 feet makes a DC 14 Dexterity saving throw. <em>Failure:</em> 14 (2d6 + 7) Bludgeoning damage, and the target has the Grappled condition (escape DC 14) from a crawling hand until it escapes."),
-    attack("Lurching Slam", "<em>Melee Attack Roll:</em> +7, reach 10 ft. <em>Hit:</em> 28 (3d10 + 12) Bludgeoning damage.", { hit: 7, dice: "3d10", bonus: 12, dtype: "bludgeoning", reach: 10 }),
-    attack("Crushing Embrace (Recharge 5–6)", "<em>Melee Attack Roll:</em> +7, reach 5 ft. <em>Hit:</em> 56 (6d10 + 23) Bludgeoning damage, and the target has the Grappled condition (escape DC 14).", { hit: 7, dice: "6d10", bonus: 23, dtype: "bludgeoning", rech: 5 }),
-    feat("Unfeeling Flesh", "<em>Reaction.</em> When the horror takes damage, it reduces that damage by 14.", "reaction")
+    feat("Init 10 (Epic Boss)", "The Horror never rolls initiative. On initiative count 10 it rolls for recharges, then moves up to its Speed and takes one action."),
+    feat("Epic Boss Resistance", "If the Horror fails a saving throw, it can choose to succeed instead. It has Advantage on saving throws against effects that would remove it from the fight."),
+    feat("Response", "After each player character's turn, the Horror takes one Response (one only, not one per enemy). Each Response other than Movement deals 14 (2d6 + 7) damage, half a standard hit, to its target."),
+    feat("Response: Movement", "The Horror moves up to half its Speed.", "special"),
+    feat("Disposition: Brute", "The Horror lurches at whoever is closest and crushes whatever it gets hold of. It never retreats and never leaves the Morgue."),
+    feat("Split Seams", "While the Horror is Bloodied, its stitches split and severed hands and arms grab at everything around it. A creature that starts its turn within 10 feet of the Horror makes a DC 15 Strength saving throw. <em>Failure:</em> 14 (2d6 + 7) Bludgeoning damage, and its Speed is 0 until the end of its turn."),
+    feat("Comes Apart", "When the Horror drops to 0 Hit Points, it bursts apart. Each creature within 10 feet makes a DC 15 Dexterity saving throw. <em>Failure:</em> 14 (2d6 + 7) Bludgeoning damage, and the target has the Grappled condition (escape DC 15) from a crawling hand until it escapes."),
+    attack("Lurching Slam", "<em>Melee Attack Roll:</em> +10, reach 15 ft. <em>Hit:</em> 28 (3d10 + 12) Bludgeoning damage.", { hit: 10, dice: "3d10", bonus: 12, dtype: "bludgeoning", reach: 15 }),
+    attack("Crushing Embrace (Recharge 5–6)", "<em>Melee Attack Roll:</em> +10, reach 10 ft. <em>Hit:</em> 56 (6d10 + 23) Bludgeoning damage, and the target has the Grappled condition (escape DC 15). While Grappled this way, the target has the Restrained condition.", { hit: 10, dice: "6d10", bonus: 23, dtype: "bludgeoning", reach: 10, rech: 5 }),
+    save("Slab Sweep (Recharge 6)", "The Horror tears a stone slab from the floor and sweeps it in a 15-foot Cone. Each creature in the Cone makes a DC 15 Dexterity saving throw. <em>Failure:</em> 56 (6d10 + 23) Bludgeoning damage, and the target is pushed 10 feet away from the Horror. <em>Success:</em> Half damage only.", { ability: "dex", dc: 15, dice: "6d10", bonus: 23, dtype: "bludgeoning", rech: 6, tmpl: { type: "cone", size: "15", units: "ft" } }),
+    save("Response: Fling Aside", "One creature within 15 feet makes a DC 15 Strength saving throw. <em>Failure:</em> 14 (2d6 + 7) Bludgeoning damage, and the target is thrown up to 15 feet away from the Horror.", { ability: "str", dc: 15, dice: "2d6", bonus: 7, dtype: "bludgeoning", onSave: "none", activation: "special" })
   ] }));
 // ---- Galvanic Servant (artillery; PL 10, Dur 4, Hit 55, Dmg 25): HP 180, AC 18, hit +11, std 23, alpha 46 ----
 M.push(npc({ name: "Galvanic Servant", slug: "galvanic-servant", size: "med", type: "undead", cr: 10, ac: 18, hp: 180, speed: 30,
