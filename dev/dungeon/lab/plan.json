@@ -1,0 +1,26 @@
+{
+  "code": "5LET-1",
+  "name": "The Laboratory of Dr. Varnholt",
+  "slug": "the-laboratory-of-dr-varnholt",
+  "theme": "castle",
+  "seed": 287734190,
+  "override": "John, 2026-10-29: Halloween mad-doctor laboratory. Only the Watabou layout is used; its title and story are set aside. Its notes are kept as set dressing (round stone gate with a keyhole in room 3, burned painting in room 8, hovering burning object in room 9, dead knight with a bird-shaped key in room 11, the story-telling door into room 14, the chest with rations, gold and scale mail in room 15).",
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. A gothic mad scientist's castle laboratory on a stormy night: brass and copper apparatus, glass jars and tubes, coiled wires, iron operating tables, leather straps, candles, old books, stained cloths, bones. Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given.",
+  "rooms": {
+    "1":  {"name": "Entrance Hall", "art": "an entrance hall: a worn red carpet runner, a toppled coat stand, a cracked mirror, muddy bootprints, a dropped lantern, a small side table with a candelabra."},
+    "2":  {"name": "Porter's Lodge", "art": "a small porter's room: a narrow desk with a ledger, a stool, copper plates set into the floor, coils of wire along the walls, a key rack."},
+    "3":  {"name": "Vestibule of the Sealed Gate", "art": "a small stone vestibule: a round stone gate with a bird-shaped keyhole set in the south wall, two small stone benches, a dusty rug."},
+    "4":  {"name": "Dining Hall", "art": "a long dining hall: a long table with a rotting feast, overturned chairs, broken plates, gnawed bones, a cracked chandelier lying on the floor."},
+    "5":  {"name": "Specimen Gallery", "art": "a gallery: rows of glass specimen jars on low stands with pale things floating in green fluid, brass labels, a few smashed jars and puddles."},
+    "6":  {"name": "Library", "art": "a library: bookshelves along the walls, a reading desk with anatomy books and diagrams, piles of books, an armchair, scattered papers."},
+    "7":  {"name": "Kennels", "art": "kennels: iron cages with open doors, straw, chains with empty collars, gnawed bones, water bowls, torn leather muzzles."},
+    "8":  {"name": "Burned Gallery", "art": "a portrait gallery: a large burned and scorched portrait frame on an easel, charred floorboards, ash, a few smaller portraits face-down on the floor."},
+    "9":  {"name": "Generator Hall", "art": "a generator hall: a large crackling glass sphere of blue lightning floating in the middle above a ring of copper coils, thick cables running across the floor, levers and gauges, brass batteries."},
+    "10": {"name": "Morgue", "art": "a morgue: stone slabs holding sheet-covered bodies, a drain in the floor, a cart of saws and hooks, buckets, toe tags."},
+    "11": {"name": "Plundered Crypt", "art": "a small crypt: two opened stone coffins, the body of an armored knight slumped on the floor, a dug-up grave marker, embalming bottles and a copper pump."},
+    "12": {"name": "Tower Laboratory", "art": "a tower laboratory: an iron operating table raised in the middle with leather straps, a tall copper lightning coil beside it, tangled cables, brass machines, chalk diagrams on the floor, a small pile of gold."},
+    "13": {"name": "Operating Theatre", "art": "an operating theatre: an iron operating table, a surgical lamp on a stand, trays of surgical tools, a brain in a glass jar on a wheeled stand, bloody cloths, jars of organs."},
+    "14": {"name": "Lady Varnholt's Chamber", "art": "a lady's bedchamber kept as a shrine: a four-poster bed, a dressing table with a mirror, a wedding portrait, dried flowers, candles, a jewelry box."},
+    "15": {"name": "Holding Cells", "art": "holding cells: iron cell doors along the walls, a heavy iron cage hanging from a chain in the middle, a wooden chest, manacles, a straw pallet, a bucket."}
+  }
+}

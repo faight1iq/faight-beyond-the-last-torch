@@ -1,7 +1,7 @@
 """Base map: floor and wall tops drawn in code from the Watabou layout (step 8.2).
 
 usage: python3 basemap.py <watabou.json> <floor.png> <wall.png> <out_dir> [theme]
-themes: frost (Icefall), sand (desert / sandstone), storm, jungle, corn (corn maze: walls and field are corn). Writes base_map.png and base_small.png.
+themes: frost (Icefall), sand (desert / sandstone), storm, jungle, corn (corn maze: walls and field are corn), castle (5LET-1: grey castle stone). Writes base_map.png and base_small.png.
 """
 import sys, os
 import numpy as np, cv2
@@ -15,6 +15,7 @@ THEMES = {
     "storm": dict(wall_tint=(0.70, 0.74, 0.76), bevel=(176, 184, 190), dust=(150, 160, 150), dust_amt=0.14, rock=(14, 15, 17)),
     # corn (5LES-1): the walls are corn rows and the whole field beyond them is corn, darker with distance from the path
     "corn":  dict(wall_tint=(0.95, 0.90, 0.80), bevel=(150, 130, 90), dust=(176, 150, 96), dust_amt=0.30, rock=(10, 10, 8), field=0.38, edge_line=0.55),
+    "castle": dict(wall_tint=(0.72, 0.72, 0.74), bevel=(150, 150, 156), dust=(120, 116, 110), dust_amt=0.14, rock=(12, 12, 14)),
     "sand":  dict(wall_tint=(0.80, 0.72, 0.62), bevel=(196, 170, 132), dust=(214, 186, 140), dust_amt=0.22, rock=(22, 18, 14)),
 }
 

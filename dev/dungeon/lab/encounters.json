@@ -1,0 +1,21 @@
+{
+  "wall_offset": 35,
+  "sizes": {"stitched-hound": 1, "patchwork-horror": 2, "galvanic-servant": 1, "brain-in-a-jar": 1, "dr-emeric-varnholt": 1, "the-bride": 2},
+  "rooms": {
+    "4":  [["stitched-hound", 5]],
+    "10": [["patchwork-horror", 4]],
+    "5":  [["galvanic-servant", 4]],
+    "13": [["brain-in-a-jar", 1], ["patchwork-horror", 2], ["galvanic-servant", 1]],
+    "6":  [["brain-in-a-jar", 2], ["stitched-hound", 2]],
+    "9":  [["dr-emeric-varnholt", 1], ["galvanic-servant", 2]],
+    "12": [["the-bride", 1], ["galvanic-servant", 2]]
+  },
+  "traps": {
+    "2":  {"name": "Galvanic Floor", "save": "con", "dc": 16, "dice": "10d10", "type": "lightning", "effect": "prone", "flavor": "Galvanic Floor: copper plates in the floor crackle and lightning throws you down.", "spot": [0.5, 1, 1, 1]},
+    "8":  {"name": "Burning Portrait", "save": "dex", "dc": 15, "dice": "10d10", "type": "fire", "effect": "", "flavor": "Burning Portrait: the scorched painting bursts into a sheet of flame.", "spot": [2, 0.5, 1, 1]},
+    "11": {"name": "Embalming Gas", "save": "con", "dc": 15, "dice": "10d10", "type": "poison", "effect": "poisoned", "flavor": "Embalming Gas: a hiss, and a choking cloud of embalming fluid fills the air.", "spot": [1.5, 2, 1, 1]},
+    "15": {"name": "Restraint Cage", "save": "str", "dc": 16, "dice": "10d10", "type": "bludgeoning", "effect": "restrained", "flavor": "Restraint Cage: an iron cage slams down and its clamps bite shut.", "spot": [1.5, 2, 1, 1]}
+  },
+  "lights": [[9, "#7fb8ff", 30, 10], [12, "#a8d4ff", 30, 10], [13, "#e8f0ff", 20, 5], [5, "#6fd0ff", 15, 0]],
+  "entrance": [0.5, 1.5]
+}
