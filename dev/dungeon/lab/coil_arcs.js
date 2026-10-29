@@ -38,7 +38,7 @@ const lt=sc.lights.find(l=>l.getFlag(MOD,"room")===12); if (lt) await lt.update(
 await tile.update({ "texture.tint": on ? "#7fdfff" : "#555555", "flags.${MOD}.on": on });
 ChatMessage.create({ whisper: ChatMessage.getWhisperRecipients("GM"), content: "<p><strong>Tower coil " + (on ? "ON" : "OFF") + ".</strong> " + (on ? "The arcs crackle again." : "The arcs die and the room goes dark.") + "</p>" });`;
 await scene.createEmbeddedDocuments("Tile", [
-  { texture: { src: `modules/${MOD}/assets/tiles/trap-red.webp`, tint: "#7fdfff" }, alpha: 0.5, hidden: true, x: 690, y: 294, width: 580, height: 716, sort: 5,
+  { texture: { src: `modules/${MOD}/assets/tiles/trap-red.webp`, tint: "#7fdfff" }, alpha: 0.5, hidden: true, x: 690, y: 294, width: 580, height: 800, sort: 5,
     flags: { [MOD]: { role: "hazard-arcs", room: 12 }, "monks-active-tiles": { active: true, trigger: ["enter", "turn"], restriction: "all", controlled: "all", pertoken: true, minrequired: 0, chance: 100, actions, name: "Coil Arcs" } } },
   { texture: { src: "icons/svg/lightning.svg", tint: "#7fdfff" }, alpha: 1, hidden: true, x: 1540, y: 560, width: 112, height: 112, sort: 20,
     flags: { [MOD]: { role: "hazard-switch", room: 12, on: true }, "monks-active-tiles": { active: true, trigger: ["click"], restriction: "gm", controlled: "all", pertoken: false, minrequired: 0, chance: 100, name: "Tower Coil On/Off",
