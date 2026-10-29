@@ -31,7 +31,8 @@ def shrink_objects(col, obj_a, sh_a, rect, f, min_area=150, tol=40):
         x, y, w, h, a = stats[i]
         if a < min_area: continue
         sel = (lab[y:y + h, x:x + w] == i).astype(np.float32)
-        nw, nh = max(1, int(round(w * f))), max(1, int(round(h * f)))
+        ff = 1.0 if (w >= 0.8 * (rx1 - rx0) and h >= 0.8 * (ry1 - ry0)) else f   # pieces spanning the whole room (cell walls) are architecture: keep full size
+        nw, nh = max(1, int(round(w * ff))), max(1, int(round(h * ff)))
         rs = lambda arr: cv2.resize(arr, (nw, nh), interpolation=cv2.INTER_AREA)
         pc = rs(col[y:y + h, x:x + w]); po = rs(obj_a[y:y + h, x:x + w] * sel); ps = rs(sh_a[y:y + h, x:x + w] * sel)
         nx = x if x - rx0 < tol else (x + w - nw if rx1 - (x + w) < tol else int(round(x + w / 2 - nw / 2)))
@@ -105,11 +106,15 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
     neutral = np.stack([g * 0.97, g, np.minimum(g * 1.06, 255)], -1)
     col[semi] = neutral[semi]
     shrink = os.environ.get("SHRINK", "")          # "auto": f = 3 / crop size in squares, 0.45-0.9; or a number
+    if key in os.environ.get("SHRINK_SKIP", "").split(","): shrink = ""   # rooms already at true scale (supplement returns)
     if shrink:
         f = float(shrink) if shrink != "auto" else min(0.9, max(0.45, 3.0 / (N / S)))
         rmf = rm.astype(np.float32)
         col, obj_a, shadow_a = shrink_objects(col, obj_a * rmf, shadow_a * rmf, (ax, ay, ax + rw * S, ay + rh * S), f)
 
+    if os.environ.get("SAVE_LAYERS") and dbg:   # per-room keyed layer, for building supplement crops
+        np.savez_compressed(os.path.join(os.path.dirname(dbg), f"layer-{key}.npz"), col=col.astype(np.uint8),
+                            obj=(obj_a * rm).astype(np.float16), sh=(shadow_a * rm).astype(np.float16), rm=rm)
     by0, bx0 = max(0, y0), max(0, x0); by1, bx1 = min(L.H, y0 + N), min(L.W, x0 + N)
     sl = (slice(by0 - y0, by1 - y0), slice(bx0 - x0, bx1 - x0))
     sub = base[by0:by1, bx0:bx1].astype(np.float32)
