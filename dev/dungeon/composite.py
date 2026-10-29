@@ -18,6 +18,32 @@ def magmask(a):
     return (a[..., 0] > 150) & (a[..., 2] > 150) & (a[..., 1] < 120)
 
 
+def shrink_objects(col, obj_a, sh_a, rect, f, min_area=150, tol=40):
+    """Cut each furnished object (with its shadow) out of the room and shrink it by f in place (5LET-1, John's method).
+    Objects within `tol` px of a room edge stay against that edge; others shrink about their own centre."""
+    m = (np.maximum(obj_a, sh_a) > 0.08).astype(np.uint8)
+    m = cv2.dilate(m, np.ones((5, 5), np.uint8))
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(m, 8)
+    col2 = np.zeros_like(col); o2 = np.zeros_like(obj_a); s2 = np.zeros_like(sh_a)
+    rx0, ry0, rx1, ry1 = rect
+    H, W = obj_a.shape
+    for i in range(1, n):
+        x, y, w, h, a = stats[i]
+        if a < min_area: continue
+        sel = (lab[y:y + h, x:x + w] == i).astype(np.float32)
+        nw, nh = max(1, int(round(w * f))), max(1, int(round(h * f)))
+        rs = lambda arr: cv2.resize(arr, (nw, nh), interpolation=cv2.INTER_AREA)
+        pc = rs(col[y:y + h, x:x + w]); po = rs(obj_a[y:y + h, x:x + w] * sel); ps = rs(sh_a[y:y + h, x:x + w] * sel)
+        nx = x if x - rx0 < tol else (x + w - nw if rx1 - (x + w) < tol else int(round(x + w / 2 - nw / 2)))
+        ny = y if y - ry0 < tol else (y + h - nh if ry1 - (y + h) < tol else int(round(y + h / 2 - nh / 2)))
+        nx, ny = min(max(nx, 0), W - nw), min(max(ny, 0), H - nh)
+        reg = (slice(ny, ny + nh), slice(nx, nx + nw))
+        take = po > o2[reg]
+        col2[reg][take] = pc[take]
+        o2[reg] = np.maximum(o2[reg], po); s2[reg] = np.maximum(s2[reg], ps)
+    return col2, o2, s2
+
+
 def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
     x0, y0, N = meta["x0"], meta["y0"], meta["N"]
     ret = np.array(Image.fromarray(ret).resize((N, N), Image.LANCZOS))
@@ -78,6 +104,11 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
     g = np.clip(G / np.maximum(obj_a, 0.2), 0, 255)
     neutral = np.stack([g * 0.97, g, np.minimum(g * 1.06, 255)], -1)
     col[semi] = neutral[semi]
+    shrink = os.environ.get("SHRINK", "")          # "auto": f = 3 / crop size in squares, 0.45-0.9; or a number
+    if shrink:
+        f = float(shrink) if shrink != "auto" else min(0.9, max(0.45, 3.0 / (N / S)))
+        rmf = rm.astype(np.float32)
+        col, obj_a, shadow_a = shrink_objects(col, obj_a * rmf, shadow_a * rmf, (ax, ay, ax + rw * S, ay + rh * S), f)
 
     by0, bx0 = max(0, y0), max(0, x0); by1, bx1 = min(L.H, y0 + N), min(L.W, x0 + N)
     sl = (slice(by0 - y0, by1 - y0), slice(bx0 - x0, bx1 - x0))
