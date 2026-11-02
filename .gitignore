@@ -22,3 +22,6 @@ assets/ui/card-border-v3.webp
 assets/ui/card-border.webp
 assets/ui/card-panel.webp
 assets/ui/landing-bg-placeholder.webp
+
+# Playtest characters (Claude-run solo sessions); not part of the module
+assets/tokens/players/

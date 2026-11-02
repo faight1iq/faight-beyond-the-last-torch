@@ -1,0 +1,117 @@
+{
+ "wall_offset": 35,
+ "sizes": {
+  "orc-raider": 1,
+  "rot-scribe": 1,
+  "rubble-warden": 2,
+  "orc-war-chief": 1,
+  "the-leper-oracle": 1
+ },
+ "rooms": {
+  "2": [
+   [
+    "orc-raider",
+    2
+   ]
+  ],
+  "3": [
+   [
+    "rot-scribe",
+    3
+   ]
+  ],
+  "7": [
+   [
+    "rubble-warden",
+    1
+   ]
+  ],
+  "9": [
+   [
+    "orc-war-chief",
+    1
+   ],
+   [
+    "orc-raider",
+    1
+   ]
+  ],
+  "12": [
+   [
+    "the-leper-oracle",
+    1
+   ]
+  ]
+ },
+ "traps": {
+  "4": {
+   "name": "Rot Needle",
+   "save": "con",
+   "dc": 15,
+   "dice": "6d10",
+   "type": "poison",
+   "effect": "poisoned",
+   "flavor": "Rot Needle: a needle in the strongbox lock jabs grey rot into your hand.",
+   "spot": [
+    1.5,
+    2,
+    1,
+    1
+   ]
+  },
+  "5": {
+   "name": "Crystal Ward",
+   "save": "con",
+   "dc": 15,
+   "dice": "6d10",
+   "type": "force",
+   "effect": "restrained",
+   "flavor": "Crystal Ward: violet crystal surges up from the floor around your legs.",
+   "spot": [
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "11": {
+   "name": "Rot Mist",
+   "save": "con",
+   "dc": 16,
+   "dice": "6d10",
+   "type": "necrotic",
+   "effect": "",
+   "flavor": "Rot Mist: the veiled statues exhale a grey mist that eats at living flesh.",
+   "spot": [
+    1,
+    2.5,
+    1,
+    1
+   ]
+  }
+ },
+ "lights": [
+  [
+   3,
+   "#ffcf8a",
+   20,
+   5
+  ],
+  [
+   9,
+   "#ff9a4a",
+   25,
+   10
+  ],
+  [
+   12,
+   "#ffb070",
+   30,
+   10
+  ]
+ ],
+ "entrance": [
+  0.5,
+  0.5
+ ]
+}

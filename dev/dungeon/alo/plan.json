@@ -1,0 +1,60 @@
+{
+ "code": "5LEV-1",
+ "name": "Archive of the Leper Oracle",
+ "slug": "archive-of-the-leper-oracle",
+ "theme": "jungle",
+ "seed": 1031208,
+ "solo": "John, 2026-10-31: built for one level 10 character, run by Claude as GM. Encounters 3 player-rounds of Durability, traps 6d10, Dmg Pct 15-25. World only, not shipped.",
+ "override": "Door between rooms 8 and 11 changed from type 7 to 5 (sealed, opens from room 11's side). The two-keyhole door (8 to 10) is a shortcut that bypasses the orc camp in room 9.",
+ "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. An ancient overgrown archive deep in a dark forest: cracked stone, roots and moss creeping in, old bookshelves, scroll racks, rotting books and parchment, grey fungus and pale mould, candles, orc camp litter (bedrolls, crude weapons, bones, campfire ash). Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given.",
+ "rooms": {
+  "1": {
+   "name": "Entry Rotunda",
+   "art": "a small round entry chamber: roots pushing through cracks, dead leaves blown in, a toppled stone bench, a broken lantern, moss along the walls."
+  },
+  "2": {
+   "name": "Mosaic Hall",
+   "art": "a hall with a large faded floor mosaic of a golden crown in the middle (left visible, nothing on it), orc gear along the walls: two bedrolls, a crude weapon rack, a cookpot, gnawed bones, a torn banner, scattered torn books."
+  },
+  "3": {
+   "name": "Reading Hall",
+   "art": "a reading hall: long reading desks with rotting open books, overturned stools, scroll racks along the walls, grey mould creeping over the pages, candle stubs, ink pots."
+  },
+  "4": {
+   "name": "Steward's Room",
+   "art": "a steward's office: a small iron strongbox on the floor, a desk with ledgers, a wine rack with a few dusty bottles, a chair, scattered coins of parchment, a moth-eaten rug."
+  },
+  "5": {
+   "name": "Crystal Rotunda",
+   "art": "a round chamber: the body of a robed wizard turned to pale violet crystal kneeling in the middle, clusters of violet crystal growing from the floor around him, a dropped staff, a small golden key on the floor beside him."
+  },
+  "6": {
+   "name": "Scroll Rotunda",
+   "art": "a round scroll room: scroll niches along the curved wall, a woven basket holding one scroll, fallen scroll cases, dust, a reading lectern."
+  },
+  "7": {
+   "name": "Rubble Rotunda",
+   "art": "a round chamber half filled by a large pile of fallen stone rubble against one side, broken carved masonry, a cracked stone statue torso lying on its side, dust and pebbles."
+  },
+  "8": {
+   "name": "Hall of the Two Keys",
+   "art": "a narrow hall of carved stone: two stone guardian statues against the walls, worn crown carvings on the floor, a few fallen books, candle niches, cobwebs."
+  },
+  "9": {
+   "name": "Pedestal Hall",
+   "art": "an orc camp in a long hall: a small stone pedestal holding a glass flask, a campfire ring of stones with ash, bedrolls and furs, a crude throne of stacked books, weapons, a broken door barricade of shelves, bones."
+  },
+  "10": {
+   "name": "Inner Archive",
+   "art": "an inner archive: tall bookshelves along the walls full of old books, a heavy reading table with a brass astrolabe and maps, a small chest, rolled scrolls, dust."
+  },
+  "11": {
+   "name": "Oracle's Gallery",
+   "art": "a gallery: grey-veiled stone statues of robed seers along both walls, pale fungus and grey mould on the floor and walls, fallen prayer cloths, bowls of old ash."
+  },
+  "12": {
+   "name": "Seat of the Oracle",
+   "art": "a round sanctum with a ring of stone columns: a stone seat on a low dais in the middle, piles of prophecy scrolls, grey rags, offering bowls, pale glowing fungus, candles around the dais."
+  }
+ }
+}
