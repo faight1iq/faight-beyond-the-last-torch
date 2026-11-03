@@ -11,9 +11,15 @@ const W = {
 };
 const report = {};
 const keepTok = (t) => !!game.actors.get(t.actorId)?.getFlag(MOD, "adventure"); // monsters only: never ship test/player tokens
-// Scene cleanup for shipping: monster tokens only; no stairways (their IDs are client-made and the
-// Enter Dungeon macro rebuilds them from flags.<module>.entrance); fresh IDs for walls, tiles, lights.
-const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.stairways = []; if (o.flags?.stairways) delete o.flags.stairways; for (const k of ["walls", "tiles", "lights"]) for (const x of o[k]) x._id = rid();
+// Scene cleanup for shipping: monster tokens only; no cross-scene stairways (their IDs are client-made and
+// the Enter Dungeon macro rebuilds them from flags.<module>.entrance), but same-scene teleports (scene: null)
+// are kept with fresh IDs (pairs match by name); fresh IDs for walls, tiles, lights.
+const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.stairways = [];
+  const sw = o.flags?.stairways?.data;
+  if (sw) { const keep = sw.filter(s => !s.scene).map(s => ({ ...s, _id: rid() }));
+    if (keep.length) o.flags.stairways.data = keep; else delete o.flags.stairways; }
+  else if (o.flags?.stairways) delete o.flags.stairways;
+  for (const k of ["walls", "tiles", "lights"]) for (const x of o[k]) x._id = rid();
   // Ship every Monk's Active Tiles tile armed, with no trigger history, whatever state play-testing left it in.
   for (const t of o.tiles) { const m = t.flags?.["monks-active-tiles"]; if (m?.actions?.length) { m.active = true; delete m.history; } } };
 
