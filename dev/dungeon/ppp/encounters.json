@@ -1,0 +1,25 @@
+{
+  "wall_offset": 35,
+  "sizes": {"tinwhisker-swarm": 1, "marionette-dancer": 1, "porcelain-doll": 1, "ventriloquists-dummy": 1, "the-prima-marionette": 1, "mistress-tangle": 3},
+  "rooms": {
+    "2":  [["tinwhisker-swarm", 5]],
+    "4":  [["marionette-dancer", 4]],
+    "6":  [["porcelain-doll", 4]],
+    "8":  [["ventriloquists-dummy", 3]],
+    "14": [["ventriloquists-dummy", 1], ["porcelain-doll", 2], ["tinwhisker-swarm", 1]],
+    "10": [["the-prima-marionette", 1], ["marionette-dancer", 2]],
+    "12": [["mistress-tangle", 1], ["marionette-dancer", 2]]
+  },
+  "traps": {
+    "4":  {"name": "Falling Counterweight", "kind": "hall", "save": "dex", "dc": 15, "dice": "10d10", "type": "bludgeoning", "effect": "restrained",
+           "flavor": "Falling Counterweight: a rope snaps overhead and a sandbag counterweight drops on you.", "spot": [1, 6, 1, 1]},
+    "5":  {"name": "Needle in the Strongbox", "kind": "container", "object": "the iron-bound strongbox against the south wall", "save": "con", "dc": 16, "dice": "10d10", "type": "poison", "effect": "poisoned",
+           "flavor": "Needle in the Strongbox: a needle springs from the lock and pricks your hand.", "spot": [1, 3, 1, 0.5]},
+    "9":  {"name": "Jack-in-the-Box Shelf", "kind": "wall", "save": "dex", "dc": 16, "dice": "10d10", "type": "piercing", "effect": "prone",
+           "flavor": "Jack-in-the-Box Shelf: the jester boxes along the wall spring open and knife-armed clowns lunge at you.", "spot": [0, 2.5, 3, 0.5]},
+    "15": {"name": "Rot Mold", "kind": "section", "save": "con", "dc": 15, "dice": "10d10", "type": "necrotic", "effect": "blinded",
+           "flavor": "Rot Mold: the moldy mosaic bursts into a cloud of black spores.", "spot": [0, 0, 2, 4]}
+  },
+  "lights": [[1, "#ffcf8a", 20, 5], [10, "#ffcf8a", 25, 5], [13, "#b48cff", 15, 0], [12, "#e8e0ff", 25, 5]],
+  "entrance": [0.5, 1.5]
+}

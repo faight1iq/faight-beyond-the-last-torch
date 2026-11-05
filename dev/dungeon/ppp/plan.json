@@ -1,0 +1,72 @@
+{
+  "code": "5LGX-1",
+  "name": "The Puppeteer's Playhouse",
+  "slug": "the-puppeteers-playhouse",
+  "theme": "theatre",
+  "seed": 1105731,
+  "override": "John, 2026-11-05: theme Dolls & Puppets; only the Watabou layout is used. Its title (Mausoleum of Fate) and cultist story are set aside. Its notes are kept as set dressing: the rear entrance (room 3), the strongbox with a scarf (room 5), the noble who desperately needs help (room 10), the large gate to the north (room 11), the lifelike dwarf statue with a bleeding tarot deck (room 13), the mosaic destroyed by mold (room 15).",
+  "wall_text": "The dark red wooden panelled bands with thin gilt trim around the floor are wall tops and the near-black is solid ground outside the building: keep them exactly as they are; do not move, redraw or extend any wall. ",
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. A shuttered old puppet theatre and toymaker's house at night: dusty red velvet, tarnished gilt, painted wood, rope and pulleys, porcelain dolls, wooden marionettes with tangled strings, clockwork toys, costume trunks, candles, sawdust. Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given.",
+  "rooms": {
+    "1": {
+      "name": "Grand Foyer",
+      "art": "a theatre foyer: a ticket booth against the east wall, a worn red carpet, torn playbills on the floor, velvet rope posts, a toppled umbrella stand, a small round table with a lamp."
+    },
+    "2": {
+      "name": "Auditorium",
+      "art": "a small theatre auditorium: rows of red velvet seats facing north, many seated porcelain dolls as an audience, scattered programmes, a few gnawed seat cushions, tiny clockwork mice on the floor."
+    },
+    "3": {
+      "name": "Stage Door",
+      "art": "a small back-stage entrance: a doorman's stool and a small desk with a sign-in book, a coat rack, a dropped lantern, a stagehand's apron on a hook, crates."
+    },
+    "4": {
+      "name": "Rehearsal Hall",
+      "art": "a rehearsal hall: a wooden floor marked with chalk dance positions, a wall-length mirror on the west wall, a barre along the east wall, a piano stool, music stands, limp marionettes hanging from hooks on the walls."
+    },
+    "5": {
+      "name": "Costume Wardrobe",
+      "art": "a costume store: racks of costumes along the east and west walls, dressmaker's dummies, hat boxes, a sewing table with spools of thread, and a small iron-bound strongbox against the middle of the south wall."
+    },
+    "6": {
+      "name": "Doll Parlour",
+      "art": "a parlour full of dolls: shelves of porcelain dolls along the walls, a child-sized tea table with tiny cups, a rocking chair, a dollhouse, lace doilies, a few cracked doll heads on the floor."
+    },
+    "7": {
+      "name": "Green Room",
+      "art": "an actors' green room: a worn sofa, a small table with a music box and tea things, a dressing screen, a mirror with candles, a costume trunk."
+    },
+    "8": {
+      "name": "Ventriloquist's Parlour",
+      "art": "a ventriloquist's dressing room: three small chairs on a low platform, a dressing table with a mirror ringed with candles, a body slumped in an armchair, trunks of wooden dummy heads and spare limbs, a hat stand."
+    },
+    "9": {
+      "name": "Prop Store",
+      "art": "a prop store: shelves of stage props along the walls, wooden swords, painted shields, a stuffed crocodile, a cardboard moon, coils of rope, a row of jack-in-the-box toys on the south wall shelf."
+    },
+    "10": {
+      "name": "Toymaker's Workshop",
+      "art": "a toymaker's workshop: long workbenches along the walls covered in carving tools, half-carved marionette limbs, jars of paint and glue, a lathe, a tall chair in the middle with a man bound to it by puppet strings, wood shavings."
+    },
+    "11": {
+      "name": "Stage Wings",
+      "art": "the wings beside a stage: coiled ropes, sandbag counterweights, a lighting board with brass levers, folded painted flats leaning on the walls, a prompt desk with a script."
+    },
+    "12": {
+      "name": "The Fly Loft",
+      "art": "a theatre fly loft seen from above: a wooden pin rail along the west wall with four thick ropes tied to belaying pins, a web of glittering threads across the floor, hanging marionettes, catwalk planks, a pile of gold coins and a large spool of shining thread on a small table."
+    },
+    "13": {
+      "name": "Fortune-Teller's Booth",
+      "art": "a small fortune-teller's booth: a life-size painted wooden dwarf automaton seated at a small table holding a tarot deck, a crystal ball, a velvet curtain, a coin slot, scattered tarot cards."
+    },
+    "14": {
+      "name": "Scenery Dock",
+      "art": "a scenery store: painted backdrop flats stacked along the walls, a wooden castle set piece, a painted cardboard tree, rolls of canvas, buckets of paint, a stage manager's desk with a ring of keys, crates."
+    },
+    "15": {
+      "name": "Understage Cellar",
+      "art": "a cellar under the stage: a cracked floor mosaic of comedy and tragedy masks covered in green and black mold on the west half, trapdoor machinery, wooden support posts, broken crates, a buried iron strongbox half dug out in the east corner."
+    }
+  }
+}

@@ -18,7 +18,7 @@ def magmask(a):
     return (a[..., 0] > 150) & (a[..., 2] > 150) & (a[..., 1] < 120)
 
 
-def shrink_objects(col, obj_a, sh_a, rect, f, min_area=150, tol=40):
+def shrink_objects(col, obj_a, sh_a, rect, f, min_area=150, tol=70):
     """Cut each furnished object (with its shadow) out of the room and shrink it by f in place (5LET-1, John's method).
     Objects within `tol` px of a room edge stay against that edge; others shrink about their own centre."""
     m = (np.maximum(obj_a, sh_a) > 0.08).astype(np.uint8)
@@ -43,6 +43,35 @@ def shrink_objects(col, obj_a, sh_a, rect, f, min_area=150, tol=40):
         col2[reg][take] = pc[take]
         o2[reg] = np.maximum(o2[reg], po); s2[reg] = np.maximum(s2[reg], ps)
     return col2, o2, s2
+
+
+def clear_lanes(L, meta, x0, y0, col, obj_a, sh_a, thr=0.15):
+    """Remove whole objects (with shadows) that stand in a doorway lane: the 5-ft band just inside each doorway, the doorway's width.
+    After-action 5LEV-1: no object may sit in a door lane. Returns the arrays and the number of objects removed."""
+    rx, ry, rw, rh = meta["rect"]; cells = set(L.cells().keys()) if isinstance(L.cells(), dict) else set(L.cells())
+    px = lambda cx, cy: (int((cx - L.X0) * S - x0), int((cy - L.Y0) * S - y0))
+    lanes = []
+    for i in range(rw):
+        if (rx + i, ry - 1) in cells: c, r = px(rx + i, ry); lanes.append((c, r, c + S, r + S // 2))
+        if (rx + i, ry + rh) in cells: c, r = px(rx + i, ry + rh); lanes.append((c, r - S // 2, c + S, r))
+    for j in range(rh):
+        if (rx - 1, ry + j) in cells: c, r = px(rx, ry + j); lanes.append((c, r, c + S // 2, r + S))
+        if (rx + rw, ry + j) in cells: c, r = px(rx + rw, ry + j); lanes.append((c - S // 2, r, c, r + S))
+    m = (obj_a > 0.5).astype(np.uint8)          # objects only: shadows link everything into one piece
+    m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
+    n, lab, _, _ = cv2.connectedComponentsWithStats(m, 4)
+    kill = set()
+    for (a, b, c, d) in lanes:
+        a, b = max(0, a), max(0, b)
+        sub = lab[b:d, a:c]; ob = sub > 0
+        if not sub.size: continue
+        for k in np.unique(sub[ob]):
+            if k and (sub[ob] == k).sum() > thr * sub.size: kill.add(int(k))
+    if kill:
+        km = cv2.dilate(np.isin(lab, list(kill)).astype(np.uint8), np.ones((31, 31), np.uint8)).astype(bool)
+        km &= ~(cv2.dilate(((m > 0) & ~np.isin(lab, list(kill))).astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool))   # keep neighbours intact
+        obj_a = np.where(km, 0, obj_a); sh_a = np.where(km, 0, sh_a)
+    return col, obj_a, sh_a, len(kill)
 
 
 def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
@@ -86,6 +115,12 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
     else:
         rm[max(0, ay):ay + rh * S, max(0, ax):ax + rw * S] = 1
     rm = rm.astype(bool) & magmask(crop)
+    # columns are drawn by basemap.py: drop whatever ChatGPT painted around them (redrawn pillars, dark squares)
+    colzone = np.zeros(rm.shape, np.uint8)
+    for (cx_, cy_) in L.columns:
+        px_, py_ = L.px(cx_ + 0.5, cy_ + 0.5)
+        cv2.circle(colzone, (int(px_ - x0), int(py_ - y0)), int(S * 0.6), 1, -1)
+    rm0 = rm.copy(); rm = rm & ~colzone.astype(bool)
     rm = cv2.erode(rm.astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool) | (rm & False)
 
     R, G, B = al[..., 0], al[..., 1], al[..., 2]
@@ -105,6 +140,15 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
     g = np.clip(G / np.maximum(obj_a, 0.2), 0, 255)
     neutral = np.stack([g * 0.97, g, np.minimum(g * 1.06, 255)], -1)
     col[semi] = neutral[semi]
+    if colzone.any():   # whole objects touching a column zone go too, so no half-cut pillar copies are left
+        om = cv2.morphologyEx(((obj_a > 0.5) & (rm0 | colzone.astype(bool))).astype(np.uint8), cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))   # room only: the wall band joins everything
+        n_, lab_, _, cent_ = cv2.connectedComponentsWithStats(om, 4)
+        hit = np.unique(lab_[cv2.dilate(colzone, np.ones((9, 9), np.uint8)).astype(bool)])
+        cols_ = [(L.px(a + 0.5, b + 0.5)[0] - x0, L.px(a + 0.5, b + 0.5)[1] - y0) for a, b in L.columns]
+        hit = np.array([h for h in hit if h > 0 and min(np.hypot(cent_[h][0] - cx, cent_[h][1] - cy) for cx, cy in cols_) < S * 0.76], int)
+        if len(hit):
+            km = cv2.dilate(np.isin(lab_, hit).astype(np.uint8), np.ones((31, 31), np.uint8)).astype(bool)
+            obj_a = np.where(km, 0, obj_a); shadow_a = np.where(km, 0, shadow_a)
     shrink = os.environ.get("SHRINK", "")          # "auto": f = 3 / crop size in squares, 0.45-0.9; or a number
     if key in os.environ.get("SHRINK_SKIP", "").split(","): shrink = ""   # rooms already at true scale (supplement returns)
     if shrink:
@@ -112,6 +156,9 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
         rmf = rm.astype(np.float32)
         col, obj_a, shadow_a = shrink_objects(col, obj_a * rmf, shadow_a * rmf, (ax, ay, ax + rw * S, ay + rh * S), f)
 
+    cleared = 0
+    if os.environ.get("CLEAR_LANES"):
+        col, obj_a, shadow_a, cleared = clear_lanes(L, meta, x0, y0, col, obj_a * rm, shadow_a * rm)
     if os.environ.get("SAVE_LAYERS") and dbg:   # per-room keyed layer, for building supplement crops
         np.savez_compressed(os.path.join(os.path.dirname(dbg), f"layer-{key}.npz"), col=col.astype(np.uint8),
                             obj=(obj_a * rm).astype(np.float16), sh=(shadow_a * rm).astype(np.float16), rm=rm)
@@ -126,7 +173,7 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
     objfrac = float((obj_a * rm).sum() / max(1, rm.sum()))
     if dbg:
         Image.fromarray(base[by0:by1, bx0:bx1]).resize(((bx1 - bx0) // 3, (by1 - by0) // 3), Image.LANCZOS).save(dbg)
-    return dict(key=key, fit=how, ecc=None if cc is None else round(float(cc), 3), objfrac=round(objfrac, 3),
+    return dict(key=key, fit=how, ecc=None if cc is None else round(float(cc), 3), objfrac=round(objfrac, 3), cleared=cleared,
                 scale=[round(float(warp[0, 0]), 3), round(float(warp[1, 1]), 3)], shift=[round(float(warp[0, 2])), round(float(warp[1, 2]))])
 
 

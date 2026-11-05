@@ -2,6 +2,8 @@
 //   const run = new (Object.getPrototypeOf(async function(){}).constructor)("cfg", await (await fetch('/modules/faight-beyond-the-last-torch/dev/dungeon/build_scene.js?'+Date.now())).text());
 //   await run({ key: "hvs", code: "5LEI-2", name: "Halls of the Void Savant", slug: "halls-of-the-void-savant" });
 //   other modules: add mod: "<module id>" (default faight-beyond-the-last-torch)
+// Grid: 70 px = 2.5 ft from 5LGX-1 on (the map art stays 140 px = 5 ft; a Medium token fills one 70 px square).
+//   Pass cfg.gridPx: 140, cfg.gridFt: 5 for the old 5-ft grid.
 // Needs: <key>/scene.json (scenedata.py), optional <key>/water.json (water.py), <key>/rooms.json, <key>/lore.md, map tiles assets/scenes/<slug>/<slug>-q{ix}{iy}.webp,
 // monster actors flagged {adventure: code, slug}, items flagged {adventure: code, room}.
 const MOD = cfg.mod || "faight-beyond-the-last-torch";   // module id: pass cfg.mod for other modules (e.g. "faight-anchester-by-torchlight")
@@ -19,8 +21,12 @@ for (const j of game.journal.filter(j => j.getFlag(MOD, "adventure") === code)) 
 const md = (s) => s.replace(/^### (.*)$/gm, "<h3>$1</h3>").replace(/^## (.*)$/gm, "<h2>$1</h2>").replace(/^# (.*)$/gm, "<h1>$1</h1>")
   .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>")
   .split(/\n{2,}/).map(b => /^<h\d/.test(b) ? b : /^- /m.test(b) ? "<ul>" + b.split("\n").map(l => `<li>${l.replace(/^- /, "")}</li>`).join("") + "</ul>" : `<p>${b.replace(/\n/g, " ")}</p>`).join("");
+// "## Read-aloud" in lore.md (John, 2026-11-05): the players' introduction, shown first as a read-aloud block
+const RA = LORE.match(/^## Read-aloud\n([\s\S]*?)(?=\n## |$)/m);
+const readAloud = RA ? `<blockquote class="read-aloud"><p><em>${RA[1].trim().replace(/\n+/g, " ")}</em></p></blockquote>` : "";
+const LORE_BODY = RA ? LORE.replace(RA[0], "") : LORE;
 const overview = await JournalEntry.create({ name: `${name} — Overview`, folder: folder("JournalEntry").id,
-  flags: { [MOD]: { adventure: code, role: "overview" } }, pages: [{ name: "Overview", type: "text", text: { content: md(LORE) } }] });
+  flags: { [MOD]: { adventure: code, role: "overview" } }, pages: [{ name: "Overview", type: "text", text: { content: md(LORE_BODY).replace(/(<\/h1>)/, "$1" + readAloud) } }] });
 const actors = Object.fromEntries(game.actors.filter(a => a.getFlag(MOD, "adventure") === code).map(a => [a.name, a]));
 const items = game.items.filter(i => i.getFlag(MOD, "adventure") === code);
 const link = (html, room) => {
@@ -44,7 +50,7 @@ for (const s of game.scenes.filter(s => s.getFlag(MOD, "adventure") === code)) a
 const art = `modules/${MOD}/assets/scenes/${slug}`;
 const scene = await Scene.create({
   name, folder: folder("Scene").id, width: S.width, height: S.height, padding: 0, backgroundColor: "#000000",
-  grid: { type: 0, size: 140, distance: 5, units: "ft" }, tokenVision: true, fog: { exploration: true },
+  grid: { type: 0, size: cfg.gridPx ?? 70, distance: cfg.gridFt ?? 2.5, units: "ft" }, tokenVision: true, fog: { exploration: true },
   environment: { darknessLevel: 1, globalLight: { enabled: false } },
   flags: { [MOD]: { adventure: code, role: "dungeon-scene", slug, entrance: S.entrance } }
 });
@@ -55,7 +61,8 @@ const WATER = await fetch(`/${BASE}/water.json?${Date.now()}`).then(r => r.ok ? 
 if (WATER.length) await scene.createEmbeddedDocuments("Tile", WATER.map(t => ({ texture: { src: `${art}/${t.img}` }, x: t.x, y: t.y, width: t.w, height: t.h,
   locked: true, elevation: 0, sort: 1, video: { autoplay: true, loop: true, volume: 0 }, flags: { [MOD]: { role: "water" } } })));
 report.water = WATER.length;
-await scene.createEmbeddedDocuments("Wall", S.walls.map(w => ({ c: w.c, door: w.door ?? 0, ds: w.ds ?? 0, flags: w.flags ?? {} })));
+await scene.createEmbeddedDocuments("Wall", S.walls.map(w => ({ c: w.c, door: w.door ?? 0, ds: w.ds ?? 0, flags: w.flags ?? {},
+  ...(w.sight != null ? { sight: w.sight, light: w.light ?? w.sight, sound: w.sound ?? w.sight } : {}) })));   // columns are terrain walls (Limited)
 await scene.createEmbeddedDocuments("Note", S.notes.map(n => ({ x: n.x, y: n.y, entryId: journals[n.n].id, pageId: journals[n.n].pages.contents[0].id,
   text: String(n.n), iconSize: 40, fontSize: 32, texture: { src: "icons/svg/book.svg" }, global: false })));
 await scene.createEmbeddedDocuments("AmbientLight", S.lights.map(l => ({ x: l.x, y: l.y, config: { dim: l.dim, bright: l.bright, color: l.color, alpha: 0.35, animation: { type: "torch", speed: 2, intensity: 2 } },
@@ -84,7 +91,7 @@ const trapTiles = S.traps.map(t => {
     { id: foundry.utils.randomID(), action: "hurtheal", data: { entity: cur, value: `-[[floor((${t.dice})/2)]]`, chatMessage: true, rollmode: "roll", showdice: true } }, deact()
   ];
   return { texture: { src: `modules/${MOD}/assets/tiles/trap-red.webp`, tint: "#ff0000" }, alpha: 0.7, hidden: true, x: t.px[0], y: t.px[1], width: t.px[2], height: t.px[3],
-    flags: { [MOD]: { role: "trap", room: t.room, trap: t.name, spotDC: t.spotDC ?? t.dc },
+    flags: { [MOD]: { role: "trap", room: t.room, trap: t.name, kind: t.kind ?? "floor", spotDC: t.spotDC ?? t.dc },
       "monks-active-tiles": { active: true, trigger: ["enter"], restriction: "player", controlled: "all", pertoken: false, minrequired: 0, chance: 100, actions, name: t.name } } };
 });
 if (S.teleport) {

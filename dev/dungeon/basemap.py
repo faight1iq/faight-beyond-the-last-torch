@@ -1,7 +1,7 @@
 """Base map: floor and wall tops drawn in code from the Watabou layout (step 8.2).
 
 usage: python3 basemap.py <watabou.json> <floor.png> <wall.png> <out_dir> [theme]
-themes: frost (Icefall), sand (desert / sandstone), storm, jungle, corn (corn maze: walls and field are corn), castle (5LET-1: grey castle stone). Writes base_map.png and base_small.png.
+themes: frost (Icefall), sand (desert / sandstone), storm, jungle, corn (corn maze: walls and field are corn), castle (5LET-1: grey castle stone), theatre (5LGX-1: lacquered wood, gilt edge). Writes base_map.png and base_small.png.
 """
 import sys, os
 import numpy as np, cv2
@@ -16,6 +16,8 @@ THEMES = {
     # corn (5LES-1): the walls are corn rows and the whole field beyond them is corn, darker with distance from the path
     "corn":  dict(wall_tint=(0.95, 0.90, 0.80), bevel=(150, 130, 90), dust=(176, 150, 96), dust_amt=0.30, rock=(10, 10, 8), field=0.38, edge_line=0.55),
     "castle": dict(wall_tint=(0.72, 0.72, 0.74), bevel=(150, 150, 156), dust=(120, 116, 110), dust_amt=0.14, rock=(12, 12, 14)),
+    # theatre (5LGX-1): dark lacquered wood panelling with a tarnished gilt edge
+    "theatre": dict(wall_tint=(0.78, 0.62, 0.58), bevel=(168, 132, 78), dust=(110, 96, 84), dust_amt=0.12, rock=(14, 10, 10), col_r=0.17),
     "sand":  dict(wall_tint=(0.80, 0.72, 0.62), bevel=(196, 170, 132), dust=(214, 186, 140), dust_amt=0.22, rock=(22, 18, 14)),
 }
 
@@ -80,9 +82,14 @@ def build(json_path, floor_tex, wall_tex, out_dir, theme="frost", seed=5):
     # columns: round stone pillars with a contact shadow
     for (x, y) in L.columns:
         cx, cy = [int(v) for v in L.px(x + 0.5, y + 0.5)]
-        r = int(S * 0.28)
-        cv2.circle(out, (cx + 10, cy + 12), r + 8, (0, 0, 0), -1, cv2.LINE_AA)
-        out[cy - r - 30:cy + r + 30, cx - r - 30:cx + r + 30] = cv2.GaussianBlur(out[cy - r - 30:cy + r + 30, cx - r - 30:cx + r + 30], (0, 0), 6)
+        r = int(S * th.get("col_r", 0.28))   # column radius in Watabou squares (0.17 = about 3.4 ft across; Foundry column walls are 0.32 square)
+        pad = r + 40                                     # soft round contact shadow (no square blur patch)
+        y0_, x0_ = cy - pad, cx - pad
+        sh = np.zeros((2 * pad, 2 * pad), np.float32)
+        cv2.circle(sh, (pad + 8, pad + 10), r + 6, 0.75, -1, cv2.LINE_AA)
+        sh = cv2.GaussianBlur(sh, (0, 0), 7)[..., None]
+        reg = out[y0_:y0_ + 2 * pad, x0_:x0_ + 2 * pad].astype(np.float32)
+        out[y0_:y0_ + 2 * pad, x0_:x0_ + 2 * pad] = (reg * (1 - sh)).astype(np.uint8)
         cv2.circle(out, (cx, cy), r, tuple(int(c) for c in th["bevel"]), -1, cv2.LINE_AA)
         cv2.circle(out, (cx, cy), int(r * 0.78), tuple(int(c * 0.82) for c in th["bevel"]), -1, cv2.LINE_AA)
         cv2.circle(out, (cx, cy), r, (40, 34, 28), 3, cv2.LINE_AA)

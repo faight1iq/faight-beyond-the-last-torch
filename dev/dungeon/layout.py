@@ -180,7 +180,8 @@ class Layout:
         for (x, y) in self.columns:
             r = 0.28
             q = [P(x + 0.5 - r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 + r), P(x + 0.5 - r, y + 0.5 + r)]
-            for a, b in zip(q, q[1:] + q[:1]): walls.append({"c": a + b})
+            # terrain walls (John, 2026-11-05): Limited sight, light and sound, so players see the column but not past it
+            for a, b in zip(q, q[1:] + q[:1]): walls.append({"c": a + b, "sight": 10, "light": 10, "sound": 10, "flags": {MOD: {"column": True}}})
         return walls
 
     def _walls_offset(self, d, col_r=0.16):
@@ -222,7 +223,8 @@ class Layout:
         for (x, y) in self.columns:     # smaller than the drawn column so its top shows
             r = col_r
             q = [P(x + 0.5 - r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 - r), P(x + 0.5 + r, y + 0.5 + r), P(x + 0.5 - r, y + 0.5 + r)]
-            for a, b in zip(q, q[1:] + q[:1]): walls.append({"c": a + b})
+            # terrain walls (John, 2026-11-05): Limited sight, light and sound, so players see the column but not past it
+            for a, b in zip(q, q[1:] + q[:1]): walls.append({"c": a + b, "sight": 10, "light": 10, "sound": 10, "flags": {MOD: {"column": True}}})
         return walls
 
     def tiles(self, limit=8192):
