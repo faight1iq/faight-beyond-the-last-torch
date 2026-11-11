@@ -8,6 +8,10 @@
    "walls": "ew",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 0.5,
+   "grime": 1.3
   }
  },
  "04": {
@@ -145,7 +149,11 @@
     "x": 6,
     "y": 18
    }
-  ]
+  ],
+  "patina": {
+   "straw": 2.5,
+   "grime": 0.6
+  }
  },
  "05": {
   "scale": 0.65,
@@ -184,6 +192,10 @@
    "7": "drop",
    "8": "drop",
    "11": "drop"
+  },
+  "patina": {
+   "straw": 1.0,
+   "blood": 0.3
   }
  },
  "06": {
@@ -194,6 +206,10 @@
    "walls": "nws",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 4.0,
+   "blood": 0.5
   }
  },
  "07": {
@@ -217,13 +233,19 @@
     "y": 37,
     "flip": "h"
    }
-  ]
+  ],
+  "patina": {
+   "grime": 1.4
+  }
  },
  "08": {
   "pack": {
    "walls": "nesw",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 0.6
   }
  },
  "09": {
@@ -231,6 +253,9 @@
    "walls": "nesw",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 0.6
   }
  },
  "10": {
@@ -238,6 +263,9 @@
    "walls": "nesw",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 0.6
   }
  },
  "11": {
@@ -245,6 +273,9 @@
    "walls": "nesw",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 0.6
   }
  },
  "12": {
@@ -252,6 +283,9 @@
    "walls": "nesw",
    "maxdepth": 4,
    "maxeach": 4
+  },
+  "patina": {
+   "grime": 1.2
   }
  },
  "13": {
@@ -289,7 +323,11 @@
     "center": true,
     "s": 1.3
    }
-  ]
+  ],
+  "patina": {
+   "straw": 0.5,
+   "grime": 1.3
+  }
  },
  "14": {
   "pack": {
@@ -305,7 +343,11 @@
     "rot": 90,
     "s": 1.3
    }
-  ]
+  ],
+  "patina": {
+   "straw": 0.6,
+   "grime": 1.3
+  }
  },
  "15": {
   "split": {
@@ -420,9 +462,17 @@
     "dir": "s",
     "len": 30,
     "gap": 3,
-    "center": true,
-    "flip": "h"
+    "center": true
    }
+  ],
+  "patina": {},
+  "upright": [
+   "H",
+   "I",
+   "B",
+   "1.1",
+   "1.2",
+   "1.3"
   ]
  },
  "16": {
@@ -430,6 +480,9 @@
    "walls": "nesw",
    "maxdepth": 4,
    "maxeach": 3
+  },
+  "patina": {
+   "grime": 0.9
   }
  }
 }

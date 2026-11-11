@@ -8,12 +8,14 @@ spec.json: {"NN": {"scale": 1.0,                       # every piece of the room
 Pieces come from the room's saved layer (layer-NN.npz). `p` may name another room ("07:3") or floor ("upper/06:2").
 rot is clockwise degrees (multiples of 90). Anything left in a door lane (5 ft inside a doorway) or on a stair is
 dropped and reported. Writes out_final.png and dress/after-NN.jpg (5-ft grid, door lanes red)."""
-import sys, os, json
+import sys, os, json, zlib
 import numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from layout import Layout, S
 from pieces import label, room_px
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "patina"))
+import patina as _patina
 Image.MAX_IMAGE_PIXELS = None
 FT = S / 10.0
 _cache = {}
@@ -224,11 +226,26 @@ def stairs_of(L, meta, x0, y0):
     for st in L.stairs:
         if rx <= st["x"] < rx + rw and ry <= st["y"] < ry + rh:
             a, b = int((st["x"] - L.X0) * S - x0), int((st["y"] - L.Y0) * S - y0)
-            out.append((a - 20, b - 20, a + st["w"] * S + 20, b + st["h"] * S + 20))
+            W_, H_ = st["w"] * S, st["h"] * S
+            out.append((a - 20, b - 20, a + W_ + 20, b + H_ + 20))
+            # the landing in front of the stair (10 ft deep, the stair's width): you walk onto a stair from there
+            d = st.get("dir", "n")
+            out.append({"n": (a - 20, b + H_, a + W_ + 20, b + H_ + S), "s": (a - 20, b - S, a + W_ + 20, b),
+                        "e": (a - S, b - 20, a, b + H_ + 20), "w": (a + W_, b - 20, a + W_ + S, b + H_ + 20)}[d])
     return out
 
 
 SIDES = "nesw"
+
+
+def upright(p):
+    """A banner or pennant (red / black cloth hanging from a bar or a pole): it must stay the right way up and face the
+    same way as the original, so it is only ever copied to a wall of the same side, flipped left-right at most."""
+    if "upright" in p: return p["upright"]
+    c = p["col"].astype(np.int32); o = p["obj"] > 0.5
+    red = (c[..., 0] > 55) & (c[..., 0] > 1.7 * c[..., 1]) & (c[..., 0] > 1.7 * c[..., 2])
+    p["upright"] = bool(o.sum() and (red & o).sum() / o.sum() > 0.12)
+    return p["upright"]
 
 
 def wall_side(x, y, w, h, ax, ay, aw, ah, tol=42):
@@ -295,6 +312,8 @@ def dress_room(work, L, key, spec, floor_root):
 
     base_s = spec.get("scale", 1.0)
     own = pieces_of(work, key, spec.get("split"), spec.get("cuts"), (ax, ay), spec.get("grabs"), spec.get("regroup"))
+    for nm in spec.get("upright", []):   # pieces named as upright (pennants on racks, standards): never turned or mirrored upside down
+        if nm in own: own[nm]["upright"] = True
     sides = {}
     for name, p in own.items():
         h0, w0 = p["obj"].shape
@@ -369,6 +388,9 @@ def dress_room(work, L, key, spec, floor_root):
                     if nm == last or used.get(nm, 0) >= pk.get("maxeach", 2): continue
                     rot = ((SIDES.index(wall) - SIDES.index(sd)) % 4) * 90
                     flip = ("h" if wall in "ns" else "v") if rng.random() < 0.5 else None
+                    if upright(pp):   # banners and pennants: same wall side only, never upside down
+                        if rot: continue
+                        flip = "h" if (wall in "ns" and rng.random() < 0.5) else None
                     c, o, h = xform(pp, s_src * pk.get("s", 1.0), rot, flip)
                     hh, ww = o.shape
                     depth = hh if wall in "ns" else ww; length = ww if wall in "ns" else hh
@@ -428,6 +450,17 @@ if __name__ == "__main__":
     occ_all = np.zeros((final.shape[0] // 14 + 1, final.shape[1] // 14 + 1), np.float32)   # furniture cover, 10 px per 5-ft square (for token spots)
     for key in allkeys:   # every furnished room is repainted (so stair art and lane clearing reach all of them)
         meta, rm, col, obj, sh, dropped, lanes, boxes = dress_room(work, L, key, spec.get(key, {}), os.path.dirname(work))
+        pt = spec.get(key, {}).get("patina", {})
+        if pt is not False:   # floor patina under the furniture (patina/patina.py)
+            x0_, y0_, N_ = meta["x0"], meta["y0"], meta["N"]
+            by0, bx0 = max(0, y0_), max(0, x0_); by1, bx1 = min(L.H, y0_ + N_), min(L.W, x0_ + N_)
+            prm = rm[by0 - y0_:by1 - y0_, bx0 - x0_:bx1 - x0_].copy()
+            for st in L.stairs:   # never on the stair art
+                a_, b_ = int((st["x"] - L.X0) * S) - bx0, int((st["y"] - L.Y0) * S) - by0
+                prm[max(0, b_):max(0, b_ + st["h"] * S), max(0, a_):max(0, a_ + st["w"] * S)] = False
+            reg = base[by0:by1, bx0:bx1].copy()
+            _patina.apply(reg, prm, seed=zlib.crc32(f"{os.path.basename(work)}-{key}".encode()), straw=pt.get("straw", 0), grime=pt.get("grime", 1.0), blood=pt.get("blood", 0.0))
+            base[by0:by1, bx0:bx1][prm] = reg[prm]
         paint(final, base, meta, rm, col, obj, sh, L)
         small = cv2.resize(((obj > 0.5) & rm).astype(np.float32), (meta["N"] // 14, meta["N"] // 14), interpolation=cv2.INTER_AREA)
         oy, ox = meta["y0"] // 14, meta["x0"] // 14

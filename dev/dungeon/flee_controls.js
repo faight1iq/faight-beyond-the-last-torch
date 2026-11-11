@@ -1,5 +1,6 @@
 // Place a GM-only Flee control for every room that holds trash (5LH3-1). Run as GM: cfg = { key: "ims", code: "5LH3-1" }.
-// One hidden tile in the wall band just above the room's north-east corner (only the GM sees hidden tiles).
+// One hidden tile in the wall band just above the room's north-east corner (only the GM sees hidden tiles), with a small
+// light on it so it shows in the dark.
 // Clicking it (Monk's Active Tiles click trigger, GM only) runs api.fleeRoom(tile) from scripts/flee.js: the room's
 // living servants, legionnaires and guard units run out of the nearest door and leave the map; chat tells the GM how many.
 // Re-running replaces the controls.
@@ -13,6 +14,8 @@ for (const f of ["ground", "basement", "upper"]) {
   const SD = await get(`scene-${f}.json`), ENC = await get(`encounters-${f}.json`), ROOMS = await get(`rooms-${f}.json`);
   const old = scene.tiles.filter(t => t.getFlag(MOD, "role") === "flee").map(t => t.id);
   if (old.length) await scene.deleteEmbeddedDocuments("Tile", old);
+  const oldL = scene.lights.filter(l => l.getFlag(MOD, "role") === "flee-light").map(l => l.id);
+  if (oldL.length) await scene.deleteEmbeddedDocuments("AmbientLight", oldL);
   const tiles = [];
   for (const [n, list] of Object.entries(ENC.rooms)) {
     if (!list.some(([slug]) => TRASH.includes(slug))) continue;
@@ -25,6 +28,10 @@ for (const f of ["ground", "basement", "upper"]) {
           name: `Flee: ${meta.code ?? n}`, actions: [{ id: foundry.utils.randomID(), action: "runcode", data: { code: `game.modules.get("${MOD}").api.fleeRoom(tile);` } }] } } });
   }
   await scene.createEmbeddedDocuments("Tile", tiles);
+  // a small warm light on each control so the GM can see it in the dark (John, 2026-11-11). It sits in the masonry
+  // above the room's wall and is stopped by walls; vision: false, so it never lets a player see through anything.
+  await scene.createEmbeddedDocuments("AmbientLight", tiles.map(t => ({ x: t.x + IC / 2, y: t.y + IC / 2, walls: true, vision: false,
+    config: { bright: 1, dim: 3, color: "#ffb347", alpha: 0.35, luminosity: 0.5 }, flags: { [MOD]: { role: "flee-light", room: t.flags[MOD].room } } })));
   report[f] = tiles.length;
 }
 return { icon, ...report };

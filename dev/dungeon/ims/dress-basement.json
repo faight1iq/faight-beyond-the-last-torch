@@ -24,6 +24,9 @@
    "walls": "es",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "grime": 1.4
   }
  },
  "03": {
@@ -65,13 +68,19 @@
     "flip": "h",
     "check": false
    }
-  ]
+  ],
+  "patina": {
+   "straw": 1.5
+  }
  },
  "04": {
   "pack": {
    "walls": "nesw",
    "maxdepth": 4,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 0.5
   }
  },
  "05": {
@@ -151,6 +160,10 @@
    "sacks": {
     "s": 0.65
    }
+  },
+  "patina": {
+   "straw": 3.5,
+   "blood": 0.6
   }
  },
  "06": {
@@ -158,6 +171,10 @@
    "walls": "new",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 3.5,
+   "blood": 0.6
   }
  },
  "07": {
@@ -169,6 +186,11 @@
    "walls": "nesw",
    "maxdepth": 5,
    "maxeach": 3
+  },
+  "patina": {
+   "straw": 1.0,
+   "blood": 1.0,
+   "grime": 1.4
   }
  },
  "08": {
@@ -176,6 +198,7 @@
    "walls": "nesw",
    "maxdepth": 5,
    "maxeach": 3
-  }
+  },
+  "patina": {}
  }
 }
