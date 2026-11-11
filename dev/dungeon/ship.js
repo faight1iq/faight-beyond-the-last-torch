@@ -7,8 +7,10 @@ const rid = () => foundry.utils.randomID();
 const is5 = d => d.getFlag(MOD, "adventure") === CODE || (CODE === "5LEI" && d.id === "vcq4X4Cb1Ez1Em0Y");
 const W = {
   Actor: game.actors.filter(is5), Item: game.items.filter(is5),
-  JournalEntry: game.journal.filter(is5), Scene: game.scenes.filter(is5)
+  JournalEntry: game.journal.filter(is5), Scene: game.scenes.filter(is5),
+  Playlist: game.playlists.filter(is5)   // the adventure's own music (5LH3-1)
 };
+if (!W.Playlist.length) delete W.Playlist;
 const report = {};
 const keepTok = (t) => !!game.actors.get(t.actorId)?.getFlag(MOD, "adventure"); // monsters only: never ship test/player tokens
 // Scene cleanup for shipping: monster tokens only; stairways only the floor links between a dungeon's own floors
@@ -42,7 +44,7 @@ function patchText(s, map) {
 }
 
 // ---------- 1. Individual pack copies ----------
-const packFor = { Actor: "actors", Item: "items", JournalEntry: "journals", Scene: "scenes" };
+const packFor = { Actor: "actors", Item: "items", JournalEntry: "journals", Scene: "scenes", Playlist: "playlists" };
 const packMap = new Map(); // worldId -> {id, uuid} in pack
 for (const [type, docs] of Object.entries(W)) {
   const pack = game.packs.get(`${MOD}.${packFor[type]}`);
@@ -93,7 +95,7 @@ const clone = (d) => {
 };
 const advData = {
   name: NAME, img: cfg.img, caption: cfg.caption, description: cfg.description,
-  folders, actors: W.Actor.map(clone), items: W.Item.map(clone), journal: W.JournalEntry.map(clone), scenes: W.Scene.map(clone),
+  folders, actors: W.Actor.map(clone), items: W.Item.map(clone), journal: W.JournalEntry.map(clone), scenes: W.Scene.map(clone), playlists: (W.Playlist ?? []).map(clone),
   flags: { [MOD]: { adventure: CODE } }
 };
 const wasLocked = advPack.locked; if (wasLocked) await advPack.configure({ locked: false });
@@ -109,7 +111,7 @@ const clash = [...packMap.values()].map(v => v.id).concat([...aMap.values()]).fi
 const sc = adv.scenes.contents?.[0] ?? [...adv.scenes][0];
 const aIds = new Set([...adv.actors].map(a => a._id ?? a.id));
 const jIds = new Set([...adv.journal].map(j => j._id ?? j.id));
-report.adventure = { id: adv.id, actors: adv.actors.size, items: adv.items.size, journal: adv.journal.size, scenes: adv.scenes.size, folders: adv.folders.size,
+report.adventure = { id: adv.id, playlists: adv.playlists.size, actors: adv.actors.size, items: adv.items.size, journal: adv.journal.size, scenes: adv.scenes.size, folders: adv.folders.size,
   scenesCheck: [...adv.scenes].map(sc => ({ name: sc.name, darkness: sc.environment?.darknessLevel, tokensLinked: sc.tokens.filter(t => aIds.has(t.actorId)).length + "/" + (sc.tokens.length ?? sc.tokens.size),
     notesLinked: sc.notes.filter(n => jIds.has(n.entryId)).length + "/" + (sc.notes.length ?? sc.notes.size),
     teleportsLinked: sc.tiles.filter(t => t.flags?.[MOD]?.role === "stair-link").filter(t => [...adv.scenes].some(x => (x._id ?? x.id) === t.flags["monks-active-tiles"].actions[0].data.location.sceneId)).length + "/" + sc.tiles.filter(t => t.flags?.[MOD]?.role === "stair-link").length })),
