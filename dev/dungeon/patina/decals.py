@@ -23,6 +23,9 @@ for k, i in enumerate(keep, 1):
     col = a[y:y + h, x:x + w]
     if kind == "grime":   # colour of the mark at full strength: un-multiply from white
         col = np.clip(255 - (255 - col) / np.maximum(al[..., None], 0.05), 0, 255)
+    else:                 # straw: take the white background out of the soft edges (no pale halo on dark floors)
+        al = np.clip((al - 0.15) / 0.85, 0, 1)
+        col = np.clip((col - 255 * (1 - al[..., None])) / np.maximum(al[..., None], 0.08), 0, 255)
     rgba = np.dstack([col, al * 255]).astype(np.uint8)
     Image.fromarray(rgba, "RGBA").save(os.path.join(out, f"{kind}-{k:02d}.png"))
     tile = Image.fromarray(rgba, "RGBA"); idx.paste(tile, (x, y), tile)

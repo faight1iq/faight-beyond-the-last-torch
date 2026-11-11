@@ -386,11 +386,13 @@ def dress_room(work, L, key, spec, floor_root):
                 for i in order:
                     nm, pp, s_src, sd = pal[i]
                     if nm == last or used.get(nm, 0) >= pk.get("maxeach", 2): continue
-                    rot = ((SIDES.index(wall) - SIDES.index(sd)) % 4) * 90
-                    flip = ("h" if wall in "ns" else "v") if rng.random() < 0.5 else None
-                    if upright(pp):   # banners and pennants: same wall side only, never upside down
-                        if rot: continue
-                        flip = "h" if (wall in "ns" and rng.random() < 0.5) else None
+                    # The art is drawn in a fixed three-quarter view (John, 2026-11-11): a copy is never turned, only
+                    # mirrored left-right, so it keeps the scene's facing. North-wall pieces stay on north walls, south on
+                    # south; an east-wall piece mirrored becomes a west-wall piece and the reverse.
+                    rot = 0
+                    if sd == wall: flip = "h" if (wall in "ns" and rng.random() < 0.5) else None
+                    elif {sd, wall} == {"e", "w"}: flip = "h"
+                    else: continue
                     c, o, h = xform(pp, s_src * pk.get("s", 1.0), rot, flip)
                     hh, ww = o.shape
                     depth = hh if wall in "ns" else ww; length = ww if wall in "ns" else hh

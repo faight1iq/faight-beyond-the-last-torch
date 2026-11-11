@@ -66,7 +66,7 @@ if __name__ == "__main__":
         for _ in range(400):
             if got >= target: break
             p = pal[rng.integers(len(pal))]
-            rot = 0 if dress.upright(p) else int(rng.integers(4)) * 90
+            rot = 0   # never turned: the art keeps the scene's three-quarter facing (John, 2026-11-11)
             c, o, s = dress.xform(p, 1.0, rot, "h" if rng.random() < 0.5 else None)
             hh, ww = o.shape
             if ww > w or hh > h: continue
