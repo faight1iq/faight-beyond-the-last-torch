@@ -22,51 +22,51 @@
   "1": [
    [
     "ironmark-servant",
-    1
+    2
    ],
    [
     "ironmark-legionnaire",
-    1
+    3
    ]
   ],
   "2": [
    [
     "ironmark-servant",
-    1
+    2
    ],
    [
     "ironmark-legionnaire",
-    1
+    3
    ]
   ],
   "3": [
    [
     "ironmark-servant",
-    1
+    2
    ],
    [
     "ironmark-legionnaire",
-    1
+    3
    ]
   ],
   "4": [
    [
     "ironmark-servant",
-    1
+    2
    ],
    [
     "ironmark-legionnaire",
-    1
+    3
    ]
   ],
   "5": [
    [
     "ironmark-servant",
-    1
+    4
    ],
    [
     "ironmark-legionnaire",
-    2
+    3
    ]
   ],
   "6": [
@@ -80,39 +80,55 @@
    ],
    [
     "ironmark-servant",
-    1
+    3
    ]
   ],
   "7": [
    [
     "ironmark-servant",
-    1
+    3
    ],
    [
     "legion-company",
     1
+   ],
+   [
+    "ironmark-legionnaire",
+    2
    ]
   ],
   "8": [
    [
     "ironmark-servant",
-    1
+    3
    ],
    [
     "iron-guard",
+    2
+   ],
+   [
+    "ironmark-legionnaire",
     2
    ]
   ],
   "9": [
    [
     "ironmark-servant",
-    1
+    3
+   ],
+   [
+    "ironmark-legionnaire",
+    2
    ]
   ],
   "10": [
    [
     "ironmark-servant",
-    1
+    2
+   ],
+   [
+    "ironmark-legionnaire",
+    2
    ]
   ]
  },

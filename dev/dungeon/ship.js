@@ -11,9 +11,11 @@ const W = {
 };
 const report = {};
 const keepTok = (t) => !!game.actors.get(t.actorId)?.getFlag(MOD, "adventure"); // monsters only: never ship test/player tokens
-// Scene cleanup for shipping: monster tokens only; no stairways (their IDs are client-made and the
-// Enter Dungeon macro rebuilds them from flags.<module>.entrance); fresh IDs for walls, tiles, lights, drawings.
-const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.stairways = []; if (o.flags?.stairways) delete o.flags.stairways; for (const k of ["walls", "tiles", "lights", "drawings"]) for (const x of o[k] ?? []) x._id = rid();
+// Scene cleanup for shipping: monster tokens only; stairways only the floor links between a dungeon's own floors
+// (flags.<module>.role "floor-link", 5LH3-1; their scene ids are relinked below). The landing entrance is dropped:
+// the Enter Dungeon macro rebuilds it from flags.<module>.entrance. Fresh IDs for walls, tiles, lights, drawings.
+const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.stairways = [];
+  if (o.flags?.stairways) { const keep = (o.flags.stairways.data ?? []).filter((r) => r.flags?.[MOD]?.role === "floor-link"); if (keep.length) o.flags.stairways = { data: keep }; else delete o.flags.stairways; } for (const k of ["walls", "tiles", "lights", "drawings"]) for (const x of o[k] ?? []) x._id = rid();
   // Ship every Monk's Active Tiles tile armed, with no trigger history, whatever state play-testing left it in.
   for (const t of o.tiles) { const m = t.flags?.["monks-active-tiles"]; if (m?.actions?.length) { m.active = !t.flags?.[MOD]?.startInactive; delete m.history; } }   // a secret passage tile ships off (5LH3-1)
   // Traps ship hidden and unspotted; their Arm control lit, Disarm dimmed.
@@ -24,6 +26,7 @@ const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.s
 
 // Stair links between floors (5LH3-1): Monk's Active Tiles teleport actions point at the copied scene IDs.
 function relinkTeleports(o, map) {
+  for (const r of o.flags?.stairways?.data ?? []) { const n = map.get(r.scene); if (n) r.scene = typeof n === "string" ? n : n.id; }   // Stairways floor links
   for (const t of o.tiles ?? []) for (const ac of t.flags?.["monks-active-tiles"]?.actions ?? []) {
     const sid = ac.data?.location?.sceneId; if (!sid) continue; const n = map.get(sid); if (n) ac.data.location.sceneId = typeof n === "string" ? n : n.id;
   }

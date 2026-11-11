@@ -103,3 +103,12 @@ About **80 minutes** of build time for three floors and 34 rooms.
 ## Still to do
 - John closes Foundry; then stage the packs, validate a fresh copy, commit art, packs and dev files, push.
 - Release and the Sqyre import test when John says.
+
+## Rework, 2026-11-11 (John's playtest notes)
+- **Lighter maps:** tiles exported at 0.7 (`split_scaled.py`, about 98 px per 5 ft, WebP q82) as `<slug>-<floor>-m{ix}{iy}.webp`; scene size, grid and tile sizes unchanged. 45 MB of map files became 14 MB; video memory per floor about halved.
+- **Room dressing (`dress/dress.py`, specs `ims/dress-<floor>.json`):** John's GIMP method in code. `grabs` cut a group out along the gaps and outlines between items (seam cuts); `regroup` lifts a group and rescales it in place; `scale`/`pieces` set true size; `pack` fills the free stretches of each wall with copies of wall pieces turned to the wall; `lines` set rows (barrel racks, mess tables, armour stands); anything in a door lane or on a stair is dropped. Barracks scaled 0.65 and the cell block's loose furniture 0.65 to match the rest. Check sheets: `dress/piecesheet.py` (each cut on a plain ground) and `after-NN.jpg` (5-ft grid, door lanes red).
+- **Stairs:** ChatGPT art (`dev/dungeon/art/stairs`: straight up/down, grand up/down, tower spiral) painted by `stairs_art.py`; black wedges at the rounded tower corners and the keep's dead space filled (`fix_wedges.py`, `ims/fill_dark.py`).
+- **Stairways** links replace the Monk's Active Tiles teleports (`link_stairways.js`, 14 stairways, role `floor-link`); the culvert's ground end starts hidden. `ship.js` keeps floor-link stairways and relinks their scene ids.
+- **More trash** (`ims/more_trash.py`): 182 tokens (was 78); encounter lines and read-alouds updated. Token spots avoid furniture (`scenedata.py` `OCC`).
+- **Flee control** (`scripts/flee.js`, `flee_controls.js`): a hidden wing icon above each room's north-east corner; GM click sends the room's living trash out the nearest door and whispers "N fled, Doom +N". Actors flagged `trash`.
+- Re-shipped: Adventure `tCx9NogFH6mgUBIc`; 96/32/54 tokens linked, 0 ID clashes; trap tests 50/56/51/49/53.

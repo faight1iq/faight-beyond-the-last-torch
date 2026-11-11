@@ -1,0 +1,71 @@
+{
+ "01": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "02": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "03": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "04": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "05": {
+  "split": {
+   "13": 5
+  },
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "06": {
+  "lanes": false
+ },
+ "07": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 4,
+   "maxeach": 3
+  }
+ },
+ "08": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "09": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "10": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ }
+}

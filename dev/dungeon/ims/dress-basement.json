@@ -1,0 +1,194 @@
+{
+ "02": {
+  "pieces": {
+   "1": {
+    "keep": true
+   },
+   "2": {
+    "keep": true
+   },
+   "6": {
+    "keep": true
+   },
+   "7": {
+    "keep": true
+   },
+   "8": {
+    "keep": true
+   },
+   "9": {
+    "keep": true
+   }
+  },
+  "pack": {
+   "walls": "es",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "03": {
+  "grabs": {
+   "rack": [
+    0,
+    28,
+    3.6,
+    36.3,
+    0.5
+   ]
+  },
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  },
+  "lines": [
+   {
+    "p": "rack",
+    "from": [
+     13,
+     4
+    ],
+    "dir": "s",
+    "len": 26,
+    "gap": 0.2,
+    "check": false
+   },
+   {
+    "p": "rack",
+    "from": [
+     19.5,
+     21
+    ],
+    "dir": "s",
+    "len": 13,
+    "gap": 0.2,
+    "flip": "h",
+    "check": false
+   }
+  ]
+ },
+ "04": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 4,
+   "maxeach": 3
+  }
+ },
+ "05": {
+  "regroup": [
+   [
+    0,
+    12,
+    6.8,
+    47.5,
+    0.65
+   ],
+   [
+    37.5,
+    11.5,
+    50,
+    47.5,
+    0.65
+   ]
+  ],
+  "pack": {
+   "walls": "esw",
+   "maxdepth": 5,
+   "maxeach": 2,
+   "palette": [
+    "spears",
+    "shields",
+    "desk",
+    "chests",
+    "sacks"
+   ]
+  },
+  "grabs": {
+   "spears": [
+    0,
+    13,
+    6,
+    21.5
+   ],
+   "shields": [
+    0,
+    26.5,
+    6,
+    41
+   ],
+   "desk": [
+    38,
+    17.5,
+    50,
+    29
+   ],
+   "chests": [
+    40,
+    29,
+    50,
+    37
+   ],
+   "sacks": [
+    42,
+    36,
+    50,
+    46.5
+   ]
+  },
+  "pieces": {
+   "spears": {
+    "s": 0.65
+   },
+   "shields": {
+    "s": 0.65
+   },
+   "desk": {
+    "s": 0.65
+   },
+   "chests": {
+    "s": 0.65
+   },
+   "sacks": {
+    "s": 0.65
+   }
+  },
+  "add": [
+   {
+    "p": "shields",
+    "x": 22,
+    "y": 22,
+    "rot": 90
+   },
+   {
+    "p": "chests",
+    "x": 12,
+    "y": 40
+   }
+  ]
+ },
+ "06": {
+  "pack": {
+   "walls": "new",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "07": {
+  "split": {
+   "15": 5,
+   "16": 5
+  },
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ },
+ "08": {
+  "pack": {
+   "walls": "nesw",
+   "maxdepth": 5,
+   "maxeach": 3
+  }
+ }
+}

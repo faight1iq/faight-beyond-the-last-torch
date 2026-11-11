@@ -73,10 +73,11 @@ function hpf(hp, size, con) {
   const d = HD[size], m = Math.floor((con - 10) / 2), n = Math.max(1, Math.round(hp / (d / 2 + 0.5 + m)));
   const b = hp - Math.floor(n * (d / 2 + 0.5)); return `${n}d${d} ${b >= 0 ? "+" : "-"} ${Math.abs(b)}`;
 }
+const TRASH = ["ironmark-servant", "ironmark-legionnaire", "legion-squad", "legion-platoon", "legion-company"];
 function npc({ name, slug, size, type, cr, ac, hp, speed, burrow = 0, climb = 0, fly = 0, swim = 0, abil, dr = [], di = [], dv = [], ci = [], senses = {}, skills = {}, langs = "", bio, items }) {
   const ab = {}; for (const [k, v] of Object.entries(abil)) ab[k] = { value: v };
   return { name, type: "npc", folder: folder.id, img: `${ART}/${slug}.webp`,
-    flags: { [MOD]: { adventure: CODE, role: "monster", slug } },
+    flags: { [MOD]: { adventure: CODE, role: "monster", slug, trash: TRASH.includes(slug) } },   // trash: the Flee control sends these running (scripts/flee.js)
     system: { abilities: ab,
       attributes: { ac: { flat: ac, calc: "flat" }, hp: { value: hp, max: hp, formula: hpf(hp, size, abil.con) },
         movement: { walk: speed, burrow, climb, fly, swim, hover: fly > 0, units: "ft" }, senses: { units: "ft", ...senses } },
@@ -291,7 +292,7 @@ for (const m of M) for (const it of m.items) if (!(await exists(it.img))) { miss
 const made = [];
 for (const data of M) {
   const old = game.actors.find(a => a.getFlag(MOD, "slug") === data.flags[MOD].slug && a.getFlag(MOD, "adventure") === CODE);
-  if (old) { await old.update({ system: data.system, img: data.img, prototypeToken: data.prototypeToken, name: data.name }); await old.deleteEmbeddedDocuments("Item", old.items.map(i => i.id)); await old.createEmbeddedDocuments("Item", data.items); made.push(`${old.name} (updated)`); continue; }
+  if (old) { await old.update({ system: data.system, img: data.img, prototypeToken: data.prototypeToken, name: data.name, flags: data.flags }); await old.deleteEmbeddedDocuments("Item", old.items.map(i => i.id)); await old.createEmbeddedDocuments("Item", data.items); made.push(`${old.name} (updated)`); continue; }
   const a = await Actor.create(data);
   made.push(`${a.name}: HP ${a.system.attributes.hp.max} AC ${a.system.attributes.ac.value}`);
 }

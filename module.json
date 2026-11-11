@@ -17,7 +17,8 @@
   "esmodules": [
     "scripts/landing.js",
     "scripts/cleanup.js",
-    "scripts/traps.js"
+    "scripts/traps.js",
+    "scripts/flee.js"
   ],
   "relationships": {
     "systems": [

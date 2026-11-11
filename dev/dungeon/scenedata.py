@@ -6,8 +6,13 @@ encounters.json: {"rooms": {"5": [["dune-scorpion", 5]], ...},
                   "teleport": {"room": 4, "spot":[dx,dy,w,h], "to":[x,y]}, "lights": [[room, color, dim, bright]]}
 Spots are in Watabou squares relative to the room's top-left corner. Positions out are Foundry pixels.
 """
-import sys, json, math
+import sys, json, math, os
 from layout import Layout, S
+OCC = None
+if os.environ.get("OCC"):
+    import numpy as _np
+    from PIL import Image as _I
+    OCC = _np.asarray(_I.open(os.environ["OCC"]).convert("L"), _np.float32) / 255
 
 
 def spots(L, rm, n, size):
@@ -25,6 +30,9 @@ def spots(L, rm, n, size):
                 if math.hypot(cx - ox, cy - oy) > w * S / 2 - sq / 2: continue
             cellx, celly = x + (gx * g + sq / 2) / S, y + (gy * g + sq / 2) / S
             if (math.floor(cellx), math.floor(celly)) in L.columns | L.water: continue
+            if OCC is not None:   # keep tokens off the furniture (dress.py furniture_cover.png, 1/14 scale)
+                a, b = int(px // 14), int(py // 14); k = max(1, int(sq // 14))
+                if OCC[b:b + k, a:a + k].mean() > 0.3: continue
             cells.append((px, py))
     if not cells: return []
     # spread: greedy farthest-point from the room centre outward, keeping tokens apart
@@ -41,7 +49,7 @@ def run(json_path, enc_path, out_path, slug):
     L = Layout(json_path); E = json.load(open(enc_path))
     WALL_OFFSET = int(E.get("wall_offset", 0))   # px into the painted wall band (35 from 5LES-1 on)
     rooms = {rm["n"]: rm for rm in L.rooms()}
-    tiles = [{"img": f"q{ix}{iy}", "x": x, "y": y, "w": w, "h": h} for ix, iy, x, y, w, h in L.tiles()]
+    tiles = [{"img": f"{os.environ.get('TILE_PREFIX', 'q')}{ix}{iy}", "x": x, "y": y, "w": w, "h": h} for ix, iy, x, y, w, h in L.tiles()]
     notes = [{"n": n, "code": rm.get("code", str(n)), "x": int((rm["rect"][0] - L.X0 + rm["rect"][2] / 2) * S), "y": int((rm["rect"][1] - L.Y0 + rm["rect"][3] / 2) * S)} for n, rm in rooms.items()]
     size_of = E.get("sizes", {})
     tokens = []
