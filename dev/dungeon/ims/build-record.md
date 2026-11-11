@@ -87,7 +87,7 @@ About **80 minutes** of build time for three floors and 34 rooms.
 - Closing one Claude-in-Chrome tab dissolved the session's tab group and the Foundry tab dropped out of reach; a new tab was opened and joined as Claude again.
 
 ## Open questions for John
-- **The cover's throne** is a spiked throne of blades that resembles the Iron Throne design from HBO's *Game of Thrones*. Regenerate the cover with a different throne if this module is sold.
+- ~~The cover's throne resembled HBO's Iron Throne~~: regenerated as a granite throne with a carved wolf head (no blades). The small throne in the U5 map art is still a spiked iron chair.
 - The war standard art is a three-quarter view rather than straight top-down; it reads fine on the map.
 
 ## Details invented by the story subagent (review)
@@ -111,4 +111,4 @@ About **80 minutes** of build time for three floors and 34 rooms.
 - **Stairways** links replace the Monk's Active Tiles teleports (`link_stairways.js`, 14 stairways, role `floor-link`); the culvert's ground end starts hidden. `ship.js` keeps floor-link stairways and relinks their scene ids.
 - **More trash** (`ims/more_trash.py`): 182 tokens (was 78); encounter lines and read-alouds updated. Token spots avoid furniture (`scenedata.py` `OCC`).
 - **Flee control** (`scripts/flee.js`, `flee_controls.js`): a hidden wing icon above each room's north-east corner; GM click sends the room's living trash out the nearest door and whispers "N fled, Doom +N". Actors flagged `trash`.
-- Re-shipped: Adventure `tCx9NogFH6mgUBIc`; 96/32/54 tokens linked, 0 ID clashes; trap tests 50/56/51/49/53.
+- Rebuilt world scenes: Ground `6SDNpF2FgtEyOseJ`, Basement `j7h3ZYI1fBjHZpoD`, Upper `Q9OanTHgIGUjPF10`; overview `ceMzXTsxk1sw2PPk`; Enter Dungeon relinked. Re-shipped: Adventure `tCx9NogFH6mgUBIc`; 96/32/54 tokens linked, 0 ID clashes; trap tests 50/56/51/49/53.
