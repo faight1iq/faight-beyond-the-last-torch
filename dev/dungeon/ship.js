@@ -15,13 +15,19 @@ const keepTok = (t) => !!game.actors.get(t.actorId)?.getFlag(MOD, "adventure"); 
 // Enter Dungeon macro rebuilds them from flags.<module>.entrance); fresh IDs for walls, tiles, lights, drawings.
 const scrub = (o) => { o.tokens = o.tokens.filter(keepTok); if (o.stairways) o.stairways = []; if (o.flags?.stairways) delete o.flags.stairways; for (const k of ["walls", "tiles", "lights", "drawings"]) for (const x of o[k] ?? []) x._id = rid();
   // Ship every Monk's Active Tiles tile armed, with no trigger history, whatever state play-testing left it in.
-  for (const t of o.tiles) { const m = t.flags?.["monks-active-tiles"]; if (m?.actions?.length) { m.active = true; delete m.history; } }
+  for (const t of o.tiles) { const m = t.flags?.["monks-active-tiles"]; if (m?.actions?.length) { m.active = !t.flags?.[MOD]?.startInactive; delete m.history; } }   // a secret passage tile ships off (5LH3-1)
   // Traps ship hidden and unspotted; their Arm control lit, Disarm dimmed.
   for (const t of o.tiles) { const f = t.flags?.[MOD]; if (!f) continue;
     if (f.role === "trap") { t.hidden = true; delete f.noticed; }
     if (f.role === "trap-arm") t.alpha = 1; if (f.role === "trap-disarm") t.alpha = 0.35; }
   for (const d of o.drawings ?? []) { const f = d.flags?.[MOD]; if (f?.role === "trap-label") { d.text = `${f.trap}\nARMED`; d.textColor = "#5fd35f"; } } };
 
+// Stair links between floors (5LH3-1): Monk's Active Tiles teleport actions point at the copied scene IDs.
+function relinkTeleports(o, map) {
+  for (const t of o.tiles ?? []) for (const ac of t.flags?.["monks-active-tiles"]?.actions ?? []) {
+    const sid = ac.data?.location?.sceneId; if (!sid) continue; const n = map.get(sid); if (n) ac.data.location.sceneId = typeof n === "string" ? n : n.id;
+  }
+}
 function patchText(s, map) {
   return s.replace(/@UUID\[(Actor|Item|JournalEntry)\.([A-Za-z0-9]{16})((?:\.JournalEntryPage\.)([A-Za-z0-9]{16}))?\]/g,
     (m, type, id, pg, pid) => {
@@ -55,6 +61,7 @@ for (const [type, docs] of Object.entries(W)) {
     if (type === "Scene") {
       scrub(o);
       for (const t of o.tokens) { t._id = rid(); const n = packMap.get(t.actorId); t.actorId = n ? n.id : null; }
+      relinkTeleports(o, packMap);
       for (const n of o.notes) { n._id = rid(); const e = packMap.get(n.entryId); n.entryId = e?.id ?? null; n.pageId = packMap.get(n.pageId)?.id ?? null; }
     }
     return o;
@@ -76,6 +83,7 @@ const clone = (d) => {
   if (d.documentName === "Scene") {
     scrub(o);
     for (const t of o.tokens) { t._id = rid(); t.actorId = aMap.get(t.actorId) ?? null; }
+    relinkTeleports(o, aMap);
     for (const n of o.notes) { n._id = rid(); n.entryId = aMap.get(n.entryId) ?? null; n.pageId = aMap.get(n.pageId) ?? null; }
   }
   return o;
@@ -99,7 +107,8 @@ const sc = adv.scenes.contents?.[0] ?? [...adv.scenes][0];
 const aIds = new Set([...adv.actors].map(a => a._id ?? a.id));
 const jIds = new Set([...adv.journal].map(j => j._id ?? j.id));
 report.adventure = { id: adv.id, actors: adv.actors.size, items: adv.items.size, journal: adv.journal.size, scenes: adv.scenes.size, folders: adv.folders.size,
-  tokensLinked: sc.tokens.filter(t => aIds.has(t.actorId)).length + "/" + (sc.tokens.length ?? sc.tokens.size),
-  notesLinked: sc.notes.filter(n => jIds.has(n.entryId)).length + "/" + (sc.notes.length ?? sc.notes.size), tokenNames: [...new Set(sc.tokens.map(t=>t.name))].join(", "),
+  scenesCheck: [...adv.scenes].map(sc => ({ name: sc.name, darkness: sc.environment?.darknessLevel, tokensLinked: sc.tokens.filter(t => aIds.has(t.actorId)).length + "/" + (sc.tokens.length ?? sc.tokens.size),
+    notesLinked: sc.notes.filter(n => jIds.has(n.entryId)).length + "/" + (sc.notes.length ?? sc.notes.size),
+    teleportsLinked: sc.tiles.filter(t => t.flags?.[MOD]?.role === "stair-link").filter(t => [...adv.scenes].some(x => (x._id ?? x.id) === t.flags["monks-active-tiles"].actions[0].data.location.sceneId)).length + "/" + sc.tiles.filter(t => t.flags?.[MOD]?.role === "stair-link").length })),
   idClashesWithWorld: clash.length };
 return report;

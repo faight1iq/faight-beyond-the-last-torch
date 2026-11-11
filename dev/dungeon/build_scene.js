@@ -11,13 +11,17 @@ const { key, code, name, slug } = cfg;
 const NAME = `${code}: ${name}`;
 const BASE = `modules/${MOD}/dev/dungeon/${key}`;   // inputs live in the module's own dev/dungeon/<key>/
 const get = async (f, json = true) => { const r = await fetch(`/${BASE}/${f}?${Date.now()}`); return json ? r.json() : r.text(); };
-const S = await get("scene.json"), ROOMS = await get("rooms.json"), LORE = await get("lore.md", false);
+// Multi-floor dungeons (5LH3-1): cfg.floor ("ground", "basement", "upper") and cfg.floorName ("Ground Floor") build one scene per floor
+// from scene-<floor>.json and rooms-<floor>.json. The overview is made by the floor with cfg.overview: true; every floor rebuilds the index.
+const FL = cfg.floor, sfx = FL ? `-${FL}` : "";
+const S = await get(`scene${sfx}.json`), ROOMS = await get(`rooms${sfx}.json`), LORE = await get("lore.md", false);
+const sameFloor = (d) => !FL || d.getFlag(MOD, "floor") === FL;
 const folder = (type) => game.folders.find(f => f.type === type && f.name === NAME);
 for (const t of ["JournalEntry", "Scene"]) if (!folder(t)) await Folder.create({ name: NAME, type: t });
 const report = {};
 
 // ---------- journals ----------
-for (const j of game.journal.filter(j => j.getFlag(MOD, "adventure") === code)) await j.delete();
+for (const j of game.journal.filter(j => j.getFlag(MOD, "adventure") === code && sameFloor(j) && (!FL || j.getFlag(MOD, "role") !== "overview" || cfg.overview))) await j.delete();
 const md = (s) => s.replace(/^### (.*)$/gm, "<h3>$1</h3>").replace(/^## (.*)$/gm, "<h2>$1</h2>").replace(/^# (.*)$/gm, "<h1>$1</h1>")
   .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>")
   .split(/\n{2,}/).map(b => /^<h\d/.test(b) ? b : /^- /m.test(b) ? "<ul>" + b.split("\n").map(l => `<li>${l.replace(/^- /, "")}</li>`).join("") + "</ul>" : `<p>${b.replace(/\n/g, " ")}</p>`).join("");
@@ -25,10 +29,10 @@ const md = (s) => s.replace(/^### (.*)$/gm, "<h3>$1</h3>").replace(/^## (.*)$/gm
 const RA = LORE.match(/^## Read-aloud\n([\s\S]*?)(?=\n## |$)/m);
 const readAloud = RA ? `<blockquote class="read-aloud"><p><em>${RA[1].trim().replace(/\n+/g, " ")}</em></p></blockquote>` : "";
 const LORE_BODY = RA ? LORE.replace(RA[0], "") : LORE;
-const overview = await JournalEntry.create({ name: `${name} — Overview`, folder: folder("JournalEntry").id,
-  flags: { [MOD]: { adventure: code, role: "overview" } }, pages: [{ name: "Overview", type: "text", text: { content: md(LORE_BODY).replace(/(<\/h1>)/, "$1" + readAloud) } }] });
+const overview = (FL && !cfg.overview) ? game.journal.find(j => j.getFlag(MOD, "adventure") === code && j.getFlag(MOD, "role") === "overview") : await JournalEntry.create({ name: `${name} — Overview`, folder: folder("JournalEntry").id,
+  flags: { [MOD]: { adventure: code, role: "overview", ...(FL ? { floor: FL } : {}) } }, pages: [{ name: "Overview", type: "text", text: { content: md(LORE_BODY).replace(/(<\/h1>)/, "$1" + readAloud) } }] });
 const actors = Object.fromEntries(game.actors.filter(a => a.getFlag(MOD, "adventure") === code).map(a => [a.name, a]));
-const items = game.items.filter(i => i.getFlag(MOD, "adventure") === code);
+const items = game.items.filter(i => i.getFlag(MOD, "adventure") === code && (!FL || !i.getFlag(MOD, "floor") || i.getFlag(MOD, "floor") === FL));
 const link = (html, room) => {
   for (const [n, a] of Object.entries(actors)) html = html.replaceAll(`<strong>${n}</strong>`, `@UUID[Actor.${a.id}]{${n}}`).replaceAll(`<strong>${n}s</strong>`, `@UUID[Actor.${a.id}]{${n}s}`);
   // items: the copy found in this room first, then any mention of a story item elsewhere
@@ -38,40 +42,51 @@ const link = (html, room) => {
 const journals = {};
 for (const r of ROOMS) {
   const html = `<blockquote class="read-aloud"><p><em>${r.read}</em></p></blockquote><h2>DM Notes</h2>${link(r.notes, r.n)}<hr><p>Back to @UUID[JournalEntry.${overview.id}]{${name} — Overview}.</p>`;
-  journals[r.n] = await JournalEntry.create({ name: `${String(r.n).padStart(2, "0")}. ${r.name}`, folder: folder("JournalEntry").id,
-    flags: { [MOD]: { adventure: code, role: "room", room: r.n } }, pages: [{ name: r.name, type: "text", text: { content: html } }] });
+  journals[r.n] = await JournalEntry.create({ name: r.code ? `${r.code} ${r.name}` : `${String(r.n).padStart(2, "0")}. ${r.name}`, folder: folder("JournalEntry").id,
+    flags: { [MOD]: { adventure: code, role: "room", room: r.n, ...(FL ? { floor: FL, code: r.code } : {}) } }, pages: [{ name: r.name, type: "text", text: { content: html } }] });
 }
+if (FL) {   // index of every floor built so far, in floor order, replacing any earlier index
+  const ORDER = ["ground", "basement", "upper"], NAMES = { ground: "Ground Floor", basement: "Basement", upper: "Upper Floor" };
+  const all = game.journal.filter(j => j.getFlag(MOD, "adventure") === code && j.getFlag(MOD, "role") === "room");
+  const pg = overview.pages.contents[0];
+  const base = pg.getFlag(MOD, "base") ?? pg.text.content;
+  if (!pg.getFlag(MOD, "base")) await pg.setFlag(MOD, "base", base);
+  const idx = ORDER.map(f => { const js = all.filter(j => j.getFlag(MOD, "floor") === f).sort((a, b) => a.getFlag(MOD, "room") - b.getFlag(MOD, "room"));
+    return js.length ? `<h2>${NAMES[f]}</h2><ul>` + js.map(j => `<li>@UUID[JournalEntry.${j.id}]{${j.name}}</li>`).join("") + "</ul>" : ""; }).join("");
+  await pg.update({ "text.content": base + idx });
+} else {
 const index = "<h2>Rooms</h2><ol>" + ROOMS.map(r => `<li>@UUID[JournalEntry.${journals[r.n].id}]{${r.name}}</li>`).join("") + "</ol>";
 await overview.pages.contents[0].update({ "text.content": overview.pages.contents[0].text.content + index });
+}
 report.journals = 1 + ROOMS.length;
 
 // ---------- scene ----------
-for (const s of game.scenes.filter(s => s.getFlag(MOD, "adventure") === code)) await s.delete();
+for (const s of game.scenes.filter(s => s.getFlag(MOD, "adventure") === code && sameFloor(s))) await s.delete();
 const art = `modules/${MOD}/assets/scenes/${slug}`;
 const scene = await Scene.create({
-  name, folder: folder("Scene").id, width: S.width, height: S.height, padding: 0, backgroundColor: "#000000",
+  name: FL ? `${name} — ${cfg.floorName}` : name, folder: folder("Scene").id, navName: FL ? cfg.floorName : undefined, width: S.width, height: S.height, padding: 0, backgroundColor: "#000000",
   grid: { type: 0, size: cfg.gridPx ?? 70, distance: cfg.gridFt ?? 2.5, units: "ft" }, tokenVision: true, fog: { exploration: true },
   environment: { darknessLevel: 1, globalLight: { enabled: false } },
-  flags: { [MOD]: { adventure: code, role: "dungeon-scene", slug, entrance: S.entrance } }
+  flags: { [MOD]: { adventure: code, role: (!FL || FL === "ground") ? "dungeon-scene" : "dungeon-floor", slug, entrance: S.entrance, ...(FL ? { floor: FL } : {}) } }
 });
-await scene.createEmbeddedDocuments("Tile", S.tiles.map(t => ({ texture: { src: `${art}/${slug}-${t.img}.webp` }, x: t.x, y: t.y, width: t.w, height: t.h, locked: true, elevation: 0, sort: 0,
+await scene.createEmbeddedDocuments("Tile", S.tiles.map(t => ({ texture: { src: `${art}/${slug}${sfx}-${t.img}.webp` }, x: t.x, y: t.y, width: t.w, height: t.h, locked: true, elevation: 0, sort: 0,
   flags: { [MOD]: { role: "map" } } })));
 // animated water (water.py), just above the map tiles; optional
-const WATER = await fetch(`/${BASE}/water.json?${Date.now()}`).then(r => r.ok ? r.json() : []).catch(() => []);
+const WATER = await fetch(`/${BASE}/water${sfx}.json?${Date.now()}`).then(r => r.ok ? r.json() : []).catch(() => []);
 if (WATER.length) await scene.createEmbeddedDocuments("Tile", WATER.map(t => ({ texture: { src: `${art}/${t.img}` }, x: t.x, y: t.y, width: t.w, height: t.h,
   locked: true, elevation: 0, sort: 1, video: { autoplay: true, loop: true, volume: 0 }, flags: { [MOD]: { role: "water" } } })));
 report.water = WATER.length;
 await scene.createEmbeddedDocuments("Wall", S.walls.map(w => ({ c: w.c, door: w.door ?? 0, ds: w.ds ?? 0, flags: w.flags ?? {},
   ...(w.sight != null ? { sight: w.sight, light: w.light ?? w.sight, sound: w.sound ?? w.sight } : {}) })));   // columns are terrain walls (Limited)
 await scene.createEmbeddedDocuments("Note", S.notes.map(n => ({ x: n.x, y: n.y, entryId: journals[n.n].id, pageId: journals[n.n].pages.contents[0].id,
-  text: String(n.n), iconSize: 40, fontSize: 32, texture: { src: "icons/svg/book.svg" }, global: false })));
+  text: n.code ?? String(n.n), iconSize: 40, fontSize: 32, texture: { src: "icons/svg/book.svg" }, global: false })));
 await scene.createEmbeddedDocuments("AmbientLight", S.lights.map(l => ({ x: l.x, y: l.y, config: { dim: l.dim, bright: l.bright, color: l.color, alpha: 0.35, animation: { type: "torch", speed: 2, intensity: 2 } },
   flags: { [MOD]: { role: "glow", room: l.room } } })));
 const bySlug = Object.fromEntries(Object.values(actors).map(a => [a.getFlag(MOD, "slug"), a]));
 const toks = [];
 for (const t of S.tokens) {
   const a = bySlug[t.slug]; if (!a) continue;
-  const td = await a.getTokenDocument({ x: t.x, y: t.y, hidden: true, flags: { [MOD]: { room: t.room } } });
+  const td = await a.getTokenDocument({ x: t.x, y: t.y, hidden: cfg.visibleTokens ? false : true, flags: { [MOD]: { room: t.room } } });
   toks.push(td.toObject());
 }
 await scene.createEmbeddedDocuments("Token", toks);

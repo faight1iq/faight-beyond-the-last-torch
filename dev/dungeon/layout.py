@@ -31,6 +31,10 @@ class Layout:
         ys = [r["y"] for r in self.rects] + [r["y"] + r["h"] for r in self.rects]
         self.X0, self.X1 = min(xs) - MARGIN, max(xs) + MARGIN
         self.Y0, self.Y1 = min(ys) - MARGIN, max(ys) + MARGIN
+        if d.get("bounds"):          # hand-authored multi-floor layouts (5LH3-1): every floor shares one frame
+            self.X0, self.Y0, self.X1, self.Y1 = d["bounds"]
+        self.stairs = d.get("stairs", [])
+        self.surfaces = {k: {tuple(c) for c in v} for k, v in d.get("surfaces", {}).items()}
         self.W, self.H = (self.X1 - self.X0) * S, (self.Y1 - self.Y0) * S
         self._rooms = None
 
@@ -84,7 +88,7 @@ class Layout:
                 j = cell.get((x + dx, y + dy))
                 if j is not None and j != i:
                     adj[i].add(j); adj[j].add(i)
-        is_room = lambda i: min(self.rects[i]["w"], self.rects[i]["h"]) >= 2
+        is_room = lambda i: min(self.rects[i]["w"], self.rects[i]["h"]) >= 2 and not self.rects[i].get("noroom")
         # start: the exterior door cell (a door rect with only one neighbour), else rect 0
         start = 0
         for i, r in enumerate(self.rects):
@@ -97,11 +101,13 @@ class Layout:
             for j in sorted(adj[c]):
                 if j not in seen: seen.add(j); q.append(j)
         order += [i for i in range(len(self.rects)) if is_room(i) and i not in order]
+        if self.d.get("fixed_order"):   # hand-authored layouts: rooms numbered in rect order
+            order = [i for i in range(len(self.rects)) if is_room(i)]
         rooms = []
         for n, i in enumerate(order, 1):
             r = self.rects[i]
             notes = [nt for nt in self.notes if cell.get((math.floor(nt["pos"]["x"]), math.floor(nt["pos"]["y"]))) == i]
-            rooms.append(dict(n=n, idx=i, rect=(r["x"], r["y"], r["w"], r["h"]), rotunda=bool(r.get("rotunda")),
+            rooms.append(dict(n=n, idx=i, code=r.get("code", str(n)), rect=(r["x"], r["y"], r["w"], r["h"]), rotunda=bool(r.get("rotunda")),
                               ending=bool(r.get("ending")), notes=notes,
                               columns=sorted(c for c in self.columns if r["x"] <= c[0] < r["x"] + r["w"] and r["y"] <= c[1] < r["y"] + r["h"]),
                               water=sorted(c for c in self.water if r["x"] <= c[0] < r["x"] + r["w"] and r["y"] <= c[1] < r["y"] + r["h"])))

@@ -15,6 +15,8 @@ THEMES = {
     "storm": dict(wall_tint=(0.70, 0.74, 0.76), bevel=(176, 184, 190), dust=(150, 160, 150), dust_amt=0.14, rock=(14, 15, 17)),
     # corn (5LES-1): the walls are corn rows and the whole field beyond them is corn, darker with distance from the path
     "corn":  dict(wall_tint=(0.95, 0.90, 0.80), bevel=(150, 130, 90), dust=(176, 150, 96), dust_amt=0.30, rock=(10, 10, 8), field=0.38, edge_line=0.55),
+    # keep (5LH3-1): grey castle stone; outdoor yard and bridge surfaces come from layout "surfaces"
+    "keep": dict(wall_tint=(0.74, 0.73, 0.72), bevel=(150, 146, 140), dust=(118, 110, 98), dust_amt=0.12, rock=(12, 12, 13)),
     "castle": dict(wall_tint=(0.72, 0.72, 0.74), bevel=(150, 150, 156), dust=(120, 116, 110), dust_amt=0.14, rock=(12, 12, 14)),
     # theatre (5LGX-1): dark lacquered wood panelling with a tarnished gilt edge
     "theatre": dict(wall_tint=(0.78, 0.62, 0.58), bevel=(168, 132, 78), dust=(110, 96, 84), dust_amt=0.12, rock=(14, 10, 10), col_r=0.17),
@@ -37,6 +39,24 @@ def build(json_path, floor_tex, wall_tex, out_dir, theme="frost", seed=5):
     dfl = cv2.distanceTransform(floor, cv2.DIST_L2, 5)
     dwl = cv2.distanceTransform((1 - floor).astype(np.uint8), cv2.DIST_L2, 5)
     dwa = cv2.distanceTransform(water, cv2.DIST_L2, 5) if water.any() else None   # distance inside the pool to its edge
+    def cellmask(cells):
+        m = np.zeros((H, W), bool)
+        for (x, y) in cells:
+            a, b = int((x - L.X0) * S), int((y - L.Y0) * S); m[b:b + S, a:a + S] = True
+        return m & floor.astype(bool)
+    SURF = {k: cellmask(v) for k, v in L.surfaces.items()}
+    STEX = {}
+    for k in SURF:   # surface textures: YARD_TEX / WALK_TEX env, else the floor texture tinted; bridge = code planks
+        pth = os.environ.get(f"{k.upper()}_TEX")
+        if pth: STEX[k] = tex(pth, 560)
+        elif k == "walk": STEX[k] = FT * np.array([1.08, 1.06, 1.04], np.float32)
+        elif k == "bridge":
+            import doors as _d
+            STEX[k] = cv2.resize(np.transpose(_d.wood(280, 280), (1, 0, 2)), (560, 560))
+        else: STEX[k] = FT
+    UNDER = None
+    if L.d.get("under") and os.environ.get("UNDER_IMG"):   # upper floor: the floor below shows, darkened, beyond the walls
+        UNDER = np.array(Image.open(os.environ["UNDER_IMG"]).convert("RGB").resize((W, H), Image.LANCZOS)).astype(np.float32) * 0.42
     outer = ((cv2.dilate(wall, np.ones((5, 5), np.uint8)) > 0) & (wall == 0) & (floor == 0))
     out = np.zeros((H, W, 3), np.uint8)
     STRIP = 1024
@@ -46,6 +66,10 @@ def build(json_path, floor_tex, wall_tex, out_dir, theme="frost", seed=5):
         fl = FT[yy % 560, xx % 560]; wt = WT[yy % 420, xx % 420]
         img = np.empty((h, W, 3), np.float32); img[:] = np.array(th["rock"], np.float32)
         img += rng.normal(0, 3, (h, W, 1)).astype(np.float32)
+        if UNDER is not None: img[:] = UNDER[y0:y1]
+        for k, m in SURF.items():
+            mm = m[y0:y1]
+            if mm.any(): fl = np.where(mm[..., None], STEX[k][yy % 560, xx % 560], fl)
         f = floor[y0:y1].astype(bool); w = wall[y0:y1].astype(bool)
         df = dfl[y0:y1]; dw = dwl[y0:y1]
         if th.get("field"):      # corn: no stone bevel; band fades into the dark field, no outer line
@@ -55,7 +79,7 @@ def build(json_path, floor_tex, wall_tex, out_dir, theme="frost", seed=5):
             img[w] = wt[w] * (1.0 - 0.25 * np.clip((dw[w] - 8) / (T - 8), 0, 1))[:, None]
             bev = w & (dw < 6); img[bev] = img[bev] * 0.6 + np.array(th["bevel"]) * 0.4
             edge = w & (dw >= 6) & (dw < 9); img[edge] *= 0.55
-            img[outer[y0:y1]] *= 0.4
+            img[outer[y0:y1] & (UNDER is None)] *= 0.4
         img[f] = fl[f]
         sh = 0.70 * np.exp(-df / 34.0); img[f] *= (1 - sh[f])[:, None]
         fn = cv2.GaussianBlur(rng.random((h, W)).astype(np.float32), (0, 0), 3)
@@ -93,6 +117,18 @@ def build(json_path, floor_tex, wall_tex, out_dir, theme="frost", seed=5):
         cv2.circle(out, (cx, cy), r, tuple(int(c) for c in th["bevel"]), -1, cv2.LINE_AA)
         cv2.circle(out, (cx, cy), int(r * 0.78), tuple(int(c * 0.82) for c in th["bevel"]), -1, cv2.LINE_AA)
         cv2.circle(out, (cx, cy), r, (40, 34, 28), 3, cv2.LINE_AA)
+    # stairs (5LH3-1): drawn in code; crops.py keeps them out of the magenta
+    import doors as _d
+    for st in L.stairs:
+        a, b = int((st["x"] - L.X0) * S), int((st["y"] - L.Y0) * S); w_, h_ = st["w"] * S, st["h"] * S
+        n = 6
+        horiz = st["dir"] in ("e", "w")
+        arr = _d.stone_bands(w_ if horiz else h_, h_ if horiz else w_, n, dark_end=st["down"])
+        if horiz: arr = np.transpose(arr, (1, 0, 2))
+        if st["dir"] in ("s", "e"): arr = arr[::-1, ::-1]
+        arr = cv2.resize(arr, (w_, h_))
+        out[b:b + h_, a:a + w_] = np.clip(arr, 0, 255).astype(np.uint8)
+        cv2.rectangle(out, (a, b), (a + w_ - 1, b + h_ - 1), (40, 36, 32), 6)
     os.makedirs(out_dir, exist_ok=True)
     Image.fromarray(out).save(os.path.join(out_dir, "base_map.png"))
     Image.fromarray(out).resize((W // 10, H // 10), Image.LANCZOS).save(os.path.join(out_dir, "base_small.png"))

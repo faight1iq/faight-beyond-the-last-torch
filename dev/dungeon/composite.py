@@ -104,6 +104,31 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
             how = "magenta"
         except cv2.error:
             warp = np.eye(2, 3, dtype=np.float32); how = "identity"
+    if os.environ.get("FIT_PICK") and not fitmask:   # 5LH3-1: score every candidate fit on the wall band around the room, keep the best
+        rx_, ry_, rw_, rh_ = meta["rect"]; bx, by = L.px(rx_, ry_); bx -= x0; by -= y0
+        band = np.zeros((N, N), bool); m_ = S // 2
+        band[max(0, by - m_):by + rh_ * S + m_, max(0, bx - m_):bx + rw_ * S + m_] = True
+        band[by + m_ // 2:by + rh_ * S - m_ // 2, bx + m_ // 2:bx + rw_ * S - m_ // 2] = False
+        cm = magmask(crop)
+        def score(w):   # magenta IoU over the whole crop: furniture lowers every candidate alike, misplaced walls do not
+            rm_ = magmask(cv2.warpAffine(ret, w, (N, N), flags=cv2.INTER_NEAREST + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_CONSTANT))
+            return float((cm & rm_).sum() / max(1, (cm | rm_).sum()))
+        cands = {how: warp.copy(), "identity": np.eye(2, 3, dtype=np.float32)}
+        try:
+            _, wt = cv2.findTransformECC(struct(crop), struct(ret), np.eye(2, 3, dtype=np.float32), cv2.MOTION_TRANSLATION,
+                                         (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 200, 1e-6), None, 5)
+            cands["translation"] = wt
+        except cv2.error: pass
+        try:
+            fm = lambda a: cv2.GaussianBlur(magmask(a).astype(np.float32), (0, 0), 4)
+            _, wm = cv2.findTransformECC(fm(crop), fm(ret), np.eye(2, 3, dtype=np.float32), cv2.MOTION_TRANSLATION,
+                                         (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 200, 1e-6), None, 5)
+            cands["magenta-translation"] = wm
+        except cv2.error: pass
+        ok = lambda w: abs(w[0, 0] - 1) < 0.05 and abs(w[1, 1] - 1) < 0.05 and abs(w[0, 1]) < 0.02 and abs(w[1, 0]) < 0.02 and abs(w[0, 2]) < N * 0.06 and abs(w[1, 2]) < N * 0.06
+        cands = {k: v for k, v in cands.items() if ok(v)}   # ChatGPT keeps the framing far more often than a large rescale suggests
+        sc = {k: score(v) for k, v in cands.items()}
+        how = max(sc, key=sc.get); warp = cands[how]; cc = sc[how]
     al = cv2.warpAffine(ret, warp, (N, N), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE).astype(np.float32)
 
     # room region in crop coords (circle for rotundas); keep base where it isn't magenta in the crop (water, columns)
@@ -157,7 +182,7 @@ def place(L, key, meta, crop, ret, base, fitmask=None, dbg=None):
         col, obj_a, shadow_a = shrink_objects(col, obj_a * rmf, shadow_a * rmf, (ax, ay, ax + rw * S, ay + rh * S), f)
 
     cleared = 0
-    if os.environ.get("CLEAR_LANES"):
+    if os.environ.get("CLEAR_LANES") and key not in os.environ.get("LANES_SKIP", "").split(","):
         col, obj_a, shadow_a, cleared = clear_lanes(L, meta, x0, y0, col, obj_a * rm, shadow_a * rm)
     if os.environ.get("SAVE_LAYERS") and dbg:   # per-room keyed layer, for building supplement crops
         np.savez_compressed(os.path.join(os.path.dirname(dbg), f"layer-{key}.npz"), col=col.astype(np.uint8),

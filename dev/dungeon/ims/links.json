@@ -1,0 +1,226 @@
+[
+[
+{
+"floor": "ground",
+"id": "g16",
+"rect": [
+5040,
+3360,
+560,
+560
+],
+"arrive": [
+5180,
+4060
+],
+"secret": false
+},
+{
+"floor": "upper",
+"id": "u1",
+"rect": [
+5040,
+5040,
+560,
+560
+],
+"arrive": [
+5740,
+5180
+],
+"secret": false
+}
+],
+[
+{
+"floor": "ground",
+"id": "g14",
+"rect": [
+3640,
+2800,
+280,
+560
+],
+"arrive": [
+3780,
+3500
+],
+"secret": false
+},
+{
+"floor": "basement",
+"id": "b8",
+"rect": [
+3360,
+2240,
+280,
+560
+],
+"arrive": [
+3500,
+2940
+],
+"secret": false
+}
+],
+[
+{
+"floor": "ground",
+"id": "g8",
+"rect": [
+1680,
+1680,
+280,
+280
+],
+"arrive": [
+1820,
+2100
+],
+"secret": false
+},
+{
+"floor": "upper",
+"id": "w6",
+"rect": [
+1680,
+1680,
+280,
+280
+],
+"arrive": [
+1820,
+2100
+],
+"secret": false
+}
+],
+[
+{
+"floor": "ground",
+"id": "g9",
+"rect": [
+8680,
+1680,
+280,
+280
+],
+"arrive": [
+8820,
+2100
+],
+"secret": false
+},
+{
+"floor": "upper",
+"id": "w7",
+"rect": [
+8680,
+1680,
+280,
+280
+],
+"arrive": [
+8820,
+2100
+],
+"secret": false
+}
+],
+[
+{
+"floor": "ground",
+"id": "g10",
+"rect": [
+1680,
+7840,
+280,
+280
+],
+"arrive": [
+2100,
+7980
+],
+"secret": false
+},
+{
+"floor": "upper",
+"id": "w8",
+"rect": [
+1680,
+7840,
+280,
+280
+],
+"arrive": [
+2100,
+7980
+],
+"secret": false
+}
+],
+[
+{
+"floor": "ground",
+"id": "g11",
+"rect": [
+8680,
+7840,
+280,
+280
+],
+"arrive": [
+8540,
+7980
+],
+"secret": false
+},
+{
+"floor": "upper",
+"id": "w9",
+"rect": [
+8680,
+7840,
+280,
+280
+],
+"arrive": [
+8540,
+7980
+],
+"secret": false
+}
+],
+[
+{
+"floor": "ground",
+"id": "culvert",
+"rect": [
+840,
+4480,
+560,
+280
+],
+"arrive": [
+700,
+4620
+],
+"secret": true
+},
+{
+"floor": "basement",
+"id": "culvert-b",
+"rect": [
+1120,
+4200,
+280,
+560
+],
+"arrive": [
+1540,
+4340
+],
+"secret": true
+}
+]
+]

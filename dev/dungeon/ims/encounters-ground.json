@@ -1,0 +1,249 @@
+{
+ "wall_offset": 35,
+ "sizes": {
+  "ironmark-servant": 1,
+  "ironmark-legionnaire": 1,
+  "moat-eel": 2,
+  "leech-swarm": 1,
+  "legion-squad": 1,
+  "war-hound-pack": 2,
+  "legion-platoon": 2,
+  "legion-company": 3,
+  "iron-guard": 1,
+  "kennelmaster-vosk": 1,
+  "forgemaster-ulgra": 2,
+  "sergeant-drekk": 1,
+  "warden-skarn": 2,
+  "old-gutter": 2,
+  "the-iron-captain": 1,
+  "gharrek-the-unbowed": 2
+ },
+ "rooms": {
+  "3": [
+   [
+    "ironmark-servant",
+    4
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "4": [
+   [
+    "ironmark-servant",
+    3
+   ],
+   [
+    "ironmark-legionnaire",
+    2
+   ]
+  ],
+  "5": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "legion-squad",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "6": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "kennelmaster-vosk",
+    1
+   ],
+   [
+    "war-hound-pack",
+    1
+   ]
+  ],
+  "7": [
+   [
+    "forgemaster-ulgra",
+    1
+   ],
+   [
+    "ironmark-servant",
+    2
+   ]
+  ],
+  "8": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "9": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "10": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "11": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "12": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    2
+   ]
+  ],
+  "13": [
+   [
+    "ironmark-servant",
+    2
+   ],
+   [
+    "legion-platoon",
+    1
+   ]
+  ],
+  "14": [
+   [
+    "ironmark-servant",
+    2
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "15": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "sergeant-drekk",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "16": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ]
+ },
+ "place": [
+  [
+   "leech-swarm",
+   16.4,
+   29.4,
+   2
+  ],
+  [
+   "moat-eel",
+   2.4,
+   13.6,
+   2
+  ],
+  [
+   "moat-eel",
+   2.4,
+   17.6,
+   2
+  ]
+ ],
+ "traps": {
+  "3": {
+   "name": "Murder Holes",
+   "kind": "section",
+   "save": "dex",
+   "dc": 15,
+   "dice": "10d10",
+   "type": "fire",
+   "effect": "",
+   "flavor": "Murder Holes: the grates overhead open and boiling pitch pours down on you.",
+   "spot": [
+    1,
+    1,
+    2,
+    2
+   ]
+  }
+ },
+ "lights": [
+  [
+   7,
+   "#ff9a4a",
+   25,
+   10
+  ],
+  [
+   14,
+   "#ffb070",
+   20,
+   5
+  ],
+  [
+   13,
+   "#ffb070",
+   20,
+   5
+  ],
+  [
+   12,
+   "#ffcf8a",
+   20,
+   5
+  ],
+  [
+   4,
+   "#ffcf8a",
+   20,
+   5
+  ]
+ ],
+ "entrance": [
+  18,
+  32.5
+ ]
+}

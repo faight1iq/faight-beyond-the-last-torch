@@ -42,7 +42,7 @@ def run(json_path, enc_path, out_path, slug):
     WALL_OFFSET = int(E.get("wall_offset", 0))   # px into the painted wall band (35 from 5LES-1 on)
     rooms = {rm["n"]: rm for rm in L.rooms()}
     tiles = [{"img": f"q{ix}{iy}", "x": x, "y": y, "w": w, "h": h} for ix, iy, x, y, w, h in L.tiles()]
-    notes = [{"n": n, "x": int((rm["rect"][0] - L.X0 + rm["rect"][2] / 2) * S), "y": int((rm["rect"][1] - L.Y0 + rm["rect"][3] / 2) * S)} for n, rm in rooms.items()]
+    notes = [{"n": n, "code": rm.get("code", str(n)), "x": int((rm["rect"][0] - L.X0 + rm["rect"][2] / 2) * S), "y": int((rm["rect"][1] - L.Y0 + rm["rect"][3] / 2) * S)} for n, rm in rooms.items()]
     size_of = E.get("sizes", {})
     tokens = []
     for n, groups in E["rooms"].items():
@@ -58,6 +58,8 @@ def run(json_path, enc_path, out_path, slug):
                                        p[1] + sz * 140 <= q[1] or q[1] + qs[1] * 140 <= p[1] for q, qs in placed)]
             for s, p in zip(group, ps): placed.append((p, s))
         for p, (sl, sz) in placed: tokens.append({"slug": sl, "room": int(n), "x": p[0], "y": p[1]})
+    for sl, sx, sy, *rn in E.get("place", []):    # hand-placed tokens, absolute squares (5LH3-1); optional room number
+        tokens.append({"slug": sl, "room": int(rn[0]) if rn else 0, "x": int((sx - L.X0) * S), "y": int((sy - L.Y0) * S)})
     def rect_px(n, spot):
         x, y, w, h = rooms[int(n)]["rect"]; dx, dy, sw, sh = spot
         return [int((x - L.X0 + dx) * S), int((y - L.Y0 + dy) * S), int(sw * S), int(sh * S)]
@@ -72,7 +74,9 @@ def run(json_path, enc_path, out_path, slug):
         lights.append({"x": int((x - L.X0 + w / 2) * S), "y": int((y - L.Y0 + h / 2) * S), "color": color, "dim": dim, "bright": bright, "room": int(n)})
     ent = E.get("entrance")
     entrance = {"x": int((ent[0] - L.X0) * S), "y": int((ent[1] - L.Y0) * S)} if ent else None
-    out = {"slug": slug, "width": L.W, "height": L.H, "tiles": tiles, "walls": L.walls(offset=WALL_OFFSET), "notes": notes,
+    sq = lambda st: {**st, "px": [int((st["x"] - L.X0) * S), int((st["y"] - L.Y0) * S), int(st["w"] * S), int(st["h"] * S)]}
+    stairs = [sq(st) for st in L.stairs + L.d.get("secret", [])]
+    out = {"stairs": stairs, "links": L.d.get("links", []), "slug": slug, "width": L.W, "height": L.H, "tiles": tiles, "walls": L.walls(offset=WALL_OFFSET), "notes": notes,
            "tokens": tokens, "traps": traps, "teleport": teleport, "lights": lights, "entrance": entrance,
            "rooms": {n: {"rect": rm["rect"], "rotunda": rm["rotunda"]} for n, rm in rooms.items()}}
     json.dump(out, open(out_path, "w"))

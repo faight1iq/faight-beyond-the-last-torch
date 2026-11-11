@@ -1,0 +1,108 @@
+{
+ "code": "5LH3-1",
+ "name": "The Ironmark Stockade",
+ "slug": "the-ironmark-stockade",
+ "floor": "ground",
+ "theme": "keep",
+ "override": "John, 2026-11-11: hand-drawn castle layout (no Watabou); Veterans Day story: the war has just ended, warlord Gharrek refuses the peace and holds Crown prisoners.",
+ "wall_text": "The grey stone bands around the floor are the tops of thick castle walls and the dark area is solid ground outside the building: keep them exactly as they are; do not move, redraw or extend any wall. ",
+ "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. A hobgoblin war fortress on the night the war ended, still fully manned: iron-banded crates, weapon racks, spears, round shields, red-and-black war banners, braziers, barrels, sacks, straw, chains, rough timber furniture, maps and ledgers, bones. Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given. Furniture stands against the walls; the middle of the room stays mostly open.",
+ "rooms": {
+  "1": {
+   "code": "G1",
+   "name": "Moat Bank",
+   "art": "",
+   "furnish": false
+  },
+  "2": {
+   "code": "G2",
+   "name": "The Moat",
+   "art": "",
+   "furnish": false
+  },
+  "3": {
+   "code": "G3",
+   "name": "Gatehouse",
+   "art": "a fortress gatehouse passage: the drawbridge winch chains running up through the ceiling along the east and west walls, a guard's stool and brazier, spear racks, a rack of crossbows, sandbags and a barrel of pitch against the walls, murder holes in the ceiling shown as small dark square grates in the floor's middle strip",
+   "furnish": true
+  },
+  "4": {
+   "code": "G4",
+   "name": "Outer Courtyard",
+   "art": "a corner of a fortress courtyard at dusk: a tall wooden gallows with a single noose stands against the west side, a cart of firewood, stacked crates and barrels, a water trough, scattered straw and a few spears leaning on the walls",
+   "furnish": true
+  },
+  "5": {
+   "code": "G5",
+   "name": "Barracks",
+   "art": "a soldiers' barracks: rows of narrow cots with grey blankets against the long walls, footlockers at their ends, a weapon rack, a table with dice and tin cups, boots and kit bags, an iron pay chest in the north-west corner",
+   "furnish": true
+  },
+  "6": {
+   "code": "G6",
+   "name": "Kennels",
+   "art": "war-dog kennels: wooden pens with iron gates along the east wall, straw bedding, gnawed bones, water troughs, chains and spiked collars hanging on pegs, a handler's stool and whip, meat buckets",
+   "furnish": true
+  },
+  "7": {
+   "code": "G7",
+   "name": "Smithy",
+   "art": "a fortress smithy: a glowing stone forge with bellows against the east wall, an anvil on a stump, quench barrel, racks of half-finished spearheads and helmets, tongs and hammers on a bench, coal heap, a grindstone",
+   "furnish": true
+  },
+  "8": {
+   "code": "G8",
+   "name": "NW Tower",
+   "art": "the ground floor of a round-cornered stone tower: a spiral stair in the north-west corner (already drawn), arrow bundles, a crate of javelins, a cot, a lantern on a barrel",
+   "furnish": true
+  },
+  "9": {
+   "code": "G9",
+   "name": "NE Tower",
+   "art": "the ground floor of a stone tower: a spiral stair in the north-east corner (already drawn), stacked arrow bundles, sacks, a water barrel, a small table with a candle",
+   "furnish": true
+  },
+  "10": {
+   "code": "G10",
+   "name": "SW Tower",
+   "art": "the ground floor of a stone tower: a spiral stair in the south-west corner (already drawn), a crate of crossbow bolts, a cot, kit bags, a lantern",
+   "furnish": true
+  },
+  "11": {
+   "code": "G11",
+   "name": "SE Tower",
+   "art": "the ground floor of a stone tower: a spiral stair in the south-east corner (already drawn), barrels, a rack of spears, a stool, a lantern",
+   "furnish": true
+  },
+  "12": {
+   "code": "G12",
+   "name": "Entry Hall",
+   "art": "the entry hall of a fortress keep: war banners on the walls, two suits of hobgoblin armor on stands, a long bench, a brazier in each corner, a red runner carpet from the south doors north",
+   "furnish": true
+  },
+  "13": {
+   "code": "G13",
+   "name": "Mess Hall",
+   "art": "a soldiers' mess hall: two long trestle tables with benches running north-south, tin plates and mugs, a soup cauldron on a hearth against the west wall, barrels of ale",
+   "furnish": true
+  },
+  "14": {
+   "code": "G14",
+   "name": "Kitchen",
+   "art": "a fortress kitchen: a hearth with a spit against the west wall, a chopping table, hanging pots, sacks of grain, a meat rack, buckets, a stair down to the cellar in the north-west corner (already drawn)",
+   "furnish": true
+  },
+  "15": {
+   "code": "G15",
+   "name": "Armory",
+   "art": "a fortress armory: weapon racks of spears, halberds and swords along every wall, shield stacks, armor stands, a whetstone bench, crates of arrows, a heavy iron-bound locker",
+   "furnish": true
+  },
+  "16": {
+   "code": "G16",
+   "name": "Grand Stair",
+   "art": "a broad stone stair hall: a wide staircase going up along the north wall (already drawn), torches in sconces, two war banners, a guard's bench at the foot of the stair",
+   "furnish": true
+  }
+ }
+}

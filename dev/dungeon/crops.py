@@ -31,10 +31,13 @@ def run(json_path, plan_path, work):
     for (x, y) in L.columns:                     # keep drawn columns out of the magenta
         cx, cy = [int(v) for v in L.px(x + 0.5, y + 0.5)]
         cv2.circle(mag.view(np.uint8), (cx, cy), int(S * 0.28) + 4, 0, -1)
+    for st in L.stairs:                          # stairs are drawn by basemap.py (5LH3-1)
+        a, b = int((st["x"] - L.X0) * S), int((st["y"] - L.Y0) * S); mag[b:b + st["h"] * S, a:a + st["w"] * S] = False
     im = base.copy(); im[mag] = (255, 0, 255)
     prompts = {}
     for rm in L.rooms():
         n = rm["n"]; x, y, w, h = rm["rect"]; key = f"{n:02d}"
+        if plan["rooms"].get(str(n), {}).get("furnish") is False: continue
         N = max(w, h) + 1
         x0 = int(round((x + w / 2 - N / 2 - L.X0) * S)); y0 = int(round((y + h / 2 - N / 2 - L.Y0) * S)); NP = N * S
         c = np.zeros((NP, NP, 3), np.uint8); c[:] = plan.get("crop_fill", (16, 17, 20))
@@ -45,6 +48,7 @@ def run(json_path, plan_path, work):
         json.dump({"x0": x0, "y0": y0, "N": NP, "rect": [x, y, w, h], "rotunda": rm["rotunda"]}, open(os.path.join(out, f"crop-{key}.json"), "w"))
         kept = []
         if rm["water"]: kept.append("The dark water pool is already drawn; keep it exactly as it is. ")
+        if any(x <= st["x"] < x + w and y <= st["y"] < y + h for st in L.stairs): kept.append("The stone staircase is already drawn; keep it exactly as it is and keep the floor in front of it clear. ")
         if rm["columns"]: kept.append("The round stone columns are already drawn; keep them exactly where they are. ")
         shape = "round room" if rm["rotunda"] else "room"
         size = (f"a circle {w} squares of 10 feet across ({w*10} feet)" if rm["rotunda"]

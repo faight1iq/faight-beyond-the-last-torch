@@ -1,0 +1,60 @@
+{
+ "code": "5LH3-1",
+ "name": "The Ironmark Stockade",
+ "slug": "the-ironmark-stockade",
+ "floor": "basement",
+ "theme": "keep",
+ "override": "John, 2026-11-11: hand-drawn castle layout (no Watabou); Veterans Day story: the war has just ended, warlord Gharrek refuses the peace and holds Crown prisoners.",
+ "wall_text": "The grey stone bands around the floor are the tops of thick castle walls and the dark area is solid ground outside the building: keep them exactly as they are; do not move, redraw or extend any wall. ",
+ "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. A hobgoblin war fortress on the night the war ended, still fully manned: iron-banded crates, weapon racks, spears, round shields, red-and-black war banners, braziers, barrels, sacks, straw, chains, rough timber furniture, maps and ledgers, bones. Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given. Furniture stands against the walls; the middle of the room stays mostly open.",
+ "rooms": {
+  "1": {
+   "code": "B1",
+   "name": "Moat Culvert",
+   "art": "",
+   "furnish": false
+  },
+  "2": {
+   "code": "B2",
+   "name": "Sluice Room",
+   "art": "a dank sluice chamber: a stone water channel along the west wall, a large iron gate wheel, a rusted sluice gate, heavy chains bolted to the floor, gnawed bones and a feeding trough",
+   "furnish": true
+  },
+  "3": {
+   "code": "B8",
+   "name": "Cellar Stores",
+   "art": "a fortress cellar: wine and ale barrels in racks, sacks of grain and flour, hanging hams, crates of turnips, a stair up to the kitchen in the north-west corner (already drawn)",
+   "furnish": true
+  },
+  "4": {
+   "code": "B3",
+   "name": "Guard Room",
+   "art": "a dungeon guard room: a table with a lantern, dice and a ring of keys, a weapon rack, a brazier, stools, a hook board for manacles, a bucket",
+   "furnish": true
+  },
+  "5": {
+   "code": "B4",
+   "name": "North Cell Block",
+   "art": "a dungeon cell block: a row of small barred cells along the north wall with straw, buckets and chained prisoners' cots, an aisle down the south side, a turnkey's stool",
+   "furnish": true
+  },
+  "6": {
+   "code": "B5",
+   "name": "South Cell Block",
+   "art": "a dungeon cell block: a row of small barred cells along the south wall with straw, buckets and chained prisoners' cots, an aisle down the north side, a turnkey's stool",
+   "furnish": true
+  },
+  "7": {
+   "code": "B6",
+   "name": "Interrogation",
+   "art": "an interrogation chamber: a heavy chair with straps, a brazier with branding irons, chains hanging from the ceiling, a table of iron tools, a rack against the east wall, a bucket of water",
+   "furnish": true
+  },
+  "8": {
+   "code": "B7",
+   "name": "Warden's Office",
+   "art": "a jailer's office: a heavy desk with ledgers and an inkwell against the east wall, a key board on the wall, a cot, a locked iron strongbox standing in the north-west corner, a lantern",
+   "furnish": true
+  }
+ }
+}

@@ -1,0 +1,72 @@
+{
+ "code": "5LH3-1",
+ "name": "The Ironmark Stockade",
+ "slug": "the-ironmark-stockade",
+ "floor": "upper",
+ "theme": "keep",
+ "override": "John, 2026-11-11: hand-drawn castle layout (no Watabou); Veterans Day story: the war has just ended, warlord Gharrek refuses the peace and holds Crown prisoners.",
+ "wall_text": "The grey stone bands around the floor are the tops of thick castle walls and parapets; the dim area beyond them is the courtyard far below: keep all of it exactly as it is; do not move, redraw or extend any wall. ",
+ "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. A hobgoblin war fortress on the night the war ended, still fully manned: iron-banded crates, weapon racks, spears, round shields, red-and-black war banners, braziers, barrels, sacks, straw, chains, rough timber furniture, maps and ledgers, bones. Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given. Furniture stands against the walls; the middle of the room stays mostly open.",
+ "rooms": {
+  "1": {
+   "code": "W6",
+   "name": "NW Tower Top",
+   "art": "the open top of a castle tower behind crenellated parapets: a loaded ballista facing outward, a brazier, a crate of bolts, a signal horn on a post, a spiral stair hatch (already drawn)",
+   "furnish": true
+  },
+  "2": {
+   "code": "W7",
+   "name": "NE Tower Top",
+   "art": "the open top of a castle tower behind parapets: a stone-thrower (small mangonel), a pile of rocks, a brazier, a spiral stair hatch (already drawn)",
+   "furnish": true
+  },
+  "3": {
+   "code": "W8",
+   "name": "SW Tower Top",
+   "art": "the open top of a castle tower behind parapets: a ballista, bolt crates, a war banner on a pole, a spiral stair hatch (already drawn)",
+   "furnish": true
+  },
+  "4": {
+   "code": "W9",
+   "name": "SE Tower Top",
+   "art": "the open top of a castle tower behind parapets: a cauldron of pitch over a brazier, buckets, a crate of javelins, a spiral stair hatch (already drawn)",
+   "furnish": true
+  },
+  "5": {
+   "code": "W1",
+   "name": "Winch Room",
+   "art": "a gatehouse winch room: a big wooden windlass with iron chains running down through slots in the floor to the drawbridge, a portcullis wheel, coils of rope, a guard's stool, oil buckets",
+   "furnish": true
+  },
+  "6": {
+   "code": "U5",
+   "name": "Throne Room",
+   "art": "a hobgoblin warlord's throne hall: a black iron throne on a low dais in the middle of the north wall, four tall red-and-black war standards around the room, braziers, trophies of captured enemy shields and banners on the walls, a long red carpet from the south doors",
+   "furnish": true
+  },
+  "7": {
+   "code": "U1",
+   "name": "Upper Gallery",
+   "art": "an upper gallery hall: weapon racks and war trophies on the walls, a long bench, banners, the head of a wide stone stair coming up in the south (already drawn), a brazier",
+   "furnish": true
+  },
+  "8": {
+   "code": "U2",
+   "name": "War Room",
+   "art": "a war room: a large map table covered in campaign maps and carved army markers in the middle, chairs, scroll racks along the walls, a lectern with an open ledger, candles",
+   "furnish": true
+  },
+  "9": {
+   "code": "U3",
+   "name": "Gharrek's Quarters",
+   "art": "a hobgoblin warlord's bedchamber: a heavy bed with furs against the east wall, an armor stand, a weapon rack, a war chest, a washstand, a desk with letters, crossbow slits in the north wall",
+   "furnish": true
+  },
+  "10": {
+   "code": "U4",
+   "name": "Treasury",
+   "art": "a fortress treasury: iron-bound chests and coffers against the walls, a small heavy strongbox on a stone plinth against the north wall, sacks of coin, captured silver plate",
+   "furnish": true
+  }
+ }
+}

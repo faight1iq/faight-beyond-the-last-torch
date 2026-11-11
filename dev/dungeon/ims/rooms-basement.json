@@ -1,0 +1,58 @@
+[
+ {
+  "n": 1,
+  "code": "B1",
+  "name": "Moat Culvert",
+  "read": "You haul yourselves through the grate into a low, round culvert of slimy brick. Moat water runs ankle deep along the floor and drains away into the dark ahead. The ceiling is so low that tall folk must stoop. Halfway along, the brickwork changes, and a narrow line runs across the ceiling from wall to wall.",
+  "notes": "<p>The drain from the moat into the sluice. It is the shortest way in and the shortest way out with the prisoners.</p><p>No encounter.</p><h3>Trap: Culvert Grate</h3><ul><li><strong>Trigger:</strong> a creature enters the 10-foot stretch of culvert halfway along, wall to wall.</li><li><strong>Find:</strong> DC 15 Wisdom (Perception) notices a slot in the ceiling.</li><li><strong>Effect:</strong> DC 15 Dexterity saving throw [[/save dex 15]]; [[/damage 10d10 piercing]] on a failure, half on a success. On a failure the creature also has the Restrained condition, pinned under the spiked grate until it or an ally uses an action and succeeds on a DC 15 Strength (Athletics) check.</li><li><strong>Disarm or avoid:</strong> Wedge the slot (DC 15 Dexterity check with thieves' tools, or DC 15 Strength (Athletics) check), or crawl under at half speed.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><h3>Stairs</h3><p>Secret culvert to G2 The Moat.</p>"
+ },
+ {
+  "n": 2,
+  "code": "B2",
+  "name": "Sluice Room",
+  "read": "Water roars through a stone channel across this chamber and down through iron sluice gates. On a ledge above the channel squats a huge, grey-green troll, its limbs knotted with river weed, held by a heavy chain around its neck. A small goblin with a bucket of offal backs away from it, sees you, and shrieks. The troll stands up and pulls its chain tight.",
+  "notes": "<p>Old Gutter is a river troll the legion chained here to guard the drain. His chain reaches the whole room.</p><h3>Encounter</h3><p>1 <strong>Old Gutter</strong>, 1 <strong>Ironmark Servant</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The servant is the goblin feeder. Old Gutter fights until destroyed.</p>"
+ },
+ {
+  "n": 3,
+  "code": "B8",
+  "name": "Cellar Stores",
+  "read": "Barrels of ale and salted fish line the walls of this cool cellar, with strings of onions hanging from the beams. A stair climbs to an open trapdoor in the ceiling, and lamplight spills down from the kitchen above. A goblin servant drops an armful of turnips and runs.",
+  "notes": "<p>The keep's stores, below the kitchen.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Treasure</h3><p>A <strong>Potion of Healing</strong> in a crate of medical supplies.</p><h3>Stairs</h3><p>Stairs up to G14 Kitchen.</p>"
+ },
+ {
+  "n": 4,
+  "code": "B3",
+  "name": "Guard Room",
+  "read": "A low vaulted room holds a long table, racks of crossbows and a gong on a frame. A large company of hobgoblin soldiers is already standing in ranks between the cell block doors. A servant reaches for the gong hammer.",
+  "notes": "<p>The guard post between the two cell blocks.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Legion Platoon</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The platoon holds the room.</p>"
+ },
+ {
+  "n": 5,
+  "code": "B4",
+  "name": "North Cell Block",
+  "read": "A narrow passage runs between rows of barred cells, each crowded with ragged soldiers in torn Crown tabards. They press to the bars as you enter, and some of them shout your way. A hobgoblin guard paces the passage with a cudgel, and a servant carrying a water bucket runs for the door.",
+  "notes": "<p>Half of the Crown prisoners are held here.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><p>Twenty Crown prisoners are locked in the cells. Each cell door opens with the Warden's Master Keys (on Warden Skarn, B6), a DC 18 Dexterity check with thieves' tools, or a DC 20 Strength (Athletics) check. Freed prisoners barricade themselves in the cell block and wait; they do not follow or fight.</p><h3>Treasure</h3><p>A <strong>Crown Veteran's Medal</strong>, hidden by a prisoner in the straw of his cell. He gives it to the first character who opens his door.</p>"
+ },
+ {
+  "n": 6,
+  "code": "B5",
+  "name": "South Cell Block",
+  "read": "Rows of barred cells line this damp passage, packed with chained Crown soldiers, thin and bruised. A few lie still on the straw. A hobgoblin guard turns from the bars to face you, and a servant drops a basket of bread and runs.",
+  "notes": "<p>The other half of the Crown prisoners are held here.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><p>Twenty Crown prisoners are locked in the cells. Each cell door opens with the Warden's Master Keys (on Warden Skarn, B6), a DC 18 Dexterity check with thieves' tools, or a DC 20 Strength (Athletics) check. Freed prisoners barricade themselves in the cell block and wait; they do not follow or fight.</p>"
+ },
+ {
+  "n": 7,
+  "code": "B6",
+  "name": "Interrogation",
+  "read": "Chains hang from the ceiling of this stone room over a drain in the floor. A rack and a brazier of hot irons stand against the walls. A huge, hairy bugbear with a great ring of iron keys at his belt turns from a chained prisoner and picks up a morningstar. A hobgoblin soldier stands beside him, and a servant tending the brazier runs.",
+  "notes": "<p>Warden Skarn keeps the cells and does the questioning. The prisoner in the chains is alive.</p><h3>Encounter</h3><p>1 <strong>Warden Skarn</strong>, 1 <strong>Ironmark Legionnaire</strong>, 1 <strong>Ironmark Servant</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. Skarn fights to the death.</p><h3>Treasure</h3><p><strong>Warden's Master Keys</strong> (on Skarn); they open every cell door in B4 and B5.</p>"
+ },
+ {
+  "n": 8,
+  "code": "B7",
+  "name": "Warden's Office",
+  "read": "A cramped office holds a desk heaped with ledgers and a stool. Keys hang on hooks along one wall, every one of them broken off at the bit. In the north-west corner sits a locked iron strongbox, its lid stained green around the keyhole. A goblin clerk jumps up from the desk and runs.",
+  "notes": "<p>Skarn's office and his savings.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Trap: Warden's Strongbox</h3><ul><li><strong>Trigger:</strong> a creature opens or reaches for the locked iron strongbox in the north-west corner (the square in front of it).</li><li><strong>Find:</strong> DC 16 Intelligence (Investigation) finds a poison needle in the keyhole.</li><li><strong>Effect:</strong> DC 16 Constitution saving throw [[/save con 16]]; [[/damage 10d10 poison]] on a failure, half on a success. On a failure the creature also has the Poisoned condition for 1 hour.</li><li><strong>Disarm or avoid:</strong> Jam or remove the needle (DC 16 Dexterity check with thieves' tools).</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). If a player opens the box from range, the GM can fire the trap by clicking the tile. Re-enable the tile to reset the trap.</li></ul><h3>Treasure</h3><p>400 gp in the strongbox.</p>"
+ }
+]

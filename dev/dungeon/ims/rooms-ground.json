@@ -1,0 +1,114 @@
+[
+ {
+  "n": 1,
+  "code": "G1",
+  "name": "Moat Bank",
+  "read": "You stand on a muddy bank at the edge of a wide, dark moat. Across the water rise the timber and stone walls of the stockade, with a square tower at each corner and a gatehouse in the middle of the south wall. The drawbridge is raised and chained shut against the gate. A black war banner hangs over the gatehouse, and torches move along the walls above.",
+  "notes": "<p>The party arrives here at sunset. The drawbridge is raised; the winch that lowers it is in the Winch Room (W1) on the upper floor. The way in is across the moat (G2): swim it to the gatehouse, or search the west moat wall for the culvert grate.</p><p>No encounter.</p>"
+ },
+ {
+  "n": 2,
+  "code": "G2",
+  "name": "The Moat",
+  "read": "The moat is deep, black and cold, and the bottom is lost in mud. Weed trails from the foot of the stockade walls, and the water smells of rot and old iron. Under the raised drawbridge the surface shivers as something small and many moves beneath it. Along the west wall, long shapes slide through the water toward you.",
+  "notes": "<p>Deep water; creatures must swim. A swimmer who searches the west moat wall and succeeds on a DC 15 Wisdom (Perception) check finds a rusted grate below the waterline: the secret culvert into the basement (B1). It is the shortest way in and the shortest way out with the prisoners.</p><h3>Encounter</h3><p>2 <strong>Moat Eel</strong>s, 1 <strong>Leech Swarm</strong>. The eels hunt near the west wall; the swarm waits under the drawbridge. They attack anything in the water and fight until destroyed.</p><h3>Stairs</h3><p>Secret culvert to B1 Moat Culvert.</p>"
+ },
+ {
+  "n": 3,
+  "code": "G3",
+  "name": "Gatehouse",
+  "read": "A long stone passage runs through the gatehouse behind the raised drawbridge, with a heavy gate at each end. Iron grates are set into the ceiling over the middle of the passage, and black stains spread across the flagstones beneath them. Hobgoblin servants hurry about with buckets and torches while a soldier in black iron armour shouts orders. At the sight of you, the servants drop their buckets and run.",
+  "notes": "<p>The main gate. The murder holes above are worked from the Winch Room (W1).</p><h3>Encounter</h3><p>4 <strong>Ironmark Servant</strong>s, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The legionnaire holds the passage and fights to the death.</p><h3>Trap: Murder Holes</h3><ul><li><strong>Trigger:</strong> a creature enters the middle 20 by 20 feet of the gatehouse passage under the murder holes.</li><li><strong>Find:</strong> DC 15 Wisdom (Perception) notices pitch stains on the floor under the grates.</li><li><strong>Effect:</strong> DC 15 Dexterity saving throw [[/save dex 15]]; [[/damage 10d10 fire]] on a failure, half on a success.</li><li><strong>Disarm or avoid:</strong> Walk along the walls, or jam the grates from the Winch Room (W1) above.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul>"
+ },
+ {
+  "n": 4,
+  "code": "G4",
+  "name": "Outer Courtyard",
+  "read": "The courtyard is packed earth churned to mud by boots and cart wheels. In the corner stands a new gallows of raw timber, its rope already knotted, with a fresh grave dug beside it. Hobgoblin soldiers watch the walls while servants carry firewood and water across the yard. One soldier turns, sees you, and draws steel.",
+  "notes": "<p>The gallows corner. The gallows was built after the peace; one prisoner hangs from it at every dawn. Cutting down the rope or burning the gallows does nothing to the legion, but it is visible from every tower.</p><h3>Encounter</h3><p>3 <strong>Ironmark Servant</strong>s, 2 <strong>Ironmark Legionnaire</strong>s. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The legionnaires fight in the open yard.</p>"
+ },
+ {
+  "n": 5,
+  "code": "G5",
+  "name": "Barracks",
+  "read": "Rows of bunks fill this long timber hall, with weapons hung at the head of each one. A tight block of hobgoblin soldiers in black iron armour is already on its feet, shields locked. An iron-bound pay chest sits chained to the wall at the far end, and footlockers stand at the foot of the bunks.",
+  "notes": "<p>The legion's sleeping quarters. Nobody sleeps tonight.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Legion Squad</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The squad and the legionnaire fight together and do not break.</p><h3>Treasure</h3><p>300 gp in the iron pay chest; a <strong>Potion of Healing</strong> in a footlocker.</p>"
+ },
+ {
+  "n": 6,
+  "code": "G6",
+  "name": "Kennels",
+  "read": "The stink of wet dog and old blood fills this low stone building. Iron cages line the walls, their doors standing open, and a pack of huge war hounds paces the straw, snarling. A scarred hobgoblin with a whip and a ring of keys at his belt barks a single word, and the hounds turn toward you as one.",
+  "notes": "<p>Kennelmaster Vosk's hounds hunt escaped prisoners.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Kennelmaster Vosk</strong>, 1 <strong>War Hound Pack</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. Vosk sets the pack on the nearest enemy and fights behind it.</p>"
+ },
+ {
+  "n": 7,
+  "code": "G7",
+  "name": "Smithy",
+  "read": "Heat rolls out of this forge, where a great fire burns red in a stone hearth. Half-finished blades and helms hang from the rafters, and an anvil stands in the middle of the floor. A huge hobgoblin woman in a leather apron and heavy iron gauntlets lifts her hammer from the anvil. Two servants work the bellows behind her.",
+  "notes": "<p>The legion's forge, still making weapons for a war that is over.</p><h3>Encounter</h3><p>1 <strong>Forgemaster Ulgra Coalhand</strong>, 2 <strong>Ironmark Servant</strong>s. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. Ulgra fights with her forge hammer.</p><h3>Treasure</h3><p><strong>Gauntlets of Ogre Power</strong> (Ulgra wears them).</p>"
+ },
+ {
+  "n": 8,
+  "code": "G8",
+  "name": "NW Tower",
+  "read": "This square guard room sits at the foot of the north-west tower. A spiral stair climbs the wall toward the battlements above. A weapon rack and a small table with a dice cup stand by the door. A hobgoblin soldier jumps up from the table, and a servant bolts for the stair.",
+  "notes": "<p>A guard post at the foot of a corner tower. The legionnaire fights; the servant runs for the stair to warn the wall-walk.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Treasure</h3><p>A <strong>Potion of Climbing</strong> on the weapon rack.</p><h3>Stairs</h3><p>Spiral stair up to W6 NW Tower Top.</p>"
+ },
+ {
+  "n": 9,
+  "code": "G9",
+  "name": "NE Tower",
+  "read": "This square guard room sits at the foot of the north-east tower, with a stair climbing to the walls. A brazier burns in the middle of the floor, and spare spears lean against the wall. A hobgoblin soldier turns from the brazier with a spear in hand while a servant scrambles for the stair.",
+  "notes": "<p>A guard post at the foot of a corner tower. The legionnaire fights; the servant runs for the stair to warn the wall-walk.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs up to W7 NE Tower Top.</p>"
+ },
+ {
+  "n": 10,
+  "code": "G10",
+  "name": "SW Tower",
+  "read": "This square guard room sits at the foot of the south-west tower. A stair climbs the wall to the battlements, and arrow slits look out over the moat. Barrels of crossbow bolts are stacked by the door. A hobgoblin soldier looks up from the slits and reaches for her sword, and a servant runs for the stair.",
+  "notes": "<p>A guard post at the foot of a corner tower. The legionnaire fights; the servant runs for the stair to warn the wall-walk.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs up to W8 SW Tower Top.</p>"
+ },
+ {
+  "n": 11,
+  "code": "G11",
+  "name": "SE Tower",
+  "read": "This square guard room sits at the foot of the south-east tower. A stair climbs the wall to the battlements, and a horn hangs on a peg beside it. A hobgoblin soldier draws steel as you enter, and a servant lunges for the horn and the stair.",
+  "notes": "<p>A guard post at the foot of a corner tower. The legionnaire fights; the servant runs for the stair to warn the wall-walk.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs up to W9 SE Tower Top.</p>"
+ },
+ {
+  "n": 12,
+  "code": "G12",
+  "name": "Entry Hall",
+  "read": "Tall doors open into the stone keep, where a hall hung with captured Crown banners leads inward. The banners hang upside down, slashed and stained. Two hobgoblin soldiers stand guard on either side of the inner door, and a servant with a tray of cups freezes in the middle of the floor.",
+  "notes": "<p>The entrance to the keep. Gharrek hangs the Crown's banners upside down as trophies.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 2 <strong>Ironmark Legionnaire</strong>s. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The legionnaires hold the inner door.</p>"
+ },
+ {
+  "n": 13,
+  "code": "G13",
+  "name": "Mess Hall",
+  "read": "Long tables crowd this smoky hall, still set with bowls of stew and black bread. A large company of hobgoblin soldiers has risen from the benches, overturning them as they form ranks and draw blades. Servants with pots and ladles scatter toward the kitchen door.",
+  "notes": "<p>The legion eats in shifts; this shift is at the table when the party arrives.</p><h3>Encounter</h3><p>2 <strong>Ironmark Servant</strong>s, 1 <strong>Legion Platoon</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The platoon fights as one block across the tables.</p>"
+ },
+ {
+  "n": 14,
+  "code": "G14",
+  "name": "Kitchen",
+  "read": "Copper pots hang over a long hearth where a cauldron of stew bubbles. Sacks of grain and sides of salted meat crowd the shelves. A trapdoor stands open in the floor, with steps going down into the dark. A hobgoblin soldier tasting from the cauldron throws down the ladle and draws his sword, and two cooks run.",
+  "notes": "<p>The kitchen feeds the legion and, barely, the prisoners.</p><h3>Encounter</h3><p>2 <strong>Ironmark Servant</strong>s, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The servants run for the cellar stair or the mess hall.</p><h3>Stairs</h3><p>Stairs down to B8 Cellar Stores.</p>"
+ },
+ {
+  "n": 15,
+  "code": "G15",
+  "name": "Armory",
+  "read": "Racks of spears, swords and crossbows line the walls of this stone room, and rows of black iron shields hang above them. A broad hobgoblin with a sergeant's red sash and a heavy shield stands in the middle of the floor beside another soldier. A servant polishing a breastplate drops it with a clang and runs.",
+  "notes": "<p>The legion's armory. Sergeant-at-Arms Drekk keeps the weapons and the discipline.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Sergeant-at-Arms Drekk</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. Drekk and the legionnaire fight shield to shield.</p><h3>Treasure</h3><p><strong>Sentinel Shield</strong> (Drekk's); a <strong>Moon-Touched Sword</strong> on the racks.</p>"
+ },
+ {
+  "n": 16,
+  "code": "G16",
+  "name": "Grand Stair",
+  "read": "A wide stone stair climbs from this hall to the upper floor of the keep. Iron torch brackets line the walls, and a war banner of black and red hangs over the landing above. A hobgoblin soldier stands guard at the foot of the stair, and a servant halfway up turns and runs for the top.",
+  "notes": "<p>The main stair to Gharrek's floor. A servant who reaches the top warns the Upper Gallery (U1).</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs up to U1 Upper Gallery.</p>"
+ }
+]

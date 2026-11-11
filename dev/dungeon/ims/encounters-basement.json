@@ -1,0 +1,143 @@
+{
+ "wall_offset": 35,
+ "sizes": {
+  "ironmark-servant": 1,
+  "ironmark-legionnaire": 1,
+  "moat-eel": 2,
+  "leech-swarm": 1,
+  "legion-squad": 1,
+  "war-hound-pack": 2,
+  "legion-platoon": 2,
+  "legion-company": 3,
+  "iron-guard": 1,
+  "kennelmaster-vosk": 1,
+  "forgemaster-ulgra": 2,
+  "sergeant-drekk": 1,
+  "warden-skarn": 2,
+  "old-gutter": 2,
+  "the-iron-captain": 1,
+  "gharrek-the-unbowed": 2
+ },
+ "rooms": {
+  "2": [
+   [
+    "old-gutter",
+    1
+   ],
+   [
+    "ironmark-servant",
+    1
+   ]
+  ],
+  "3": [
+   [
+    "ironmark-servant",
+    1
+   ]
+  ],
+  "4": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "legion-platoon",
+    1
+   ]
+  ],
+  "5": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "6": [
+   [
+    "ironmark-servant",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ]
+  ],
+  "7": [
+   [
+    "warden-skarn",
+    1
+   ],
+   [
+    "ironmark-legionnaire",
+    1
+   ],
+   [
+    "ironmark-servant",
+    1
+   ]
+  ],
+  "8": [
+   [
+    "ironmark-servant",
+    1
+   ]
+  ]
+ },
+ "traps": {
+  "1": {
+   "name": "Culvert Grate",
+   "kind": "hall",
+   "save": "dex",
+   "dc": 15,
+   "dice": "10d10",
+   "type": "piercing",
+   "effect": "restrained",
+   "flavor": "Culvert Grate: a spiked iron grate drops from the ceiling of the culvert and pins you to the mud.",
+   "spot": [
+    3,
+    0,
+    1,
+    2
+   ]
+  },
+  "8": {
+   "name": "Warden's Strongbox",
+   "kind": "container",
+   "object": "the locked iron strongbox under the key board",
+   "save": "con",
+   "dc": 16,
+   "dice": "10d10",
+   "type": "poison",
+   "effect": "poisoned",
+   "flavor": "Warden's Strongbox: a needle springs from the lock and a cloud of yellow gas bursts from the box.",
+   "spot": [
+    0,
+    0,
+    1,
+    1
+   ]
+  }
+ },
+ "lights": [
+  [
+   7,
+   "#ff8a4a",
+   20,
+   5
+  ],
+  [
+   4,
+   "#ffcf8a",
+   15,
+   5
+  ]
+ ],
+ "entrance": [
+  4,
+  14.5
+ ],
+ "place": []
+}

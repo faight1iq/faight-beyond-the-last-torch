@@ -1,0 +1,72 @@
+[
+ {
+  "n": 1,
+  "code": "W6",
+  "name": "NW Tower Top",
+  "read": "You come out onto the flat top of the north-west tower, under the open sky. Crenellated battlements ring the platform, and the wind tugs at a black banner on its pole. Wall-walks run off east and south along the tops of the walls. A hobgoblin sentry turns from the crenellations with a crossbow, and a servant runs for the wall-walk.",
+  "notes": "<p>A tower top on the walls. The legionnaire fights; the servant runs along the wall-walk to warn the next tower.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs down to G8 NW Tower.</p>"
+ },
+ {
+  "n": 2,
+  "code": "W7",
+  "name": "NE Tower Top",
+  "read": "The top of the north-east tower is open to the night, ringed by battlements and crenellations. From here the wall-walks run west toward the keep and south along the east wall. A hobgoblin sentry lowers a spyglass and draws steel, and a servant bolts along the wall-walk.",
+  "notes": "<p>A tower top on the walls. The legionnaire fights; the servant runs along the wall-walk to warn the next tower.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs down to G9 NE Tower.</p>"
+ },
+ {
+  "n": 3,
+  "code": "W8",
+  "name": "SW Tower Top",
+  "read": "You step onto the open top of the south-west tower. Battlements and crenellations surround you, and below them the moat shines black in the last light. Wall-walks run north along the west wall and east toward the gatehouse. A hobgoblin sentry readies a crossbow, and a servant runs along the wall.",
+  "notes": "<p>A tower top on the walls. The legionnaire fights; the servant runs along the wall-walk to warn the next tower.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs down to G10 SW Tower.</p>"
+ },
+ {
+  "n": 4,
+  "code": "W9",
+  "name": "SE Tower Top",
+  "read": "The top of the south-east tower is open to the wind, ringed by battlements and crenellations. A signal brazier burns in an iron basket, and wall-walks run west toward the gatehouse and north along the east wall. A hobgoblin sentry draws her sword, and a servant runs for the brazier.",
+  "notes": "<p>A tower top on the walls. The legionnaire fights; the servant runs along the wall-walk to warn the next tower.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Ironmark Legionnaire</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Stairs</h3><p>Stairs down to G11 SE Tower.</p>"
+ },
+ {
+  "n": 5,
+  "code": "W1",
+  "name": "Winch Room",
+  "read": "A great wooden windlass fills this room above the gatehouse, its chains running down through slots in the wall to the raised drawbridge. Iron grates in the floor look down into the gate passage below, beside kettles of cold pitch. Two hobgoblin soldiers stand by the windlass, and a servant runs for the door.",
+  "notes": "<p>The windlass lowers the drawbridge: a creature uses an action and succeeds on a DC 12 Strength check, or two creatures work it together with no check. The grates over the gatehouse murder holes (G3) can be jammed from here.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 2 <strong>Ironmark Legionnaire</strong>s. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The legionnaires guard the windlass.</p>"
+ },
+ {
+  "n": 6,
+  "code": "U5",
+  "name": "Throne Room",
+  "read": "A long hall of black stone ends in an iron throne on a dais. Four tall war standards of black and red stand around the room, hung with trophies taken from the Crown. On the throne sits a towering hobgoblin warlord in battered plate, a long red-edged sword across his knees. Beside him a hobgoblin officer in polished iron armour draws his blade. The warlord rises and points his sword at you.",
+  "notes": "<p>Gharrek's hall. A balcony north of the throne room opens onto a bridge to the north wall-walk.</p><h3>Encounter</h3><p>1 <strong>Gharrek the Unbowed</strong>, 1 <strong>The Iron Captain</strong>, 1 <strong>Ironmark Servant</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. Gharrek and the Iron Captain fight to the death.</p><h3>The Legion Standards</h3><p>Four tall Legion Standards stand around the room. Each has AC 15 and 25 HP, or a creature within 5 feet can take an action to tear it down with a DC 16 Strength (Athletics) check. Each standard that falls deals 11 (2d10) psychic damage to Gharrek [[/damage 2d10 psychic]] as his legion's faith breaks. When the fourth falls, Gharrek loses his Epic Boss Resistance.</p><h3>Treasure</h3><p><strong>Sword of Wounding</strong> (Gharrek's).</p>"
+ },
+ {
+  "n": 7,
+  "code": "U1",
+  "name": "Upper Gallery",
+  "read": "The grand stair opens onto a long gallery lit by torches, its walls hung with captured shields. A great mass of hobgoblin soldiers fills the gallery from wall to wall, rank on rank, spears levelled toward the stairhead. A drum begins to beat. A servant at the back runs for the throne room doors.",
+  "notes": "<p>Gharrek's bodyguard company holds the top of the stair.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 1 <strong>Legion Company</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The company holds the gallery and does not break.</p><h3>Treasure</h3><p>A <strong>Potion of Healing</strong> on a body by the shield wall.</p><h3>Stairs</h3><p>Stairs down to G16 Grand Stair.</p>"
+ },
+ {
+  "n": 8,
+  "code": "U2",
+  "name": "War Room",
+  "read": "A great table fills this room, covered by a map of the frontier with carved pieces for every legion and Crown regiment. A long roll of parchment lies weighted open at one end. Two hobgoblins in heavy iron plate stand on either side of the door with halberds, and a servant at the table snatches up the parchment and runs.",
+  "notes": "<p>Gharrek plans his war here. The map shows the Crown's border forts, marked for attack.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>, 2 <strong>Iron Guard</strong>s. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. The servant tries to escape with the Roll; take it from him. The Iron Guards fight to the death.</p><h3>Treasure</h3><p><strong>The Forgotten Roll</strong>: Gharrek's list of the prisoners, with the hanging order.</p>"
+ },
+ {
+  "n": 9,
+  "code": "U3",
+  "name": "Gharrek's Quarters",
+  "read": "A soldier's bed, an armour stand and a heavy chest are the only furnishings in this bare stone room. A war cloak hangs from a hook on the armour stand. Narrow dark slits run along the north wall at chest height. A servant polishing boots drops them and runs.",
+  "notes": "<p>Gharrek sleeps here when he sleeps at all.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Trap: Crossbow Slits</h3><ul><li><strong>Trigger:</strong> a creature enters the 5-foot strip along the north wall.</li><li><strong>Find:</strong> DC 16 Wisdom (Perception) notices slits in the stone.</li><li><strong>Effect:</strong> DC 16 Dexterity saving throw [[/save dex 16]]; [[/damage 10d10 piercing]] on a failure, half on a success. On a failure the creature also has the Prone condition.</li><li><strong>Disarm or avoid:</strong> Plug the slits (DC 16 Dexterity check with thieves' tools), or keep off the strip.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). Re-enable the tile to reset the trap.</li></ul><h3>Treasure</h3><p><strong>Cloak of Protection</strong> on the armour stand.</p>"
+ },
+ {
+  "n": 10,
+  "code": "U4",
+  "name": "Treasury",
+  "read": "Sacks of coin and stacks of silver plate fill this small vault, the loot of a long war. Against the north wall a small strongbox sits on a stone plinth, a faint glyph etched on its lid. A goblin servant counting coins at a little table jumps up and runs.",
+  "notes": "<p>The legion's war chest.</p><h3>Encounter</h3><p>1 <strong>Ironmark Servant</strong>. Servants try to run and raise the alarm; the GM may add Doom when any creature escapes. </p><h3>Trap: Treasury Strongbox</h3><ul><li><strong>Trigger:</strong> a creature opens or reaches for the small strongbox on the stone plinth against the north wall (the square in front of it).</li><li><strong>Find:</strong> DC 16 Intelligence (Arcana) notices a glyph on the lid.</li><li><strong>Effect:</strong> DC 16 Dexterity saving throw [[/save dex 16]]; [[/damage 10d10 fire]] on a failure, half on a success.</li><li><strong>Disarm or avoid:</strong> Dispel magic on the glyph (DC 16), or open the box from 10 feet away.</li><li><strong>Automation:</strong> a hidden Monk's Active Tiles tile asks the entering character for the save through Monk's TokenBar and applies the damage (half on a success). If a player opens the box from range, the GM can fire the trap by clicking the tile. Re-enable the tile to reset the trap.</li></ul><h3>Treasure</h3><p>700 gp in coin sacks and silver plate.</p>"
+ }
+]
