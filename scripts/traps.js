@@ -205,7 +205,7 @@ async function armTrap(trap) {
 }
 
 async function disarmTrap(trap) {
-  await trap.update({ "flags.monks-active-tiles.active": false });
+  await trap.update({ "flags.monks-active-tiles.active": false }, { btltDisarm: true });   // no trap sound (scripts/sfx.js)
   await showState(trap);
   ui.notifications.info(`${trapName(trap)}: DISARMED`);
   await tellGM(trap, false, "Stepping on it does nothing and it can't be spotted.");

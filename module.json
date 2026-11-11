@@ -18,7 +18,8 @@
     "scripts/landing.js",
     "scripts/cleanup.js",
     "scripts/traps.js",
-    "scripts/flee.js"
+    "scripts/flee.js",
+    "scripts/sfx.js"
   ],
   "relationships": {
     "systems": [

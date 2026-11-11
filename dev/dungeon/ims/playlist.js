@@ -1,6 +1,6 @@
 // 5LH3-1 music: builds the adventure playlist and adds its tracks to the Credits journal (world copy and the
 // module's journals pack copy). Run as GM in the Foundry console. Re-running replaces both.
-// All tracks: Pixabay, Pixabay Content License, none flagged Content ID; converted from 256 kbps MP3 to Ogg Opus 64 kbps.
+// Shuffle: the tracks play in random order, one after another (John, 2026-11-11). All tracks: Pixabay, Pixabay Content License, none flagged Content ID; converted from 256 kbps MP3 to Ogg Opus 64 kbps.
 const MOD = "faight-beyond-the-last-torch", CODE = "5LH3-1", PL = "5LH3-1: The Ironmark Stockade";
 const DIR = `modules/${MOD}/assets/sounds/music/the-ironmark-stockade`;
 const T = [
@@ -21,10 +21,10 @@ const T = [
 for (const p of game.playlists.filter(p => p.getFlag(MOD, "adventure") === CODE)) await p.delete();
 const ref = game.playlists.find(p => p.getFlag(MOD, "role") === "combat")?.sounds.contents[0];
 const folder = game.folders.find(f => f.type === "Playlist" && f.name === PL) ?? await Folder.create({ name: PL, type: "Playlist" });
-const pl = await Playlist.create({ name: PL, folder: folder.id, mode: CONST.PLAYLIST_MODES.SEQUENTIAL, fade: 1500, channel: "music",
+const pl = await Playlist.create({ name: PL, folder: folder.id, mode: CONST.PLAYLIST_MODES.SHUFFLE, fade: 1500, channel: "music",
   description: "Approach and exploration, the alarm, combat, minibosses, Gharrek, and the walk out. Click a track to play it.",
   flags: { [MOD]: { adventure: CODE, role: "adventure-music" } } });
-await pl.createEmbeddedDocuments("PlaylistSound", T.map(([f, title], i) => ({ name: title, path: `${DIR}/${f}.ogg`, repeat: true, volume: ref?.volume ?? 0.5, fade: 1000, sort: i * 100000 })));
+await pl.createEmbeddedDocuments("PlaylistSound", T.map(([f, title], i) => ({ name: title, path: `${DIR}/${f}.ogg`, repeat: false, volume: ref?.volume ?? 0.5, fade: 1000, sort: i * 100000 })));
 
 // ---------- credits ----------
 const row = ([f, title, artist, user, page, len, use, ai]) => `<tr><td>${PL}</td><td><strong>${title}</strong><br /><a href="https://pixabay.com/music/${page}/">Pixabay page</a></td>`

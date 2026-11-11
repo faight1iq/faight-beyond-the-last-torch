@@ -95,6 +95,7 @@ async function fleeRoom(control) {
   const centre = (t) => ({ x: t.x + (t.width * g) / 2, y: t.y + (t.height * g) / 2 });
   const nearest = (t) => { const c = centre(t); return exits.reduce((a, b) => (Math.hypot(b.x - c.x, b.y - c.y) < Math.hypot(a.x - c.x, a.y - c.y) ? b : a)); };
 
+  game.modules.get(MODULE_ID).api?.sfx?.("war-horn", { volume: 0.8 });   // the alarm goes up (scripts/sfx.js)
   // 1. everyone runs to their doorway
   await scene.updateEmbeddedDocuments("Token", runners.map((t) => { const e = nearest(t);
     return { _id: t.id, x: e.x - (t.width * g) / 2, y: e.y - (t.height * g) / 2 }; }), { animation: { duration: 900 } });
