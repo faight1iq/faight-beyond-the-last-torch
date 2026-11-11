@@ -1,0 +1,60 @@
+{
+ "scene": [
+  13440,
+  13160
+ ],
+ "offset": 1400,
+ "bg": {
+  "img": "the-ironmark-stockade-ground-bg.webp",
+  "x": 0,
+  "y": 0,
+  "w": 13440,
+  "h": 13160
+ },
+ "fort": [
+  {
+   "img": "the-ironmark-stockade-ground-fort-00.webp",
+   "x": 2800,
+   "y": 2800,
+   "w": 3920,
+   "h": 3500
+  },
+  {
+   "img": "the-ironmark-stockade-ground-fort-10.webp",
+   "x": 6720,
+   "y": 2800,
+   "w": 3920,
+   "h": 3500
+  },
+  {
+   "img": "the-ironmark-stockade-ground-fort-01.webp",
+   "x": 2800,
+   "y": 6300,
+   "w": 3920,
+   "h": 3500
+  },
+  {
+   "img": "the-ironmark-stockade-ground-fort-11.webp",
+   "x": 6720,
+   "y": 6300,
+   "w": 3920,
+   "h": 3500
+  }
+ ],
+ "bridge_down": {
+  "x": 6440,
+  "y": 9800,
+  "w": 560,
+  "h": 1157
+ },
+ "bridge_up": {
+  "x": 6440,
+  "y": 9790,
+  "w": 560,
+  "h": 130
+ },
+ "entrance": {
+  "x": 6720,
+  "y": 11237
+ }
+}
