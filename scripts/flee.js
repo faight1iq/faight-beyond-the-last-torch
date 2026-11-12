@@ -209,9 +209,12 @@ const isDown = (t) => {
   return (hp !== undefined && hp !== null && hp <= 0) || !!t.actor?.statuses?.has("dead") || !!t.actor?.statuses?.has("defeated")
     || !!t.hasStatusEffect?.("dead");
 };
+const midMove = (token) => (token.movement?.pending?.waypoints?.length ?? 0) > 0;
 async function unstack(token) {
   const scene = token.parent, g = scene.grid.size;
-  if (!scene.tokens.has(token.id) || isDown(token)) return;
+  if (!scene.tokens.has(token.id) || isDown(token) || midMove(token)) return;
+  await token.object?.movementAnimationPromise;   // judge only where the move really ends (Foundry 13 moves in waypoints)
+  if (!scene.tokens.has(token.id) || midMove(token)) return;
   const me = boxOf(token, g);
   const under = scene.tokens.filter((t) => t.id !== token.id && overlaps(me, boxOf(t, g)));
   if (!under.length) return;
@@ -245,6 +248,8 @@ async function unstack(token) {
 function crowdingHook(token, changes, options) {
   if (!(game.users.activeGM?.isSelf ?? game.user.isGM)) return;
   if (options?.btltFlee || options?.btltUnstack || !("x" in changes || "y" in changes)) return;
+  const mv = options?.movement?.[token.id];
+  if ((mv?.pending?.waypoints?.length ?? 0) > 0) return;   // passing over something on the way: not where it stops
   setTimeout(() => unstack(token), 400);
 }
 Hooks.on("updateToken", crowdingHook);
