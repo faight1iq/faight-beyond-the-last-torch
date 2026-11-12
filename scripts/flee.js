@@ -254,6 +254,22 @@ function crowdingHook(token, changes, options) {
 }
 Hooks.on("updateToken", crowdingHook);
 
+// Death marker (John, 2026-11-12): a creature (not a player character) that drops to 0 HP is marked Dead, shown as a
+// tombstone over its token; healed back above 0, the mark comes off. The Dead status uses the tombstone icon everywhere.
+const TOMBSTONE = "icons/magic/death/grave-tombstone-glow-teal.webp";
+Hooks.once("setup", () => {
+  const dead = CONFIG.statusEffects.find((e) => e.id === "dead" || e.id === CONFIG.specialStatusEffects?.DEFEATED);
+  if (dead) { dead.img = TOMBSTONE; dead.icon = TOMBSTONE; }
+});
+Hooks.on("updateActor", async (actor, changes) => {
+  if (!(game.users.activeGM?.isSelf ?? game.user.isGM)) return;
+  const hp = foundry.utils.getProperty(changes, "system.attributes.hp.value");
+  if (hp === undefined || actor.type === "character") return;
+  const isDead = actor.statuses?.has("dead");
+  if (hp <= 0 && !isDead) await actor.toggleStatusEffect("dead", { active: true, overlay: true });
+  else if (hp > 0 && isDead) await actor.toggleStatusEffect("dead", { active: false });
+});
+
 Hooks.once("init", () => {
   const mod = game.modules.get(MODULE_ID);
   mod.api = Object.assign(mod.api ?? {}, { fleeRoom, unstack, crowdingHook });
