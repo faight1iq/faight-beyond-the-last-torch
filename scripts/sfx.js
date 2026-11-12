@@ -18,13 +18,14 @@
 
 const MODULE_ID = "faight-beyond-the-last-torch";
 const DIR = `modules/${MODULE_ID}/assets/sounds/sfx`;
+const BASE = 0.5;   // every effect at half its original level (John, 2026-11-12); the client setting scales on top
 const isActiveGM = () => game.users.activeGM?.isSelf ?? game.user.isGM;
 const pick = (...names) => names[Math.floor(Math.random() * names.length)];
 const ELEMENTS = ["fire", "cold", "lightning", "thunder", "acid", "poison", "necrotic", "radiant", "force", "psychic"];
 
 function sfx(name, { delay = 0, volume = 1 } = {}) {
   if (!game.settings.get(MODULE_ID, "sfxEnabled") || !name) return;
-  const play = () => foundry.audio.AudioHelper.play({ src: `${DIR}/${name}.ogg`, volume: Math.min(1, volume * game.settings.get(MODULE_ID, "sfxVolume")), autoplay: true, loop: false, channel: "interface" }, true);
+  const play = () => foundry.audio.AudioHelper.play({ src: `${DIR}/${name}.ogg`, volume: Math.min(1, BASE * volume * game.settings.get(MODULE_ID, "sfxVolume")), autoplay: true, loop: false, channel: "interface" }, true);
   delay ? setTimeout(play, delay) : play();
 }
 
