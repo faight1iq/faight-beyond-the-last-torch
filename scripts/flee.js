@@ -13,8 +13,9 @@
  *     gather around its middle. With no room reachable they stop in the open ground beyond the door.
  * Then, in every room that troops fell back into: when it holds 4 or more living legionnaires, each 4 of them
  * become one fresh Legion Squad (actor slug legion-squad of the same adventure) where they stood.
- * Crowding (any token, any scene; active GM): a token whose move ends on top of another token is pushed off to a
+ * Crowding (any token, any scene; active GM): a token whose move ends on top of a living token is pushed off to a
  * random free square next to where it landed (not through a wall), then the next ring out if the first is full.
+ * Dead tokens don't block; the mover is drawn above them.
  * The GM gets a whispered chat line: who vanished, who fell back where, which squads formed, and Doom +N
  * (one per creature that ran).
  */
@@ -199,15 +200,28 @@ async function fleeRoom(control) {
   });
 }
 
-// Crowding: a token that ends its move on another token is pushed to a random free square beside it.
+// Crowding: a token that ends its move on a living token is pushed to a random free square beside it. Dead tokens
+// (0 HP, or marked dead / defeated) don't block: the mover stays and is drawn above them (John, 2026-11-11).
 const boxOf = (t, g, at = t) => ({ x: at.x, y: at.y, w: t.width * g, h: t.height * g });
 const overlaps = (a, b) => a.x < b.x + b.w - 1 && a.x + a.w > b.x + 1 && a.y < b.y + b.h - 1 && a.y + a.h > b.y + 1;
+const isDown = (t) => {
+  const hp = t.actor?.system?.attributes?.hp?.value;
+  return (hp !== undefined && hp !== null && hp <= 0) || !!t.actor?.statuses?.has("dead") || !!t.actor?.statuses?.has("defeated")
+    || !!t.hasStatusEffect?.("dead");
+};
 async function unstack(token) {
   const scene = token.parent, g = scene.grid.size;
-  if (!scene.tokens.has(token.id)) return;
-  const others = scene.tokens.filter((t) => t.id !== token.id).map((t) => boxOf(t, g));
+  if (!scene.tokens.has(token.id) || isDown(token)) return;
   const me = boxOf(token, g);
-  if (!others.some((o) => overlaps(me, o))) return;
+  const under = scene.tokens.filter((t) => t.id !== token.id && overlaps(me, boxOf(t, g)));
+  if (!under.length) return;
+  const living = under.filter((t) => !isDown(t));
+  if (!living.length) {   // only bodies underfoot: stand on them, drawn on top
+    const top = Math.max(...under.map((t) => t.sort ?? 0));
+    if ((token.sort ?? 0) <= top) await token.update({ sort: top + 1 }, { btltUnstack: true });
+    return;
+  }
+  const blockers = scene.tokens.filter((t) => t.id !== token.id && !isDown(t)).map((t) => boxOf(t, g));
   const c = { x: me.x + me.w / 2, y: me.y + me.h / 2 };
   for (let ring = 1; ring <= 4; ring++) {
     const cand = [];
@@ -215,23 +229,27 @@ async function unstack(token) {
       if (Math.max(Math.abs(dx), Math.abs(dy)) !== ring) continue;
       const b = { x: me.x + dx * g, y: me.y + dy * g, w: me.w, h: me.h };
       if (b.x < 0 || b.y < 0 || b.x + b.w > scene.dimensions.width || b.y + b.h > scene.dimensions.height) continue;
-      if (others.some((o) => overlaps(b, o))) continue;
+      if (blockers.some((o) => overlaps(b, o))) continue;
       if (blocked(scene, c, { x: b.x + b.w / 2, y: b.y + b.h / 2 })) continue;
       cand.push(b);
     }
     if (cand.length) {
       const b = cand[Math.floor(Math.random() * cand.length)];
-      return token.update({ x: b.x, y: b.y }, { btltUnstack: true, animation: { duration: 250 } });
+      const top = Math.max(-Infinity, ...scene.tokens.filter((t) => t.id !== token.id && isDown(t) && overlaps(b, boxOf(t, g))).map((t) => t.sort ?? 0));
+      const upd = { x: b.x, y: b.y };
+      if (Number.isFinite(top) && (token.sort ?? 0) <= top) upd.sort = top + 1;
+      return token.update(upd, { btltUnstack: true, animation: { duration: 250 } });
     }
   }
 }
-Hooks.on("updateToken", (token, changes, options) => {
+function crowdingHook(token, changes, options) {
   if (!(game.users.activeGM?.isSelf ?? game.user.isGM)) return;
   if (options?.btltFlee || options?.btltUnstack || !("x" in changes || "y" in changes)) return;
   setTimeout(() => unstack(token), 400);
-});
+}
+Hooks.on("updateToken", crowdingHook);
 
 Hooks.once("init", () => {
   const mod = game.modules.get(MODULE_ID);
-  mod.api = Object.assign(mod.api ?? {}, { fleeRoom, unstack });
+  mod.api = Object.assign(mod.api ?? {}, { fleeRoom, unstack, crowdingHook });
 });
