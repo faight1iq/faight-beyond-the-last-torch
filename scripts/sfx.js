@@ -19,6 +19,7 @@
 const MODULE_ID = "faight-beyond-the-last-torch";
 const DIR = `modules/${MODULE_ID}/assets/sounds/sfx`;
 const BASE = 0.5;   // every effect at half its original level (John, 2026-11-12); the client setting scales on top
+const DEATH_VOLUME = 0.4;   // death cries and body falls, relative to the other effects (John, 2026-11-14)
 const isActiveGM = () => game.users.activeGM?.isSelf ?? game.user.isGM;
 const pick = (...names) => names[Math.floor(Math.random() * names.length)];
 const ELEMENTS = ["fire", "cold", "lightning", "thunder", "acid", "poison", "necrotic", "radiant", "force", "psychic"];
@@ -86,10 +87,12 @@ Hooks.on("updateActor", (actor, changes, options, userId) => {
   if (userId !== game.user.id) return;
   const now = foundry.utils.getProperty(changes, "system.attributes.hp.value");
   if (now === undefined || now > 0 || !(options.btltHpBefore > 0)) return;
-  if (actor.type === "character") return sfx("bodyfall");
+  // Death sounds at 40% of the other effects (John, 2026-11-14: too loud).
+  const v = DEATH_VOLUME;
+  if (actor.type === "character") return sfx("bodyfall", { volume: v });
   const type = actor.system?.details?.type?.value ?? "";
-  sfx(["humanoid", "giant"].includes(type) ? pick("death-humanoid-1", "death-humanoid-2") : type === "beast" ? "death-beast" : "death-monster");
-  sfx("bodyfall", { delay: 600 });
+  sfx(["humanoid", "giant"].includes(type) ? pick("death-humanoid-1", "death-humanoid-2") : type === "beast" ? "death-beast" : "death-monster", { volume: v });
+  sfx("bodyfall", { delay: 600, volume: v });
 });
 
 // Traps: a trap tile's own chain ends by switching the tile off; the GM's Disarm control also switches it off but
