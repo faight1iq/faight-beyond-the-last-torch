@@ -1,0 +1,25 @@
+{
+  "code": "5LH8-1",
+  "name": "Mystery Sepulcher of the Fallen King",
+  "slug": "mystery-sepulcher-of-the-fallen-king",
+  "theme": "storm",
+  "seed": 611182026,
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. An ancient royal sepulcher on a storm-beaten island, now looted by a hobgoblin warband: wet grey-blue stone, green-black seaweed, barnacles and shells, tarnished bronze grave goods, cracked burial urns, old bones, rotten wood, plus crude hobgoblin camp gear (red-painted shields, bedrolls, spears, sacks of loot). Use many small objects (a dozen or more) rather than a few large ones; nothing larger than the sizes given.",
+  "rooms": {
+    "1": {"name": "Sea-Stair Landing", "art": "the landing where the sea-stairs come up into the tomb: two crates of hobgoblin supplies, a coil of rope with a grappling hook, a dropped iron helmet, two smashed burial urns, a lantern, a broken spear, a few shells and strands of seaweed."},
+    "2": {"name": "Flooded Antechamber", "art": "a flooded antechamber: a low hobgoblin barricade of two overturned stone benches and red-painted shields facing the east doorway, a rack of spears against a wall, a cold iron brazier, wet sacks, a bucket."},
+    "3": {"name": "Hall of Offerings", "art": "a small offering hall: a low stone altar against the north wall with dried flowers, coins and candle stubs, a row of clay offering pots along the east wall under narrow slits in the stone, a toppled bronze candlestick, a cracked bowl."},
+    "4": {"name": "Drowned Chapel", "art": "a small burial chapel: two short stone pews, a broken lectern, a cracked stone font, piles of loose bones and skulls along the walls, crab shells and seaweed, a fallen stone shelf."},
+    "5": {"name": "Hall of the Fallen Legion", "art": "a great burial hall turned into a hobgoblin war camp: six stone sarcophagi pushed against the north and south walls with their lids off, a campfire with a cooking spit in the middle, eight bedrolls, two weapon racks, a map table with a stool, an iron-bound war chest, piles of looted bronze grave goods, a red war banner on a pole; keep the floor in front of the east wall door clear."},
+    "6": {"name": "Embalmers' Room", "art": "an embalmers' workroom: two narrow stone embalming tables, shelves of clay jars along the walls, rolls of yellowed linen wrappings, a stone basin, tools on a small table, a smashed canopic jar."},
+    "7": {"name": "Ossuary of the Honour Guard", "art": "an ossuary: stacked bones and skulls in niches along the walls, three stone biers along the west wall each with an old armoured skeleton, rusted round shields and spears leaning on the walls, scattered dust and bone."},
+    "8": {"name": "Hall of the Kneeling Knights", "art": "a long ceremonial hall behind the great bronze door: the dark pool already drawn, a row of four kneeling stone knight statues along the north wall, a carved stone dais at the west end inscribed with a ring of runes, a pair of tall bronze candle stands, small offerings of shells."},
+    "9": {"name": "Monk's Grotto", "art": "a sea-grotto shrine: a monk's sleeping mat, a small stone shrine with candles and shells against the south wall, a wounded man in a grey robe lying on the floor, hobgoblin torture tools on a stool, a burning iron brazier, a water jug, rope."},
+    "10": {"name": "Guardian Antechamber", "art": "an antechamber: two stone guardian statues standing beside the south gateway, a stone bench along the east wall, three hobgoblin loot sacks, a dropped torch, broken pottery."},
+    "11": {"name": "Chapel of the Tide", "art": "a small chapel of the sea god: a carved stone font of seawater, a rotten wicker basket with a glass flask in it, shell and coral offerings, a seaweed-draped stone altar against the east wall, kneeling cushions."},
+    "12": {"name": "The Prince's Vault", "art": "a small burial vault: a stone sarcophagus in the middle of the room, an iron-bound chest against the middle of the west wall, a helmet on a stand, two bronze urns, a folded faded cape on a shelf, scattered old coins."},
+    "13": {"name": "Chamber of the Fresco", "art": "a narrow viewing chamber: a long stone bench to lie on and look at the ceiling, candle stubs in the corners, a broken hand mirror, a few scattered bones, a small offering bowl."},
+    "14": {"name": "Hall of the Broken Carving", "art": "a hall whose great stone wall carving has been smashed: piles of carved rubble along the south wall, broken statue heads, hobgoblin hammers and chisels, pots of red paint, a toppled stone plinth."},
+    "15": {"name": "Tomb of the Fallen King", "art": "a round royal tomb: a black stone sarcophagus with its lid thrown aside in the centre, four tall bronze funeral urns standing around it (north, east, south and west, a little away from the sarcophagus), a small bronze throne against the wall, scattered gold coins and grave goods, seaweed."}
+  }
+}

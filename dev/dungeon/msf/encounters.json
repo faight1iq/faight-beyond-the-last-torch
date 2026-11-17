@@ -1,0 +1,25 @@
+{
+  "wall_offset": 35,
+  "sizes": {"hobgoblin-shieldbearer": 1, "gravecrawler-swarm": 1, "hobgoblin-devastator": 1, "barrow-wight": 1, "court-shade": 1, "warlord-vrask": 1, "the-fallen-king": 2},
+  "rooms": {
+    "2":  [["hobgoblin-shieldbearer", 4]],
+    "4":  [["gravecrawler-swarm", 4]],
+    "9":  [["hobgoblin-devastator", 3]],
+    "7":  [["barrow-wight", 3]],
+    "13": [["court-shade", 3]],
+    "5":  [["warlord-vrask", 1], ["hobgoblin-devastator", 1], ["hobgoblin-shieldbearer", 1]],
+    "15": [["the-fallen-king", 1], ["barrow-wight", 1]]
+  },
+  "traps": {
+    "3":  {"name": "Offering Slits", "kind": "wall", "save": "dex", "dc": 15, "dice": "10d10", "type": "piercing", "effect": "prone",
+           "flavor": "Offering Slits: spears stab out of the slits above the offering pots.", "spot": [2.5, 0, 0.5, 3]},
+    "5":  {"name": "Collapsing Passage", "kind": "hall", "save": "dex", "dc": 15, "dice": "10d10", "type": "bludgeoning", "effect": "restrained",
+           "flavor": "Collapsing Passage: the ceiling of the passage gives way in a fall of stone.", "spot": [-2, -4, 1, 1.5]},
+    "12": {"name": "The Prince's Chest", "kind": "container", "object": "the iron-bound chest against the west wall", "save": "con", "dc": 16, "dice": "10d10", "type": "poison", "effect": "poisoned",
+           "flavor": "The Prince's Chest: a needle springs from the lock and a green mist puffs out.", "spot": [0, 1, 0.5, 1]},
+    "8":  {"name": "Oathbreaker's Ring", "kind": "section", "save": "wis", "dc": 16, "dice": "10d10", "type": "psychic", "effect": "frightened",
+           "flavor": "Oathbreaker's Ring: the runes on the dais blaze and the voices of the dead legion roar 'Kneel!'", "spot": [0, 0, 2, 3]}
+  },
+  "lights": [[9, "#ffb46a", 25, 10], [5, "#ff9a4a", 35, 15], [13, "#b9a2ff", 15, 0], [15, "#8fd4ff", 30, 5]],
+  "entrance": [0.5, 0.5]
+}
