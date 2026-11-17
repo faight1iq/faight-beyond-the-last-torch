@@ -11,12 +11,27 @@ TPL = ("Create an image, square, exactly the same framing as this image. This is
        "{walls}"
        "{kept}"
        "The magenta areas are floor. Furnish ONLY the {shape} in the center of the image ({size}; one 10-foot square is about {px} pixels). "
-       "Sizes: a person is about {p5} pixels across; a chair about {h5} pixels; a table about {p5} by {p10} pixels; a cart or wagon about {p10} by {p20} pixels; nothing is larger than the sizes given. "
+       "{sizes}"
        "Its doorways are: {doors}. Keep a clear lane from every doorway into the room. Contents: {art} "
        "{style} "
        "Leave every other magenta area (corridors and neighboring rooms) completely empty. "
        "IMPORTANT: every bit of floor not covered by an object stays flat, pure, untextured magenta (#FF00FF). Do not paint floor stones, sand, dust or debris onto the magenta. "
+       "{strict}"
        "Muted, desaturated colors; even neutral light from directly above; no colored light pools. Clean CG look, not hand-painted. No text, no grid.")
+
+
+# True-scale sizes (5LH8-1 lesson): tokens fill a 2.5-ft grid square, so a standing person is ~0.45 of a 5-ft square.
+SIZES = ("Draw everything at true real-world scale; objects are SMALL compared with the room. One 5-foot floor square is {p5} pixels, so: "
+         "a standing person seen from above is about {a} pixels across; a chair {b}; a table {c} by {d}; a bed or bedroll {c} by {d}; "
+         "a sarcophagus or stone coffin {c} by {e}; a chest {c} by {f}; a barrel, urn or pot {f}; a statue {c}; a person lying down {g} by {d}. "
+         "Nothing is larger than these sizes. Leave most of the floor open. Use many small objects (a dozen or more), mostly along the walls. ")
+STRICT = ("STRICT: the output must be pixel-aligned with the input: same size, same scale, no zoom, no crop, no reframing. Every wall stays exactly "
+          "where it is in the input. Do not draw any new walls, borders, kerbs or ledges inside the room; objects stand directly on the magenta floor. ")
+
+
+def sizes(p5):
+    r = lambda f: round(p5 * f)
+    return SIZES.format(p5=p5, a=r(0.45), b=r(0.35), c=r(0.6), d=r(1.2), e=r(1.3), f=r(0.4), g=r(0.5))
 
 
 WALLS = ("The stone blocks around the floor are wall tops and the near-black is solid rock: keep them exactly as they are; "
@@ -55,7 +70,8 @@ def run(json_path, plan_path, work):
                 else f"{w} by {h} squares of 10 feet, {w*10} by {h*10} feet")
         doors = "; ".join(L.openings(rm["rect"])) or "none"
         p5 = round(1254 / N / 2)
-        prompts[key] = TPL.format(walls=plan.get("wall_text", WALLS), p5=p5, h5=round(p5 / 2), p10=2 * p5, p20=4 * p5, kept="".join(kept), shape=shape, size=size, px=round(1254 / N), doors=doors,
+        small = min(w, h) <= 2 and max(w, h) <= 3
+        prompts[key] = TPL.format(walls=plan.get("wall_text", WALLS), sizes=sizes(p5), strict=STRICT if (small or rm["rotunda"]) else "", kept="".join(kept), shape=shape, size=size, px=round(1254 / N), doors=doors,
                                   art=plan["rooms"][str(n)]["art"], style=plan["prompt_style"])
     json.dump(prompts, open(os.path.join(work, "prompts.json"), "w"), indent=1)
     return len(prompts)

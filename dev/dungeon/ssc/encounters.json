@@ -1,0 +1,25 @@
+{
+  "wall_offset": 35,
+  "sizes": {"cockatrice-flock": 1, "rockfang-lizard": 1, "basilisk-broodguard": 2, "basilisk": 1, "mirrorscale-basilisk": 1, "basilisk-packlord": 2, "the-basilisk-matriarch": 3},
+  "rooms": {
+    "1": [["cockatrice-flock", 4]],
+    "2": [["basilisk-broodguard", 3]],
+    "4": [["rockfang-lizard", 3]],
+    "6": [["basilisk", 3]],
+    "9": [["mirrorscale-basilisk", 3]],
+    "8": [["basilisk-packlord", 1], ["basilisk", 1]],
+    "3": [["the-basilisk-matriarch", 1], ["basilisk-broodguard", 1]]
+  },
+  "traps": {
+    "11": {"name": "The Steward's Strongbox", "kind": "container", "object": "the iron strongbox against the north wall", "save": "con", "dc": 16, "dice": "10d10", "type": "poison", "effect": "poisoned",
+           "flavor": "The Steward's Strongbox: a needle snaps out of the lock and a puff of yellow dust follows.", "spot": [1, 0.5, 1, 0.5]},
+    "10": {"name": "Sagging Floor", "kind": "hall", "save": "dex", "dc": 15, "dice": "10d10", "type": "bludgeoning", "effect": "prone",
+           "flavor": "Sagging Floor: the old floor gives way and drops you into the cellar below.", "spot": [-1, 5, 1.5, 1]},
+    "12": {"name": "Arrow Slits", "kind": "wall", "save": "dex", "dc": 15, "dice": "10d10", "type": "piercing", "effect": "restrained",
+           "flavor": "Arrow Slits: ancient spring-bows behind the south wall slits loose a volley.", "spot": [0, 2.5, 3, 0.5]},
+    "7": {"name": "Petrifying Haze", "kind": "section", "save": "con", "dc": 16, "dice": "10d10", "type": "necrotic", "effect": "restrained",
+           "flavor": "Petrifying Haze: the green haze clings and your limbs turn grey and stiff.", "spot": [1, 1, 3, 2]}
+  },
+  "lights": [[10, "#e8f4ff", 20, 10], [3, "#9effc9", 30, 10], [2, "#fff2c2", 30, 0], [13, "#fff2c2", 25, 0]],
+  "entrance": [0.5, 0.5]
+}

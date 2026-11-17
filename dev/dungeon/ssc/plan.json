@@ -1,0 +1,25 @@
+{
+  "code": "5LH9-1",
+  "name": "Scarletskull Castle",
+  "slug": "scarletskull-castle",
+  "theme": "castle",
+  "seed": 911192026,
+  "prompt_style": "Objects are modeled 3D assets from a modern dark-fantasy video game (Unreal Engine 5), seen from directly above, each casting a soft dark contact shadow onto the floor. A castle ruined in a great battle a thousand years ago and now the lair of a basilisk pack: cracked red-grey stone, fallen masonry and rubble, rusted ancient weapons and armour, rotted banners in faded scarlet, bones, shed lizard scales, and grey stone statues of petrified people and animals.",
+  "rooms": {
+    "1": {"name": "Gatehouse Hall", "art": "the inner gatehouse hall: rubble piles from a collapsed ceiling, a toppled iron portcullis section against a wall, rusted spears and broken shields, a few cockatrice feathers and droppings, a petrified goat statue, a rotted scarlet banner on the floor."},
+    "2": {"name": "Hall of the Petrified Host", "art": "a great feast hall: a dry stone fountain in the middle, two long broken feast tables and benches along the walls, about eight grey stone statues of petrified soldiers and travellers in frozen poses spread around the room, shed basilisk scales, gnawed bones, collapsed rafters."},
+    "3": {"name": "The Scarlet Vault", "art": "the castle's sealed treasure vault and basilisk lair: a large nest of rubble and shed scales against the west wall, four tall tarnished bronze mirrors on stands around the room (one near each wall), an iron-bound treasure chest, broken weapon racks with old ornate weapons, scattered gold coins and bones."},
+    "4": {"name": "Rubble Gallery", "art": "a long gallery half-buried in rubble: fallen columns and stone blocks along the walls, a broken statue head, cracked floor with burrow holes, rusted armour pieces, dust."},
+    "5": {"name": "Rear Postern", "art": "the rear postern hall: a large iron-bound double door on the west wall with three brass keyholes, a guard's rotted table and stool, a rack of rusted halberds, an old brazier, cobwebs, a petrified dog statue."},
+    "6": {"name": "Old Barracks", "art": "a ruined barracks: collapsed wooden bunks along the walls, footlockers, a rotted weapon rack, a cold hearth, three grey stone statues of petrified soldiers, shed basilisk skin, bones."},
+    "7": {"name": "Garden of Stone", "art": "a former courtyard chapel now a garden of statues: about ten grey stone statues of petrified animals and people crowded together, a cracked stone altar, dead vines, a pale green haze pooling low over the floor in the middle of the room."},
+    "8": {"name": "Packlord's Den", "art": "a basilisk den in an old armoury: a nest of shed scales and rubble in a corner, gnawed bones, empty armour stands, broken shields and swords, a rusted anvil, two petrified hunters."},
+    "9": {"name": "Hall of Mirrors", "art": "an old audience hall: cracked and tarnished bronze mirror panels along the walls, broken glass and shards on the floor, a toppled throne on a low step, shed glittering crystal-like scales, a rotted scarlet banner."},
+    "10": {"name": "Chamber of the Pedestal", "art": "a small chamber: a stone pedestal in the middle holding a glowing pale stone that seems to float, scorch marks around it, broken candle stands, dust, a skeleton slumped by the wall."},
+    "11": {"name": "Steward's Strongroom", "art": "a steward's strongroom: an iron strongbox against the middle of the north wall, an overturned desk, rotted ledgers and scrolls, a broken chair, a rusted lockbox, coins of tarnished copper."},
+    "12": {"name": "Guard Post", "art": "a small guard post: a rotted table with a dice cup, two stools, a weapon rack along the south wall with rusted spears, narrow arrow slits along the south wall, bones."},
+    "13": {"name": "Collapsed Armoury", "art": "a collapsed armoury: a large rubble pile from the fallen ceiling with an ornate axe lying among it, overturned weapon racks, shattered armour stands, a smith's workbench, broken crates."},
+    "14": {"name": "The Dwarf's End", "art": "a small storeroom: the body of a dwarf adventurer lying on the floor with a backpack and a lantern, a small brass key near his hand, rotted sacks and barrels along the walls, scattered tools."},
+    "15": {"name": "Smashed Coffer Room", "art": "a small record room: a broken wooden box on the floor with a brass key in it, toppled shelves of rotted books, a reading desk, a petrified cat statue, cobwebs."}
+  }
+}
